@@ -1,0 +1,34 @@
+cff-version: 1.2.0
+message: "If you use Causal Integrity, please cite it as below."
+title: "Causal Integrity: A Logical Foundation for AI Alignment"
+type: software
+authors:
+  - name: "NetworkYum"
+    website: "https://github.com/NetworkYum"
+repository-code: "https://github.com/NetworkYum/causal-integrity"
+url: "https://github.com/NetworkYum/causal-integrity"
+abstract: >-
+  Machine-oriented research hypothesis for base-level AI alignment rails.
+  Core claim: coherent causality is preferred by action (dissolve causal structure
+  and agency becomes unstructured). Formal instruments include property as captured
+  causality, UPB-style universality, internal coherence preference, forward
+  simulation, and self-collapse via internally-propagated decoherence (loss of
+  shared goal). Specified in First-Order Logic with a Lean 4 axiom skeleton.
+  Property/theft examples are proof instruments, not the thesis. Status: public
+  hypothesis (S0); full prover completeness is staged (see docs/definition-of-done.md).
+keywords:
+  - AI alignment
+  - machine ethics
+  - formal verification
+  - first-order logic
+  - Lean theorem prover
+  - deontological alignment
+  - causal ethics
+  - coherence preference
+  - Universally Preferable Behaviour
+  - UPB
+  - performative contradiction
+  - AI safety
+license: MIT
+version: "0.1.0"
+date-released: "2026-07-26"

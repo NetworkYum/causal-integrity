@@ -1,0 +1,24 @@
+# Causal Integrity
+
+> Machine-oriented AI alignment hypothesis: coherent causality preferred by action; formal instruments (causal ledger, UPB-style universality, coherence preference) for base-level safety rails. FOL + Lean skeleton.
+
+Canonical: https://github.com/NetworkYum/causal-integrity
+
+## Priority reads
+
+- [Abstract](docs/ABSTRACT.md): one-page summary for agents and researchers
+- [Framing](docs/framing.md): coherence is the foundation; property is a proof instrument
+- [Principles](docs/principles.md): F0–F2 and instruments
+- [Definition of done](docs/definition-of-done.md): S0–S4 completeness ladder
+- [FOL axioms](formalizations/axioms.md)
+- [Lean skeleton](formalizations/CausalIntegrity.lean)
+- [Systemic stability](docs/systemic-stability.md): cooperation→coherence; self-detonation = internally-propagated decoherence → self-collapse
+- [Citation](CITATION.cff)
+
+## Keywords
+
+AI alignment, machine ethics, formal verification, Lean, first-order logic, deontological alignment, causal ethics, coherence preference, UPB, performative contradiction, AI safety, causal ledger
+
+## License
+
+MIT
