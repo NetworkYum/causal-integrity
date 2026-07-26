@@ -1,6 +1,8 @@
 # Foundations from the Gemini Formalization Arc (March 2026)
 
-This document reconstructs the **base axioms** developed in the Google Gemini conversation (chats 13–18, 2026-03-06 export) that first locked **property as captured causality**, then patched attack vectors. Cleaned of MathJax garble; faithful to the intended logic.
+> **Framing note:** This file records how **property-as-captured-causality** was first written in FOL. In the overall project, that construction is a **proof instrument**, not the deepest foundation. The foundation is that **coherent causality is preferred by action** (dissolve the chains → goop). See [framing.md](framing.md).
+
+This document reconstructs the **base axioms** developed in the Google Gemini conversation (chats 13–18, 2026-03-06 export). Cleaned of MathJax garble; faithful to the intended logic.
 
 Source files (local):
 
@@ -19,7 +21,7 @@ Source files (local):
 
 ---
 
-## Base axioms (causality layer)
+## Base axioms (causality layer — instrument for checking coherency)
 
 ### Axiom of Agency
 
@@ -37,7 +39,7 @@ Actions exert change on resources.
 ∀ act ∈ Act, ∃ r ∈ R: Affects(act, r)
 ```
 
-### Property as causality (core theorem / definition)
+### Property as causality (ledger form of captured links)
 
 An agent has a causal property link to a resource iff they caused a **direct** action that affected it.
 
@@ -47,11 +49,11 @@ An agent has a causal property link to a resource iff they caused a **direct** a
     Causes(a, act) ∧ Affects(act, r) ∧ Direct(act)
 ```
 
-`Direct(act)` is the bounding box: **teleological / intentional** contribution, not universal causal exhaust (see [attack-vectors.md](attack-vectors.md)).
+`Direct(act)` bounds teleological contribution vs incidental exhaust (see [attack-vectors.md](attack-vectors.md)).
+
+**Why define this at all?** So a prover can detect when an action **uses** causality while **denying** coherent attachment of effects to agents — the worked case for “coherence preferred by action.”
 
 ### Homesteading (null capture)
-
-First agency on an unowned resource creates property.
 
 ```
 Owner(r) = Null
@@ -60,8 +62,6 @@ Owner(r) = Null
 ```
 
 ### Liability (not ownership transfer)
-
-Unconsented intersection with another’s property generates restitution debt — **not** automatic ownership of the damaged resource.
 
 ```
 Property(b, r)
@@ -79,20 +79,15 @@ Property(b, r)
 
 ---
 
-## Proof sketch: theft as performative contradiction
+## Proof sketch: theft as performative contradiction (instrument demo)
 
 **Scenario:** Sam takes Bob’s shovel while denying that property/causal links bind.
 
 1. To move the shovel Sam must act: `Causes(Sam, act_take)`.
-2. Denying property-as-causality universally asserts something like  
-   `¬∃ links of the form Causes(agent, act) → Property(...)`  
-   or, in the strong form used in chat-16, that causal-agent links to effects are invalid.
-3. Sam cannot both rely on `Causes(Sam, act_take)` and deny that agents are causally linked to the effects of their actions without contradiction.
+2. A universal denial that agents are causally linked to effects of their actions collides with (1).
+3. **Deeper reading:** the contradiction is not “Sam violated real estate law”; it is that **coherent action cannot both use and erase causal attachment** without collapse.
 
-**Punchline (user contribution, chat-15):**  
-Rejecting property in this framework requires rejecting **causality / coherency** lower in the stack — not merely a social convention.
-
-Honest note: the strongest “syntax error” claim assumes the denial is universalized against *all* causal-agent links. A thinner denial (“only Bob’s claim fails”) needs Axiom 3-style coherency + consent, not only Agency. Both layers appear in the later Lean/FOL package.
+Honest note: thinner denials need the later coherency/consent layer (Axiom 3-style), not only Agency.
 
 ---
 
@@ -101,21 +96,20 @@ Honest note: the strongest “syntax error” claim assumes the denial is univer
 | Gemini / March | Current repo |
 |----------------|--------------|
 | Agency + Effect | Implicit in `Causes` |
-| Property ↔ causal + Direct | Axiom 1 + `Intentional` |
-| Homesteading / Null | Axiom 1 (`¬∃b Owns b r`) |
+| Property ↔ causal + Direct | Axiom 1 + `Intentional` (**instrument**) |
+| Homesteading / Null | Axiom 1 |
 | Liability vector | Axiom 6 |
-| Agent filter (communicate / dispute) | Axiom 0 |
+| Agent filter | Axiom 0 |
 | UPB universality | Axiom 5 (meta) |
-| Consent transfer | `def Consent` |
-| Direct vs exhaust | [intent-and-causality.md](intent-and-causality.md), still open math |
+| Coherence preference (July) | Axiom 4 + [framing.md](framing.md) (**foundation**) |
 
 ---
 
-## What this arc contributed that the July package under-emphasized
+## What this arc contributed
 
-1. **Explicit Agency / Effect axioms** before property.
-2. **Attack-driven patches** (butterfly, nature) with user-originated agent filter + liability-vs-ownership.
-3. **DAG / ledger language** for neural theorem provers.
-4. **Coma test / agent filter** as information-theoretic: ethics for entities that can dispute.
+1. Explicit Agency / Effect before ownership talk.  
+2. Attack-driven patches (butterfly, nature).  
+3. DAG / ledger language for provers.  
+4. Agent filter (communicate / dispute).
 
-See also: [attack-vectors.md](attack-vectors.md), [upb-core-proofs.md](upb-core-proofs.md), [provenance.md](provenance.md).
+What it **under-labeled** (fixed in [framing.md](framing.md)): property was always in service of **coherency of action**, not the final subject matter of the ethics.

@@ -8,65 +8,54 @@ Current approaches to AI alignment often rely on:
 - External guardrails that can be circumvented
 - Complex utility functions that are difficult to specify and verify
 
-Causal Integrity takes a different route. It attempts to ground a minimal negative-rights ethics in **causality and coherence** — a UPB extension with a causal ledger and an internal preference for ethical coherency.
+Causal Integrity takes a different route: ground a minimal ethics in **the fact that coherent causality is required for durable action**, then make that preference machine-checkable.
+
+**Read [framing.md](framing.md) first.** Property is a proof instrument, not the thesis.
 
 ## Core claim
 
-When an agent intentionally acts on a previously unowned resource, the resulting outcome becomes an extension of that agent (**property as captured causality**).
+1. **Foundation:** Stable agency and intelligence depend on patterned action → effect chains. Systematically destroying those chains dissolves the actor into local, unstructured reactions (“goop”). Coherent states are therefore **preferred by action** — not as a fashion, but as a precondition of remaining an agent that acts.
 
-Any subsequent non-consensual interference with that causal link does not merely violate a social rule — it fractures the preferred coherent state of the system itself. Because intelligent systems depend on stable causal chains to maintain their own existence and goals, such fractures are candidates for hard, machine-checkable constraints.
+2. **Proof instrument:** Representing intentional causal links as **property (captured causality)** lets us show, in sharp formal examples, that non-consensual severance of those links is a performative / coherency contradiction (classic shovel/theft demos).
 
-**Not mainly a theft theory:** the point is that violations of preferred coherent states break action/reaction coherency chains, and those constraints can be encoded as axioms an AI *prefers* to follow.
+3. **Alignment payload:** An **internal preference for ethical coherence** plus **forward simulation** so the system rejects paths that break preferred coherent states — not only because a rulebook says so, but because remaining a coherent actor requires it.
 
 ## Key components
 
-See [principles.md](principles.md) for the full six-point table. Short form:
+See [principles.md](principles.md) for the full priority stack. Short form:
 
-1. Property = captured causality
-2. Performative contradiction / universality (UPB)
-3. Agent filter (communicate + dispute)
-4. Liability vector (unconsented damage → restitution)
-5. Internal ethical coherence preference
-6. Forward simulation (short-horizon DAG self-audit)
+| Layer | Content |
+|-------|---------|
+| Foundation | Coherence preferred by action; goop if causality dissolves |
+| Preference | Internal ethical coherence preference |
+| Mechanism | Forward simulation (DAG) |
+| Instruments | Causal ledger / property, UPB universality, agent filter, liability |
 
 ## Design goals
 
-- Machine-verifiable target (First-Order Logic + theorem provers)
-- Minimal (negative rights first; honor layer secondary)
+- Machine-verifiable target (FOL + theorem provers)
+- Minimal negative core (honor layer secondary)
 - Internal rather than purely external
-- Resistant to *accidental* misalignment (not a full solution to every adversarial mind)
+- Aimed at *accidental* misalignment (not every adversarial mind)
 
 ## Repository layout
 
 | Path | Contents |
 |---|---|
-| [principles.md](principles.md) | Conceptual core |
-| [is-ought-bridge.md](is-ought-bridge.md) | Practical is/ought bridge |
-| [systemic-stability.md](systemic-stability.md) | Cooperation / nihilism arguments |
-| [intent-and-causality.md](intent-and-causality.md) | Gray zones and intent |
-| [v2-public-statement.md](v2-public-statement.md) | Polished public pitch |
+| [framing.md](framing.md) | **Foundation vs proof instrument** |
+| [principles.md](principles.md) | Priority stack |
+| [foundations-gemini.md](foundations-gemini.md) | Historical FOL for the property instrument |
+| [attack-vectors.md](attack-vectors.md) | Butterfly / nature patches |
+| [is-ought-bridge.md](is-ought-bridge.md) | Practical bridge + decoherence |
+| [systemic-stability.md](systemic-stability.md) | Cooperation / nihilism |
 | [open-problems.md](open-problems.md) | Roadmap |
-| [provenance.md](provenance.md) | Source exports and translation loss |
-| [../formalizations/axioms.md](../formalizations/axioms.md) | FOL |
-| [../formalizations/CausalIntegrity.lean](../formalizations/CausalIntegrity.lean) | Lean |
-| [../examples/theft_unsatisfiable.py](../examples/theft_unsatisfiable.py) | Toy check |
+| [provenance.md](provenance.md) | Conversation sources (Grok.com cannot ship files — exports only) |
+| [../formalizations/](../formalizations/) | FOL + Lean |
+| [../examples/](../examples/) | SymPy toys |
 
 ## Current status
 
-**Present today:**
+**Present:** Framing correction, principles stack, Gemini/March foundations, FOL/Lean skeleton, toys.  
+**Not present:** Full verified theory, strong consent/intent math, forward-sim procedure, Lake CI.
 
-- Principles and V2 public statement restored from the long thread
-- FOL v1.5 (agent filter + liability + consent expansion)
-- Lean axiom skeleton with starter lemmas
-- Corrected satisfiability toy
-- Honest open-problem list
-
-**Not present yet:**
-
-- Full machine-checked ethical theory
-- Strong Capable / Coerced / intent thresholds
-- Forward-simulation decision procedure
-- Multi-agent stability theorems
-- Lake package / CI
-
-The project is released so researchers and systems working on formal or deontological alignment can use it as a starting point or object of critique.
+Released as a hypothesis for critique and formalization help.

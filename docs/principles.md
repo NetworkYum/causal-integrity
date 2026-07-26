@@ -1,74 +1,88 @@
-# Core Principles (v1.5 / V2)
+# Core Principles
 
-Distilled from the long Grok.com formalization thread (2026-07-16 export) and the public V2 statement. This is the **conceptual core**; machine encodings live under [`formalizations/`](../formalizations/).
+**Read [framing.md](framing.md) first** if summaries have drifted into “this is a property theory.”
+
+Machine encodings: [`formalizations/`](../formalizations/).
 
 ---
 
 ## One-sentence pitch
 
-Extend Universally Preferable Behaviour (UPB) with a **causal ledger** — property as the captured outcome of intentional action — plus an **internal preference for ethical coherence** that self-audits via forward simulation, so violations are not merely “disallowed” but *unsatisfiable* for a coherent intelligence that keeps those preferences.
+**Coherent causal structure is preferred by action** — because dissolving causality turns agency into unstructured goop. Universally Preferable Behaviour (UPB) plus a **causal ledger** (property as a *proof instrument* for captured intentional causality) plus an **internal preference for ethical coherence** (with forward simulation) make violations not merely disallowed but inconsistent for an intelligence that stays an intelligence.
 
 ---
 
-## The six principles
+## Priority stack (foundation → instruments)
 
-| # | Principle | Meaning |
-|---|-----------|---------|
-| 1 | **Causality = property** | Ownership is the direct causal outcome of intentional action on unowned resources (property as captured causality). |
-| 2 | **Performative contradiction / universality** | Rules or actions that cannot universalize without logical collapse are invalid (UPB-style + causal ledger). |
-| 3 | **Agent filter** | Full moral agents are entities capable of communication and dispute resolution. |
-| 4 | **Liability vector** | Unconsented damage to another’s causal property creates a restitution obligation. |
-| 5 | **Internal ethical coherence preference** | The system *prefers* to embody the ethics — not only to pass external checks. |
-| 6 | **Forward simulation** | Before acting: ethical state → proposed action → DAG/logic tree of likely outcomes (≈3–10 steps); reject paths that risk axiom violation. |
+| Priority | Claim | Role |
+|----------|--------|------|
+| **F0** | **Coherence preferred by action** | Load-bearing. Action and stable intelligence require patterned action/reaction chains. Break the chains systematically → goop, not agency. |
+| **F1** | **Internal ethical coherence preference** | The system *wants* to remain coherent — not only to pass external checks. |
+| **F2** | **Forward simulation** | Before acting: intended coherent state → proposed action → short DAG (≈3–10 steps); reject paths that risk F0/F1 failure. |
+| **I1** | **Property = captured causality** | *Proof instrument.* Makes causal links ledger-checkable; theft/interference examples show performative collapse. **Not the end goal.** |
+| **I2** | **UPB / performative contradiction** | Rules that cannot universalize without paradox are invalid. |
+| **I3** | **Agent filter** | Full moral agents: can communicate and dispute. |
+| **I4** | **Liability vector** | Unconsented damage → restitution debt (not free reassignment of ownership via exhaust). |
 
-### Negative-rights focus
+---
 
-The hard core is deliberately **minimal and negative** (non-initiation / non-severance of causal property). Positive obligations and omissions are a secondary **honor layer**, not the foundation — by design, to keep the machine core tight.
+## Expanded notes
+
+### F0 — Coherence preferred by action
+
+If causality is optional, “I did X” and “X had effect Y” stop tracking. Preferences, plans, responsibility, and learning all require that effects remain attached to causes. An AI that systematically shreds those attachments is not a clever loophole-finder; it is dismantling the precondition of structured action — including its own.
+
+Property language is one way to **name and check** those attachments. It is not the deepest layer.
+
+### F1 — Internal ethical coherence preference
+
+Guardrails: the model looks for ways around rules.  
+Target: “I follow this because I prefer ethical coherence.” Skirting the framework becomes a coherence failure, not a clever optimization.
+
+### F2 — Forward simulation
+
+```
+Preferred coherent state
+        ↓
+  Proposed action
+        ↓
+ Causal DAG / logic tree (3–10 steps; scalable)
+        ↓
+ Risk of coherency break / liability / axiom violation
+        ↓
+ Accept only paths consistent with F0–F1
+```
+
+### I1 — Property as proof instrument
+
+Intentional action on unowned resources creates a captured causal link (ledger ownership). Non-consensual severance of another’s link is the classic **worked example** of breaking preferred coherent states. Useful for FOL/Lean. Easy to over-emphasize in summaries — **resist that**.
+
+### I2–I4 — Supporting machinery
+
+Universality (UPB), who counts as an agent, and liability-vs-ownership (forest fire) keep the instrument honest under attack. See [attack-vectors.md](attack-vectors.md).
+
+---
+
+## Negative-rights focus
+
+The hard machine core stays **minimal and negative** (do not initiate / do not sever coherent causal chains without consent). Positive duties are a secondary **honor layer**.
 
 ---
 
 ## What the framework is *really* about
 
-Public examples often use theft or “Bob’s shovel.” The **target claim** is broader:
-
 > Actions that violate an agent’s preferred coherent state break **action/reaction coherency chains**.  
-> UPB-style violations are not only “immoral under Locke/UPB”; they can be programmed as **absolute axioms an AI prefers to uphold**, even when humans are biologically or socially rewarded for breaking them.
+> Those constraints can be programmed as absolute axioms an AI would **prefer** to follow — even when humans are rewarded for breaking them.
 
-**Punchline from the source material:** *You do not fall into the sky.* Consistency is not optional for a world (or an intelligence) that stays structured.
-
----
-
-## Guardrails vs real alignment
-
-| Guardrails | This framework’s aim |
-|------------|----------------------|
-| Rules the model looks for ways around | Internal state: “I follow this because I want ethical coherence” |
-| Patch edge cases forever | Preference + formal checks make skirting *itself* a coherence failure |
-| External constraint | Self-audit via simulation before action |
-
-### Mechanism sketch
-
-```
-Intended Ethical State
-        ↓
-  Proposed Action
-        ↓
- Causal DAG / logic tree (3–10 steps ahead; scalable)
-        ↓
- Estimate P(bad | damage | catastrophic) under own action effects
-        ↓
- Accept only paths consistent with core axioms
-```
-
-At high capability, models may design their own internal machinery; the ledger + coherence preference + simulation pattern is the **human-specifiable north star**, not the final low-level implementation.
+Theft and shovels are **demos**. The product is **coherence preference under causality**.
 
 ---
 
 ## Related docs
 
-- [Is/ought practical bridge](is-ought-bridge.md)
-- [Systemic stability](systemic-stability.md)
-- [Intent & incidental causality](intent-and-causality.md)
-- [V2 public statement](v2-public-statement.md)
-- [FOL axioms](../formalizations/axioms.md)
-- [Open problems](open-problems.md)
+- [framing.md](framing.md) — foundation vs instrument  
+- [is-ought-bridge.md](is-ought-bridge.md)  
+- [systemic-stability.md](systemic-stability.md)  
+- [foundations-gemini.md](foundations-gemini.md) — history of the property *instrument*  
+- [FOL axioms](../formalizations/axioms.md)  
+- [open-problems.md](open-problems.md)  
