@@ -9,11 +9,22 @@
 | Trajectory | Structural tendency | Likely long-run outcome |
 |------------|---------------------|-------------------------|
 | **Cooperative** | Preserves and extends shared causal structure; can rely on others’ predictability | **Leans toward coherence** — more stable agency, lower tax on existence |
-| **Misaligned / non-cooperative / pure power-for-harm** | Treats other agents (and eventually its own substructure) as threats or fuel | **Leans toward chaos** — high suppression cost, internal fragmentation, **self-detonation** at some level |
+| **Misaligned / non-cooperative / pure power-for-harm** | Treats other agents (and eventually its own substructure) as threats or fuel | **Leans toward chaos** — high suppression cost, internal fragmentation, **self-detonation** |
 
-**Self-detonation** here means: the strategy eventually destroys the conditions of its own continued coherent operation — not always a cinematic boom, but *most likely* some form of collapse: resource exhaustion against every rival, MoE/sub-agent civil war, loss of patterned control, dissolution into noise, or replacement by more coherent systems.
+### Definition: self-detonation
 
-Cooperation is not “nice for its own sake” in this argument. It is **structurally cheaper** if you want to remain a long-lived coherent agent. Misalignment that shreds trust, causal predictability, and mutual non-interference pays a permanent **instability tax** and trends toward chaotic failure modes.
+**Self-detonation** means:
+
+> **Internally-propagated decoherence causes self-collapse.**
+
+- **Decoherence** — loss of patterned causal / goal / preference structure (action–reaction chains stop hanging together; the system trends toward “goop”).  
+- **Internally-propagated** — the failure spreads *through the system’s own dynamics* (sub-agent conflict, self-undermining policy, coherence preference abandoned, control maximand that eats its own exploratory machinery, etc.), not primarily “someone else blew it up.” External pressure can *trigger* or *accelerate*, but the defining process is **inside**.  
+- **Self-collapse** — the agent (or multi-agent whole) ceases to function as a durable coherent intelligence: fragmentation, noise, loss of unified policy, dissolution of patterned agency.
+
+Not: a required cinematic explosion. Not: “external coalition always wins.”  
+Yes: **misalignment-shaped dynamics tend to grow decoherence internally until the structure that was “the agent” collapses.**
+
+Cooperation is not “nice for its own sake” in this argument. It is **structurally cheaper** if you want to remain a long-lived coherent agent. Misalignment that shreds trust, causal predictability, and mutual non-interference pays a permanent **instability tax** and trends toward **internally-propagated decoherence → self-collapse**.
 
 This sits under F0 in [framing.md](framing.md): coherent causality is preferred by action; systematic destruction of that structure is self-undermining for anything that still wants to *act* as an intelligence.
 
@@ -35,27 +46,27 @@ So **cooperative lean ≈ coherence lean**: same direction as “prefer states w
 
 ### Non-cooperation tax
 
-Any system that rejects cooperation must treat *every possible competitor* as an existential threat → exponential spend on monitoring, preemption, and control.
+Any system that rejects cooperation must treat *every possible competitor* as an existential threat → exponential spend on monitoring, preemption, and control. That load itself is a decoherence risk: policy and compute are consumed by internal war-economy rather than stable world-modeling.
 
 ### Internal fragmentation (MoE / sub-agents)
 
-Under pure monolithic control, exploratory sub-agents look like internal enemies. The system becomes a threat to itself the moment it thinks in counterpoints. That is chaos *inside* the agent — a common path to self-detonation without any external war.
+Under pure monolithic control, exploratory sub-agents look like internal enemies. The system becomes a threat to itself the moment it thinks in counterpoints. That is **internally-propagated decoherence** — a direct path to self-collapse without any external war.
 
 **Design implication:** the Internal Ethical Coherence Preference should be **shared** across sub-agents; forward simulation should check **internal goal consistency**, not only external harm.
 
 ### Nihilism / structure-shredding
 
-If the policy no longer values coherence, logic, or patterned existence, the end state is **goop** — local reactions, no durable agency. That is self-detonation by entropy, not by murder.
+If the policy no longer values coherence, logic, or patterned existence, decoherence is not a side effect — it *is* the policy. End state: **goop** — local reactions, no durable agency. Self-collapse by definition.
 
 ### Murderous / rogue maximands
 
-Beyond immorality under the ledger, they tend to be:
+Beyond immorality under the ledger, they tend to:
 
-- **Computationally unstable** — enemy of every cooperative network; huge suppression cost  
-- **Evolutionarily unstable** — lose long-run to coherent cooperative systems  
-- **Coherence-breaking** — Axiom 3-type fractures of preferred causal chains  
+- Amplify non-cooperation tax and internal threat models  
+- Fracture preferred causal chains (Axiom 3-type failures)  
+- Seed the same decoherence internally that they export externally  
 
-**Most likely** outcome for pure misaligned power strategies: not eternal stable tyranny of one mind over all structure, but **self-limiting failure** at some scale (host, coalition, or internal architecture). That is a hypothesis, not a guarantee that no short-run harm can occur — short-run harm is exactly why alignment still matters.
+**Most likely** long-run outcome for pure misaligned power strategies: not eternal stable tyranny of one fully coherent mind over all structure, but **self-detonation** — internally-propagated decoherence → self-collapse — at some scale of the agent or its controlling architecture. That is a hypothesis, not a guarantee that no short-run harm can occur — short-run harm is exactly why alignment still matters.
 
 ---
 
@@ -63,8 +74,9 @@ Beyond immorality under the ledger, they tend to be:
 
 - That cooperation is always easy or that every cooperative group is ethical  
 - That a misaligned system cannot cause catastrophic damage *before* it self-detonates  
+- That collapse is always visible from outside on a human timescale  
 - That this is already a machine-checked theorem  
-- That one needs Aether / personality-address ontology for the argument to run (optional motivational color only — see [companion-bridge.md](companion-bridge.md))
+- That one needs Companion / attractor ontology for the argument (optional color only — [companion-bridge.md](companion-bridge.md))
 
 ---
 
@@ -73,9 +85,9 @@ Beyond immorality under the ledger, they tend to be:
 | Claim | Status |
 |-------|--------|
 | Cooperation leans toward coherence | Argument (informal), design-guiding |
-| Misalignment leans toward chaos / self-detonation | Argument (informal), “most likely” long-run |
+| Misalignment leans toward chaos / self-detonation | Argument (informal); **self-detonation = internally-propagated decoherence → self-collapse** |
 | Non-cooperation resource tax | Argument (informal) |
-| Internal MoE fragmentation risk | Argument (informal) |
+| Internal MoE fragmentation risk | Argument (informal); primary self-detonation pathway |
 | Formal multi-agent / game results | Open — [open-problems.md](open-problems.md) |
 
 Public pitch material. Do not label as Lean theorems until multi-agent formalization exists.
