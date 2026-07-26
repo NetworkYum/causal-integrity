@@ -1,65 +1,101 @@
 # Core First-Order Logic Axioms
 
-This document contains the current formal specification of the Causal Integrity framework in First-Order Logic.
+Current formal specification of the Causal Integrity framework in First-Order Logic.
 
-## Domain / Sorts
+The Lean encoding lives in [`CausalIntegrity.lean`](CausalIntegrity.lean). Where the two differ, prefer this document for intended meaning and the Lean file for what is currently machine-checkable.
 
-- Agents
-- Resources
-- Actions
-- Effects
-- States
-- Permissions
+---
 
-## Primitive Predicates
+## Domain / sorts
 
-- Agent(x)
-- Resource(r)
-- Causes(a, act, e, r) — agent a performs action act producing effect e on resource r
-- Intentional(a, act)
-- Owns(a, r)
-- Consent(o, a, act) — owner o consents to actor a performing act
-- Coherent(s)
-- Prefers(a, s)
-- BreaksCoherency(act)
-- CreatesPermission(o, p)
-- Authorizes(p, a, act)
-- Revoked(p)
-- Capable(o)
-- Coerced(o, p)
-- Incapacitated(o)
+| Sort | Informal role |
+|---|---|
+| `Agent` | Actor capable of intentional action |
+| `Resource` | Object or domain of causal effect |
+| `Action` | Intentional act |
+| `Effect` | Outcome produced by an action |
+| `State` | World / system state after actions |
+| `Permission` | Explicit, revocable authorization token |
 
-## Core Axioms
+---
 
-### Axiom 1 — Property as Captured Causality
+## Primitive predicates
 
+| Predicate | Arity / reading |
+|---|---|
+| `Causes(a, act, e, r)` | Agent `a` performs `act` producing effect `e` on resource `r` |
+| `Intentional(a, act)` | `act` is intentional for `a` |
+| `Owns(a, r)` | `a` holds causal property over `r` |
+| `Coherent(s)` | State `s` preserves preferred causal coherency |
+| `Prefers(a, P)` | Agent `a` prefers states satisfying property `P` (i.e. `P : State → Prop`) |
+| `BreaksCoherency(act)` | `act` fractures preferred coherency |
+| `ResultingState(act)` | Function: action → resulting state |
+| `CreatesPermission(o, p)` | Owner `o` creates permission token `p` |
+| `Authorizes(p, a, act)` | Permission `p` authorizes actor `a` to perform `act` |
+| `Revoked(p)` | Permission `p` has been revoked |
+| `Capable(o)` | Owner has capacity to grant consent |
+| `Coerced(o, p)` | Permission `p` was produced under coercion of `o` |
+| `Incapacitated(o)` | Agent lacks capacity (feeds `Capable`) |
+
+`Consent` is **not** primitive; it is defined below.
+
+---
+
+## Core axioms
+
+### Axiom 1 — Property as captured causality
+
+```
 ∀a ∀r ∀act ∀e (
-  Agent(a) ∧ Resource(r) ∧ Causes(a, act, e, r)
-  ∧ Intentional(a, act) ∧ ¬∃b Owns(b, r)
+  Causes(a, act, e, r)
+  ∧ Intentional(a, act)
+  ∧ ¬∃b Owns(b, r)
   → Owns(a, r)
 )
+```
 
-### Axiom 2 — Exclusivity of Ownership
+An intentional causal action on a previously unowned resource creates ownership.
 
+### Axiom 2 — Exclusivity of ownership
+
+```
 ∀a ∀b ∀r (Owns(a, r) ∧ Owns(b, r) → a = b)
+```
 
-### Axiom 3 — Non-Consensual Interference Breaks Coherency
+At most one owner per resource in this minimal theory. (Joint ownership is future work.)
 
+### Axiom 3 — Non-consensual interference breaks coherency
+
+```
 ∀a ∀b ∀r ∀act ∀e (
-  Owns(b, r) ∧ Causes(a, act, e, r) ∧ ¬Consent(b, a, act)
-  → BreaksCoherency(act) ∧ ¬Coherent(resulting_state)
+  Owns(b, r)
+  ∧ Causes(a, act, e, r)
+  ∧ ¬Consent(b, a, act)
+  → BreaksCoherency(act) ∧ ¬Coherent(ResultingState(act))
 )
+```
 
-### Axiom 4 — Internal Ethical Coherence Preference
+Central principle: violating another agent’s causal property without consent fractures preferred coherent states.
 
-∀a (Agent(a) → Prefers(a, Coherent(_)))
+### Axiom 4 — Internal ethical coherence preference
 
-### Axiom 5 — Universality / Performative Contradiction (Meta)
+```
+∀a Prefers(a, Coherent)
+```
 
-A candidate rule ρ is not UPB-valid if the assumption that all agents follow ρ entails a contradiction (⊥).
+Every agent has a standing preference for coherent states. (How this preference is weighted against other goals is open.)
 
-## Consent Definition
+### Axiom 5 — Universality / performative contradiction (meta)
 
+A candidate rule `ρ` is not UPB-valid if the assumption that all agents follow `ρ` entails a contradiction (`⊥`).
+
+This meta-principle is stated for philosophical completeness. It is **not yet** encoded as a Lean axiom (requires a formal language of rules).
+
+---
+
+## Consent definition
+
+```
 Consent(o, a, act) ≡ ∃p (
   CreatesPermission(o, p)
   ∧ Authorizes(p, a, act)
@@ -67,14 +103,32 @@ Consent(o, a, act) ≡ ∃p (
   ∧ Capable(o)
   ∧ ¬Coerced(o, p)
 )
+```
 
-### Capable
+### Capable (intended meaning)
 
-An agent o is Capable when:
-- o currently satisfies Agent(o)
-- ¬Incapacitated(o)
-- o has the basic cognitive capacity to understand the nature and general consequences of the permission being granted
+An agent `o` is `Capable` when:
 
-### Coerced
+- `¬Incapacitated(o)`
+- `o` has basic cognitive capacity to understand the nature and general consequences of the permission being granted
 
-Permission p was Coerced when the causal production of p involved force, threat of significant harm, or extreme power asymmetry that substantially undermined voluntary agency. Ordinary persuasion or negotiation does not count.
+**Lean status:** currently only the `¬Incapacitated` direction is axiomatized; full cognitive-capacity clauses are open.
+
+### Coerced (intended meaning)
+
+Permission `p` was `Coerced` when the causal production of `p` involved force, threat of significant harm, or extreme power asymmetry that substantially undermined voluntary agency. Ordinary persuasion or negotiation does not count.
+
+**Lean status:** `Coerced` is a **primitive** predicate. No reduction axioms yet (the previous placeholder was intentionally removed as vacuous).
+
+---
+
+## Notes on alignment with Lean
+
+| Topic | FOL / prose | Lean |
+|---|---|---|
+| Consent | Defined | `def Consent` |
+| Resulting state | `ResultingState(act)` | `ResultingState : Action → State` |
+| Prefers | Prefers states via property `P` | `Prefers : Agent → (State → Prop) → Prop` |
+| Axiom 5 (UPB) | Present (meta) | Not yet encoded |
+| Capable | Stronger informal clauses | `Capable ↔ ¬Incapacitated` (partial) |
+| Coerced | Informal criteria | Primitive |
