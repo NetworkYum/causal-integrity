@@ -1,41 +1,35 @@
 # Provenance
 
-Where the richer content in this repository came from, and what may still be missing.
+Where the content in this repository came from, and what may still be missing.
 
-## Source material
+## Source material (timeline)
 
-Primary distillation path:
+| When | Source | Role |
+|------|--------|------|
+| 2026-03-06 | `gemini_google-gemini_2026-03-06…` (MD/JSON) | **Origin of property=causality formalization**, FOL base axioms, attack vectors (chats 13–18) |
+| 2026-03-24…26 | `grok_codifying-ethics-for-ai-alignment_*.json` | UPB proof critique, merge with Gemini, SymPy sketches, X-thread drafting |
+| 2026-07-16 | `grok_ai-ethics_*.json` | Coherence preference, forward sim, is/ought strengthening, systemic stability, V2 thread |
+| 2026-07-26 | `GROK BUILD UPDATE grok_ai-ethics_*.json` | FOL+Lean packaging for GitHub (thin slice that first landed on `main`) |
+| Local | `H:\Grok Projects\Research and Theory\theory\Causal-Integrity-overview.md` | Mid distillation |
 
-| Source | Role |
-|--------|------|
-| Grok.com conversation export `grok_ai-ethics_2026-07-16T18-54-22-0400.json` | Main codifying thread (property=causality, performative contradiction, coherence preference, forward sim, stability arguments, V2 thread) |
-| Grok.com export `grok_ai-ethics_2026-07-16T18-54-49-0400.json` | Companion / substrate mesh (related, **not** the formal ethics core) |
-| Local overview `H:\Grok Projects\Research and Theory\theory\Causal-Integrity-overview.md` | Earlier distillation of the same threads |
+## Known translation loss (why the repo felt thinner)
 
-## Known translation loss
+The **July packaging** captured FOL skeleton + Lean PoC + README but under-represented:
 
-The first public GitHub snapshot captured **FOL skeleton + partial Lean** but under-represented:
+1. Gemini **Agency / Effect / Homesteading** base layer and proof-by-contradiction shovel argument
+2. **Attack vectors** (butterfly, nature) and user patches (agent filter, liability≠ownership)
+3. March **UPB five-proof critique** map (what is worth encoding for AI)
+4. July **systemic stability** and is/ought bridge (restored earlier)
+5. Correct SymPy pattern (Direct required)
 
-- Agent filter and liability vector
-- Full six-principle layout
-- Is/ought practical bridge and decoherence / cooperation arguments
-- Intent vs incidental causality (poison / gray-zone)
-- Systemic stability section
-- Polished V2 public statement
-- SymPy toy check (and the original toy omitted `Direct`, which made “theft unsatisfiable” **false**)
+Mining passes on 2026-07-26 restored most of the above into `docs/` and `examples/`.
 
-This repository’s `docs/` tree (2026-07-26 mining pass) restores those from the exports **in cleaned form**.
+## Still not recovered as machine-checked proofs
 
-## Still not recovered as formal proofs
+Exports contain **sketches and PoC axioms**, not a finished Lean development of non-trivial theorems beyond starter lemmas. References to “full FOL proofs” in chat are often the Gemini chat-16 style proofs (prose + FOL fragments), which are now cleaned into [foundations-gemini.md](foundations-gemini.md).
 
-The chat repeatedly refers to “FOL proofs” and “Lean proofs” prepared in earlier sessions that **do not appear complete in the 2026-07-16 export**. What exists there is:
-
-- Conceptual axioms and roadmap
-- A small SymPy sketch
-- Agreement that Lean/Coq/HoTT are the right homes
-
-If you still have an older Grok export or screenshots with longer FOL/Lean blocks, drop them into the local `conversations\_inbox` and ask for another mining pass.
+If older Gemini shares or missing chats appear, drop them into the local `_inbox` for another pass.
 
 ## Companion mesh
 
-The short second export discusses Project Companion attractors / parasitic vs constructive binding. That is **motivational/ontological**, not required for the Causal Integrity formal core. It is intentionally **not** merged into the Lean axioms here.
+Short July export on Project Companion attractors is **not** part of the formal ethics core and is not merged into Lean axioms.
