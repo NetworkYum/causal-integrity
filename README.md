@@ -89,7 +89,7 @@ causal-integrity/
 
 ## Keywords
 
-`AI Alignment` · `Machine Ethics` · `Formal Verification` · `Lean` · `First-Order Logic` · `Deontological Alignment` · `Causal Ethics` · `Coherence Preference` · `Causal Ledger` · `UPB` · `Universally Preferable Behaviour` · `Performative Contradiction` · `Forward Simulation` · `AI Safety` · `Self-Collapse`
+`AI Alignment` · `Machine Ethics` · `Formal Verification` · `Lean` · `First-Order Logic` · `Deontological Alignment` · `Causal Ethics` · `Coherence Preference` · `Causal Ledger` · `UPB` · `Universally Preferable Behaviour` · `Performative Contradiction` · `Forward Simulation` · `AI Safety` · `Self-Collapse` · `Goal-Directed Systems` · `Basal Cognition`
 
 ---
 
@@ -97,9 +97,16 @@ causal-integrity/
 
 See [`CITATION.cff`](CITATION.cff). Prefer citing the repository URL and version/date.
 
-## Acknowledgment
+## Acknowledgments
 
-UPB-style universality / contradiction-removal backbone draws on **Stefan Molyneux**, *Universally Preferable Behaviour* — used here as a stripped, machine-oriented core.
+**Stefan Molyneux** — *Universally Preferable Behaviour*: universality / contradiction-removal backbone, used here as a stripped, machine-oriented core (not political application).
+
+**Dr. Michael Levin** ([@drmichaellevin](https://x.com/drmichaellevin)) — work on **goal-oriented / goal-directed systems** and basal competence across scales: goal-like problem-solving can appear even in minimal systems that were not designed as “minds.” Especially relevant is research using **classical sorting algorithms** as minimal models (with Taining Zhang, Adam Goldstein, and others), showing unexpected competencies and goal-pursuing dynamics beyond what is explicitly encoded in the algorithm. That line of thought informs this project’s emphasis on **shared goals**, multi-part organisms, and **self-collapse when goal integrity fails** — and the expectation that similar properties will show up in other embodiments (including AI stacks). Causal Integrity is an independent ethics/formalization hypothesis; it is not a product of the Levin lab.
+
+Useful entry points:
+
+- [thoughtforms.life](https://thoughtforms.life/) (Levin’s writing)  
+- Zhang, Goldstein, Levin — *Classical Sorting Algorithms as a Model of Morphogenesis* ([arXiv:2401.05375](https://arxiv.org/abs/2401.05375))
 
 ---
 
@@ -111,7 +118,7 @@ Long formalization threads lived on chat platforms that do not export file packa
 
 ## Collaboration
 
-Critique and formalization help welcome — formal verification, deontological alignment, causal models of agency. Open an issue or discussion when enabled.
+Critique and formalization help welcome — formal verification, deontological alignment, causal models of agency. Open an issue or discussion.
 
 ---
 

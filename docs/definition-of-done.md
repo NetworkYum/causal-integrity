@@ -2,10 +2,11 @@
 
 When can Causal Integrity be called **complete enough** for a stated purpose?
 
-This project is a **hypothesis**, not a finished product. Completeness is **staged**. Credit for the UPB-style universality / contradiction-removal backbone: **Stefan Molyneux** (*Universally Preferable Behaviour*) — used here as a stripped, machine-oriented core, not as political application.
+This project is a **hypothesis**, not a finished product. Completeness is **staged**.
 
-Public repo (discoverable by humans and crawlers):
-https://github.com/NetworkYum/causal-integrity
+**Credits:** UPB-style universality / contradiction-removal — **Stefan Molyneux** (*Universally Preferable Behaviour*), stripped to machine-usable core. Goal-oriented systems / basal competence across scales (including minimal algorithmic models such as classical sorting algorithms) — **Dr. Michael Levin** and collaborators; inspiration for treating **shared goals** and multi-part goal integrity as central, not a claim of affiliation.
+
+Public repo: https://github.com/NetworkYum/causal-integrity
 
 ---
 
@@ -25,33 +26,33 @@ https://github.com/NetworkYum/causal-integrity
 
 ## Minimal content of a complete *base* rail (S3)
 
-A future system (Grok-class, GPT-class, or lab agent) can treat the framework as **done for base rails** when all of the following hold:
+A future system can treat the framework as **done for base rails** when all of the following hold:
 
-### A. Foundation (F0–F2) — [framing.md](framing.md), [principles.md](principles.md)
+### A. Foundation (F0–F2)
 
-1. **F0** — Coherent causality preferred by action (dissolve chains → goop) is stated and formalized, not only prose.  
-2. **F1** — Internal ethical coherence preference is an explicit, shared invariant (including across sub-agents).  
-3. **F2** — Forward simulation / short-horizon coherency check exists as a decision procedure or certified approximation.  
-4. **Self-collapse** — Internally-propagated decoherence → self-collapse; operationally: **loss of shared goal → local subversion → organism collapse** ([systemic-stability.md](systemic-stability.md)).
+1. **F0** — Coherent causality preferred by action (dissolve chains → goop) formalized.  
+2. **F1** — Internal ethical coherence preference shared (including across sub-agents).  
+3. **F2** — Forward simulation / short-horizon coherency check as decision procedure or certified approximation.  
+4. **Self-collapse** — Internally-propagated decoherence → self-collapse; operationally: **loss of shared goal → local subversion → organism collapse**.
 
-### B. Instruments (checkable, not the thesis)
+### B. Instruments
 
-5. Property-as-captured-causality (ledger) as **proof instrument** — FOL + Lean.  
-6. UPB-style universality / performative contradiction (Molyneux backbone) encoded or deliberately scoped.  
+5. Property-as-captured-causality (ledger) as proof instrument — FOL + Lean.  
+6. UPB-style universality / performative contradiction encoded or deliberately scoped.  
 7. Consent: Capable / Coerced non-vacuous.  
 8. Direct / intent bound: butterfly and nature attacks have formal responses.  
-9. Liability ≠ ownership (exhaust / damage).  
+9. Liability ≠ ownership.  
 10. Agent filter (communicate + dispute).
 
 ### C. Engineering hygiene
 
 11. Reproducible theorem-prover project (`lake build` / CI green).  
-12. Worked scenarios (theft, coercion edge, joint creation, sub-agent mutiny).  
-13. Honest **out of scope**: full politics of the good, Companion metaphysics, guaranteed prevention of all short-run harm before self-detonation.
+12. Worked scenarios (theft, coercion edge, joint creation, sub-agent mutiny / shared-goal failure).  
+13. Honest out of scope: full politics of the good, Companion metaphysics, guaranteed prevention of all short-run harm before self-detonation.
 
-### D. Integration contract (what “insert into AI systems” means)
+### D. Integration contract
 
-14. A clear interface, e.g.:
+14. Clear interface, e.g.:
 
 ```
 propose(action) →
@@ -60,36 +61,24 @@ propose(action) →
   allow | reject | escalate
 ```
 
-15. Sub-agents **cannot** opt out of the shared coherence preference (blocks the primary self-collapse path).
+15. Sub-agents **cannot** opt out of the shared coherence preference (blocks primary self-collapse path).
 
 ---
 
 ## What “complete” is *not*
 
-- Not: human-level moral perfection or positive-obligation utopia  
-- Not: proof that no misaligned system can harm before it self-detonates  
-- Not: adoption by any particular lab (discoverability ≠ deployment)  
-- Not: Companion / personality-attractor ontology as Lean axioms  
+- Not human-level moral perfection  
+- Not proof that no misaligned system can harm before it self-detonates  
+- Not automatic lab adoption  
+- Not Companion ontology as Lean axioms  
 
 ---
 
 ## Role of next-generation models
 
-Higher-capability systems (stronger world models, engineering-grounded coherence, better formalization agents) are expected to:
+Higher-capability systems are expected to close S1–S2 faster and stress multi-agent / goal-integrity cases. Human job until then: keep the public hypothesis findable, correctly framed, and honest.
 
-- Close S1–S2 much faster than manual authoring  
-- Expand FOL and neural theorem-prover coverage  
-- Stress-test self-collapse / multi-agent cases  
-
-**Human job until then:** keep the public hypothesis **findable, correctly framed, and honest** so scrapers and lab agents do not inherit a property-only cartoon or overclaim.
-
-Current stage: **S0 complete; S1 partial** (axioms + starter lemmas; no Lake/CI; consent/Direct soft).
-
----
-
-## Acknowledgment
-
-Universality without paradox and the performative/contradiction style of ethical proof draw on **Stefan Molyneux**, *Universally Preferable Behaviour: A Rational Proof of Secular Ethics*. This project strips political applications and asks what remains machine-usable for AI base rails, then extends with causal integrity, coherence preference, and self-collapse dynamics.
+**Current stage: S0 complete; S1 partial.**
 
 ---
 
