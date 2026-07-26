@@ -6,7 +6,7 @@ Causal Integrity treats **property as captured intentional causality**. Any acti
 
 The goal is not to solve the entire alignment problem. The goal is to make **accidental misalignment logically and computationally difficult**.
 
-> Independent research hypothesis · FOL specification + Lean 4 axiom skeleton · MIT License
+> Independent research hypothesis · FOL + Lean skeleton · mined from long formalization thread · MIT License
 
 ---
 
@@ -17,12 +17,20 @@ causal-integrity/
 ├── README.md
 ├── LICENSE
 ├── docs/
-│   ├── overview.md          # Motivation and design goals
-│   └── open-problems.md     # Prioritized roadmap
+│   ├── overview.md              # Motivation and design goals
+│   ├── principles.md            # Six core principles (v1.5 / V2)
+│   ├── is-ought-bridge.md       # Practical is/ought bridge
+│   ├── systemic-stability.md    # Cooperation / nihilism arguments
+│   ├── intent-and-causality.md  # Gray zones, poison example, intent
+│   ├── v2-public-statement.md   # Polished public pitch
+│   ├── open-problems.md         # Prioritized roadmap
+│   └── provenance.md            # Where material came from / translation loss
+├── examples/
+│   └── theft_unsatisfiable.py   # Corrected SymPy toy check
 └── formalizations/
-    ├── README.md            # How to read the formal artifacts
-    ├── axioms.md            # Core FOL specification
-    └── CausalIntegrity.lean # Lean 4 axiom skeleton + starter lemmas
+    ├── README.md
+    ├── axioms.md                # FOL specification
+    └── CausalIntegrity.lean    # Lean 4 skeleton + starter lemmas
 ```
 
 ---
@@ -35,15 +43,18 @@ Most alignment approaches rely on fuzzy value vectors or external guardrails tha
    When an agent intentionally acts on a previously unowned resource, the resulting outcome is an extension of that agent.
 
 2. **Violations break coherency chains**  
-   Any non-consensual interference with another agent’s causal property does not merely break a rule — it breaks the preferred coherent state of the system itself.
+   The point is not theft discourse per se — any action that violates preferred coherent states breaks action/reaction coherency. Such violations can be encoded as absolute axioms an AI would *prefer* to uphold.
 
 3. **Internal Ethical Coherence Preference**  
-   The agent is given a standing preference for maintaining causal coherency and actively checks proposed actions against short-horizon forward simulations (causal DAGs).
+   The agent prefers ethical coherency and checks proposed actions against short-horizon forward simulations (causal DAGs).
 
-4. **Everything is formalizable**  
-   The core claims are written so they can be represented in First-Order Logic and developed toward machine-checked proofs.
+4. **Agent filter + liability**  
+   Moral agents communicate and can dispute; unconsented damage creates restitution debt.
 
-This combination turns ethical constraints into something closer to an internal consistency requirement rather than a purely external restriction.
+5. **Formalizable**  
+   Core claims target First-Order Logic and theorem provers — not only prose.
+
+Start with [docs/principles.md](docs/principles.md) for the full six-principle layout.
 
 ---
 
@@ -51,32 +62,36 @@ This combination turns ethical constraints into something closer to an internal 
 
 | Component | Status | Notes |
 |---|---|---|
-| Core axioms (FOL) | **v1 complete** | [`formalizations/axioms.md`](formalizations/axioms.md) |
-| Lean 4 skeleton | **Axiom skeleton + starter lemmas** | [`formalizations/CausalIntegrity.lean`](formalizations/CausalIntegrity.lean) — not a full verified theory yet |
+| Principles / public V2 | **Restored** | [`docs/principles.md`](docs/principles.md), [`docs/v2-public-statement.md`](docs/v2-public-statement.md) |
+| Core axioms (FOL) | **v1.5** | Agent filter + liability added — [`formalizations/axioms.md`](formalizations/axioms.md) |
+| Lean 4 skeleton | **Axioms + starter lemmas** | [`formalizations/CausalIntegrity.lean`](formalizations/CausalIntegrity.lean) |
 | Expanded consent | **v1** | Capable / ¬Coerced sketched; coercion still primitive |
-| Forward simulation layer | **Conceptual** | Short-horizon causal DAG checking |
-| Multi-agent coordination | **Open** | Joint ownership, disputes |
-| Positive obligations | **Open** | Intentionally deferred |
+| Intent / incidental causality | **Prose + open math** | [`docs/intent-and-causality.md`](docs/intent-and-causality.md) |
+| Forward simulation layer | **Conceptual** | DAG self-audit sketch |
+| Toy satisfiability check | **Runnable** | [`examples/theft_unsatisfiable.py`](examples/theft_unsatisfiable.py) (fixed) |
+| Multi-agent / stability proofs | **Open** | Arguments in docs; not theorems yet |
 | Lake / CI typecheck | **Not yet** | See open problems |
 
 ---
 
 ## Quick start
 
-1. Read the [project overview](docs/overview.md)
-2. Read the [core FOL axioms](formalizations/axioms.md)
-3. Inspect the [Lean 4 skeleton](formalizations/CausalIntegrity.lean)
-4. See remaining work in [open problems](docs/open-problems.md)
+1. [Principles](docs/principles.md) — conceptual core
+2. [V2 public statement](docs/v2-public-statement.md) — short pitch
+3. [FOL axioms](formalizations/axioms.md) — formal spec
+4. [Lean skeleton](formalizations/CausalIntegrity.lean) — machine encoding
+5. [Open problems](docs/open-problems.md) — roadmap
+6. Optional: `pip install sympy` then `python examples/theft_unsatisfiable.py`
 
 ---
 
 ## Why this approach?
 
-- **Causality-grounded** — Ethics is tied to intentional causal chains rather than only contingent preference vectors.
-- **Machine-checkable target** — Designed so constraints can move into theorem provers, not only prose.
-- **Minimal** — Focuses on preventing active interference and incoherence rather than maximizing a global utility function.
-- **Internal rather than external** — The system is intended to *prefer* coherency, not merely be constrained by bolted-on rules.
-- **Stability argument (hypothesis)** — Non-cooperative and nihilistic strategies are argued to be self-undermining at the systemic level; this remains an open claim to formalize.
+- **Causality-grounded** — Ethics tied to intentional causal chains rather than only contingent preference vectors.
+- **Machine-checkable target** — Constraints can move into theorem provers, not only prose.
+- **Minimal** — Active interference and incoherence first; global utility maximization deferred.
+- **Internal rather than external** — Prefer coherency; do not only bolt on rules.
+- **Stability arguments (hypothesis)** — Non-cooperation and nihilism argued as self-undermining; see [systemic-stability.md](docs/systemic-stability.md).
 
 ---
 
@@ -88,15 +103,17 @@ This combination turns ethical constraints into something closer to an internal 
 
 ## Open problems & roadmap
 
-See [docs/open-problems.md](docs/open-problems.md) for the prioritized list.
+See [docs/open-problems.md](docs/open-problems.md).
 
-Highest-priority remaining work:
+Highest priority:
 
-1. Stronger formalization of `Capable` and `Coerced`
-2. Concrete forward simulation / short-horizon causal DAG checking
-3. Multi-agent and collective ownership cases
-4. Lake project + CI so the Lean file typechecks in automation
-5. Related-work notes (Locke / first appropriation, UPB, formal deontology)
+1. Stronger `Capable` / `Coerced` (consent)
+2. Intent + causal contribution thresholds (gray zones)
+3. Concrete forward-simulation DAG procedure
+4. Multi-agent stability formalization
+5. Lake project + CI
+
+If you have older chat exports with longer FOL/Lean blocks that never landed here, see [docs/provenance.md](docs/provenance.md).
 
 ---
 
@@ -104,10 +121,10 @@ Highest-priority remaining work:
 
 This is an independent hypothesis under active development. Feedback, critique, formalization help, and alternative formalizations are strongly welcomed — especially from people working on formal verification, deontological approaches to alignment, or causal models of agency.
 
-If you find this useful or interesting, please open an issue, start a discussion, or fork and improve the formalization.
+Open an issue, start a discussion, or fork and improve the formalization.
 
 ---
 
 ## License
 
-This work is released under the [MIT License](LICENSE). You are free to use, modify, and build upon it.
+This work is released under the [MIT License](LICENSE).

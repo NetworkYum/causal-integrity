@@ -1,4 +1,4 @@
-\"\"\"
+"""
 Toy satisfiability check for Causal Integrity's property-capture axiom.
 
 Illustrative only — not a full ethics formalization.
@@ -18,7 +18,7 @@ link is unsatisfiable *when Direct/Intentional is included*.
 
 IMPORTANT: An earlier public sketch used only (axiom ∧ C ∧ ¬P). That formula
 *is* satisfiable by setting D false. This file uses the corrected pattern.
-\"\"\"
+"""
 
 from __future__ import annotations
 
@@ -27,7 +27,7 @@ try:
 except ImportError as exc:  # pragma: no cover
     raise SystemExit(
         "Install sympy to run this example:  pip install sympy"
-    ) from expc
+    ) from exc
 
 
 def main() -> None:

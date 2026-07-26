@@ -6,11 +6,12 @@
   Violations of preferred coherent states break action/reaction coherency chains.
 
   Status:
-  - Core axioms encoded
+  - Core axioms encoded (incl. agent filter + liability)
   - Consent expanded as a definition
   - Capable: partial ( ¬ Incapacitated )
-  - Coerced: primitive (see formalizations/axioms.md for intended meaning)
+  - Coerced: primitive (see formalizations/axioms.md)
   - Axiom 5 (UPB / performative contradiction) not yet encoded
+  - Forward simulation not yet encoded
   - Not a Lake package yet; treat this as a standalone sketch
 -/
 
@@ -21,6 +22,7 @@ axiom Action : Type
 axiom Effect : Type
 axiom State : Type
 axiom Permission : Type
+axiom Liability : Type
 
 -- Predicates
 axiom Causes : Agent → Action → Effect → Resource → Prop
@@ -31,6 +33,11 @@ axiom Prefers : Agent → (State → Prop) → Prop
 axiom BreaksCoherency : Action → Prop
 axiom ResultingState : Action → State
 
+-- Agent filter
+axiom CanCommunicate : Agent → Prop
+axiom CanDispute : Agent → Prop
+axiom MoralAgent : Agent → Prop
+
 -- Consent-related predicates
 axiom CreatesPermission : Agent → Permission → Prop
 axiom Authorizes : Permission → Agent → Action → Prop
@@ -38,6 +45,10 @@ axiom Revoked : Permission → Prop
 axiom Capable : Agent → Prop
 axiom Coerced : Agent → Permission → Prop
 axiom Incapacitated : Agent → Prop
+
+-- Liability
+axiom Damages : Agent → Action → Resource → Prop
+axiom OwesRestitution : Agent → Agent → Liability → Prop
 
 /-- Expanded Consent definition (matches formalizations/axioms.md). -/
 def Consent (owner actor : Agent) (act : Action) : Prop :=
@@ -47,6 +58,11 @@ def Consent (owner actor : Agent) (act : Action) : Prop :=
     ¬ Revoked p ∧
     Capable owner ∧
     ¬ Coerced owner p
+
+/-- Axiom 0: Agent filter — moral agents communicate and can dispute. -/
+axiom moral_agent_def :
+  ∀ (a : Agent),
+    MoralAgent a ↔ (CanCommunicate a ∧ CanDispute a)
 
 /-- Capable (partial): currently only ¬ Incapacitated.
     Full cognitive-capacity clauses remain open. -/
@@ -78,7 +94,8 @@ axiom exclusivity :
 
 /-- Axiom 3: Non-consensual interference breaks coherency
     Violating another agent’s causal property without consent fractures
-    preferred coherent states. -/
+    preferred coherent states. Intentional/teleological contribution is meant
+    to cover engineered indirect paths (see docs/intent-and-causality.md). -/
 axiom non_consensual_breaks_coherency :
   ∀ (a b : Agent) (r : Resource) (act : Action) (e : Effect),
     Owns b r →
@@ -91,8 +108,17 @@ axiom non_consensual_breaks_coherency :
 axiom internal_coherence_preference :
   ∀ (a : Agent), Prefers a Coherent
 
+/-- Axiom 6: Liability vector
+    Unconsented damage creates a restitution obligation. -/
+axiom liability_vector :
+  ∀ (a b : Agent) (r : Resource) (act : Action),
+    Owns b r →
+    Damages a act r →
+    ¬ Consent b a act →
+    ∃ (ℓ : Liability), OwesRestitution a b ℓ
+
 -- ---------------------------------------------------------------------------
--- Starter lemmas (immediate consequences of Axiom 3)
+-- Starter lemmas
 -- ---------------------------------------------------------------------------
 
 /-- Non-consensual interference yields an incoherent resulting state. -/
@@ -119,3 +145,24 @@ theorem ownership_unique
     (ha : Owns a r) (hb : Owns b r) :
     a = b :=
   exclusivity a b r ha hb
+
+/-- Moral agents can communicate. -/
+theorem moral_agent_can_communicate
+    (a : Agent) (h : MoralAgent a) :
+    CanCommunicate a :=
+  (moral_agent_def a).mp h |>.1
+
+/-- Moral agents can dispute. -/
+theorem moral_agent_can_dispute
+    (a : Agent) (h : MoralAgent a) :
+    CanDispute a :=
+  (moral_agent_def a).mp h |>.2
+
+/-- Unconsented damage yields some restitution debt. -/
+theorem unconsented_damage_creates_liability
+    (a b : Agent) (r : Resource) (act : Action)
+    (hOwn : Owns b r)
+    (hDmg : Damages a act r)
+    (hNoConsent : ¬ Consent b a act) :
+    ∃ (ℓ : Liability), OwesRestitution a b ℓ :=
+  liability_vector a b r act hOwn hDmg hNoConsent

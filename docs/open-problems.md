@@ -1,43 +1,65 @@
 # Open Problems & Roadmap
 
-Prioritized remaining work for Causal Integrity. Status labels match the [README](../README.md) formalization table.
+Prioritized remaining work for Causal Integrity. Aligns with the Tier structure from the long formalization thread, updated after the mining pass.
 
 ---
 
-## Priority 1 — Consent strengthening
+## Tier 1 — Critical foundations
+
+### 1. Consent strengthening
 
 - Stronger formal definitions of `Capable` and `Coerced` (beyond partial / primitive)
-- Handling of collective / multi-party consent
+- Collective / multi-party consent
 - Possible “informed consent” condition
-- Alignment of informal criteria in `axioms.md` with Lean reductions
+- Consent as a **verifiable state transition** in the causal ledger
 
-## Priority 2 — Forward simulation layer
+### 2. Intent + causal contribution
 
-- Formal definition of short-horizon causal DAGs
+- Computable foreseeability and contribution thresholds
+- Cover engineered indirect paths (poison / proxy / long chains) without infinite butterfly liability
+- See [intent-and-causality.md](intent-and-causality.md)
+
+### 3. Forward simulation layer
+
+- Formal short-horizon causal DAGs
 - Decision procedure for risk of breaking coherency within *n* steps
+- Shared coherence preference across MoE / sub-agents
 - Safe approximation methods for high-capability regimes
-- Reference implementation (even a tiny toy) bridging prose → executable check
 
-## Priority 3 — Multi-agent cases
+---
+
+## Tier 2 — Practical robustness
+
+### 4. Positive obligations / honor layer
+
+- Capability + foreseeability test for when inaction becomes liability
+- Keep secondary to negative-rights core
+
+### 5. Scalability & approximation
+
+- Strict axiom check for high-stakes actions
+- Probabilistic sampling + verification for low-stakes
+- Ensure approximations do not reopen loopholes
+
+---
+
+## Tier 3 — Advanced / long-term
+
+### 6. Multi-agent coordination
 
 - Joint ownership (Axiom 2 currently enforces exclusivity)
-- Coordination and dispute resolution
-- Game-theoretic stability of the coherence preference
+- Prisoner’s dilemmas, aligned agent societies
+- Formalize [systemic-stability.md](systemic-stability.md) arguments as theorems or simulations
 
-## Priority 4 — Tooling & verification depth
+### 7. Tooling & verification depth
 
 - Lake package + `lake build` for `CausalIntegrity.lean`
 - CI typecheck on push
 - Non-trivial theorems connecting `Prefers`, prediction, and action selection
 - Encode or deliberately scope out Axiom 5 (UPB / performative contradiction)
 
-## Priority 5 — Positive obligations
+### 8. Scholarship & framing
 
-- Secondary layer for when inaction becomes a liability
-- Keep this deferred until negative-rights core is more solid
-
-## Priority 6 — Scholarship & framing
-
-- Related-work notes: Lockean first appropriation, UPB, formal deontology, causal decision theory, preference-learning approaches
-- Worked scenarios (theft, revoked permission, coercion edge cases) in prose and Lean examples
-- Clarify which claims are theorems vs philosophical hypotheses
+- Related-work notes: Locke, UPB, formal deontology, causal decision theory
+- Worked scenarios in prose and Lean
+- Recover any pre-export FOL/Lean blocks still offline — see [provenance.md](provenance.md)
