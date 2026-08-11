@@ -1,0 +1,7 @@
+name = "CausalIntegrity"
+version = "0.1.0"
+defaultTargets = ["CausalIntegrity"]
+
+[[lean_lib]]
+name = "CausalIntegrity"
+srcDir = "formalizations"

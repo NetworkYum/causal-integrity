@@ -2,8 +2,8 @@
 
 **Title:** Causal Integrity — A Logical Foundation for AI Alignment  
 **Repo:** https://github.com/NetworkYum/causal-integrity  
-**Status:** Independent research hypothesis (public S0). MIT License.  
-**Language artifacts:** First-Order Logic + Lean 4 skeleton (`formalizations/`).
+**Status:** Independent research hypothesis (S0 done; S1 hygiene: Lake + CI + core lemmas). MIT License.  
+**Language artifacts:** First-Order Logic + Lean 4 Lake package (`formalizations/`; `lake build`).
 
 ## One paragraph
 
@@ -23,7 +23,7 @@ Causal Integrity is a **machine-verifiable ethical framework** aimed at **base-l
 1. `docs/framing.md` — foundation vs proof instrument  
 2. `docs/principles.md` — priority stack  
 3. `docs/definition-of-done.md` — when the project is complete  
-4. `formalizations/axioms.md` + `formalizations/CausalIntegrity.lean`  
+4. `formalizations/axioms.md` + `formalizations/README.md` (Lean/Lake)  
 5. `docs/systemic-stability.md` — cooperation↔coherence; misalignment→self-collapse  
 
 ## What this is not

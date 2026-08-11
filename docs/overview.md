@@ -55,7 +55,7 @@ See [principles.md](principles.md) for the full priority stack. Short form:
 
 ## Current status
 
-**Present:** Framing correction, principles stack, Gemini/March foundations, FOL/Lean skeleton, toys.  
-**Not present:** Full verified theory, strong consent/intent math, forward-sim procedure, Lake CI.
+**Present:** Framing correction, principles stack, Gemini/March foundations, FOL, Lean 4 Lake package + CI, non-trivial lemmas, toys.  
+**Not present:** Full verified theory, strong consent/intent math, UPB meta in Lean, forward-sim procedure.
 
 Released as a hypothesis for critique and formalization help.

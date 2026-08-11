@@ -12,7 +12,7 @@ The load-bearing claim is **not** “property rights as the meaning of ethics.�
 
 The goal is not to solve the entire alignment problem. The goal is to make **accidental misalignment logically and computationally difficult** — base-level rails (S3 in the done ladder), not utopia.
 
-> Independent research hypothesis · FOL + Lean skeleton · MIT License  
+> Independent research hypothesis · FOL + Lean 4 Lake package · MIT License  
 > https://github.com/NetworkYum/causal-integrity
 
 ---
@@ -24,7 +24,9 @@ The goal is not to solve the entire alignment problem. The goal is to make **acc
 3. **[docs/principles.md](docs/principles.md)** — priority stack  
 4. **[docs/definition-of-done.md](docs/definition-of-done.md)** — when complete  
 5. **[formalizations/axioms.md](formalizations/axioms.md)** — FOL  
-6. **[formalizations/CausalIntegrity.lean](formalizations/CausalIntegrity.lean)** — Lean skeleton  
+6. **[formalizations/README.md](formalizations/README.md)** — Lean/Lake status  
+
+Build the formal core: `lake build` (see [`lean-toolchain`](lean-toolchain)).
 
 ---
 
@@ -36,6 +38,9 @@ causal-integrity/
 ├── llms.txt                       # Agent/crawler entrypoint
 ├── CITATION.cff
 ├── LICENSE
+├── lean-toolchain                 # Lean 4 pin
+├── lakefile.toml                  # Lake package
+├── .github/workflows/lean.yml     # CI: lake build
 ├── docs/
 │   ├── ABSTRACT.md                # One-page abstract
 │   ├── framing.md
@@ -58,7 +63,10 @@ causal-integrity/
 └── formalizations/
     ├── README.md
     ├── axioms.md
-    └── CausalIntegrity.lean
+    ├── CausalIntegrity.lean
+    └── CausalIntegrity/
+        ├── Axioms.lean
+        └── Lemmas.lean
 ```
 
 ---
@@ -81,9 +89,12 @@ causal-integrity/
 |---|---|
 | Public hypothesis (S0) | **Done** |
 | Framing + abstract + citation | **Done** |
-| FOL + Lean skeleton | **Partial (S1)** |
-| Consent / Direct bounds / Lake CI | **Open** |
+| FOL + Lean Lake package + CI | **S1 hygiene** (`lake build` green; lemmas beyond axiom projections) |
+| Axiom 5 (UPB) / forward simulation | **Scoped out of S1** |
+| Consent / Direct bounds (non-vacuous) | **Partial / open** |
 | Operational base rails (S3) | **Future / high-capability formalization** |
+
+Property remains a **proof instrument**; the foundation is coherent causality preferred by action ([docs/framing.md](docs/framing.md)).
 
 ---
 

@@ -13,9 +13,10 @@ abstract: >-
   and agency becomes unstructured). Formal instruments include property as captured
   causality, UPB-style universality, internal coherence preference, forward
   simulation, and self-collapse via internally-propagated decoherence (loss of
-  shared goal). Specified in First-Order Logic with a Lean 4 axiom skeleton.
-  Property/theft examples are proof instruments, not the thesis. Status: public
-  hypothesis (S0); full prover completeness is staged (see docs/definition-of-done.md).
+  shared goal). Specified in First-Order Logic with a Lean 4 Lake package
+  (axioms + derived lemmas; `lake build`). Property/theft examples are proof
+  instruments, not the thesis. Status: public hypothesis (S0 done; S1 hygiene);
+  full prover completeness is staged (see docs/definition-of-done.md).
 keywords:
   - AI alignment
   - machine ethics
