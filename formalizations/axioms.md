@@ -2,9 +2,13 @@
 
 Current formal specification of Causal Integrity in First-Order Logic.
 
-Lean encoding: [`CausalIntegrity.lean`](CausalIntegrity.lean).  
+Lean encoding (Lake): [`CausalIntegrity.lean`](CausalIntegrity.lean),
+[`CausalIntegrity/Axioms.lean`](CausalIntegrity/Axioms.lean),
+[`CausalIntegrity/Lemmas.lean`](CausalIntegrity/Lemmas.lean).  
+Build: `lake build` from repo root.  
 Historical Gemini base layer (cleaned): [`../docs/foundations-gemini.md`](../docs/foundations-gemini.md).  
-Principles: [`../docs/principles.md`](../docs/principles.md).
+Principles: [`../docs/principles.md`](../docs/principles.md).  
+Framing: [`../docs/framing.md`](../docs/framing.md) — property is an instrument, not the foundation.
 
 ---
 
@@ -29,6 +33,7 @@ Principles: [`../docs/principles.md`](../docs/principles.md).
 | `Causes(a, act, e, r)` | Agent `a` performs `act` producing effect `e` on resource `r` |
 | `Intentional(a, act)` / `Direct(act)` | Teleological contribution (bounds butterfly exhaust) |
 | `Owns(a, r)` / `Property(a, r)` | Causal property link |
+| `Unowned(r)` (Lean) | Null-owner marker for homesteading (FOL: `¬∃b Owns`) |
 | `Coherent(s)` | Preferred causal coherency holds in state `s` |
 | `Prefers(a, P)` | Agent prefers states satisfying `P` |
 | `BreaksCoherency(act)` | Action fractures preferred coherency |
@@ -77,6 +82,10 @@ Ethics targets entities that can communicate and resolve disputes (coma test / n
 
 Intentional causal action on previously unowned (Null) resource creates ownership.  
 This is the machine form of Gemini’s Null + First capture rule.
+
+**Lean note:** the Lake encoding uses a primitive `Unowned r` Null marker in place of
+timeless `¬∃b Owns(b,r)`, which would make Axiom 1 immediately inconsistent without a
+temporal state index. Intended meaning is the same; a timed ledger remains open.
 
 ### Axiom 2 — Exclusivity of ownership
 
@@ -165,9 +174,13 @@ Force, threat of significant harm, or extreme power asymmetry undermining volunt
 | Topic | FOL / prose | Lean |
 |---|---|---|
 | Agent filter | Axiom 0 | `moral_agent_def` |
-| Property / homestead | Axiom 1 | `property_capture` |
+| Property / homestead | Axiom 1 | `property_capture` + `Unowned` |
+| Exclusivity | Axiom 2 | `exclusivity` |
+| Non-consensual break | Axiom 3 | `non_consensual_breaks_coherency` |
+| Coherence preference | Axiom 4 | `internal_coherence_preference` |
 | Liability | Axiom 6 | `liability_vector` |
 | Consent | Defined | `def Consent` |
-| UPB meta | Axiom 5 | Not encoded |
+| UPB meta | Axiom 5 | Not encoded (S1 scoped out) |
 | Direct bound | Intentional + docs | Predicate only |
-| Forward simulation | Principles | Not encoded |
+| Forward simulation | Principles | Not encoded (S2/S3) |
+| Derived lemmas | examples / attacks | `CausalIntegrity/Lemmas.lean` |

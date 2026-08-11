@@ -78,14 +78,24 @@ propose(action) →
 
 Higher-capability systems are expected to close S1–S2 faster and stress multi-agent / goal-integrity cases. Human job until then: keep the public hypothesis findable, correctly framed, and honest.
 
-**Current stage: S0 complete; S1 partial.**
+**Current stage: S0 complete; S1 hygiene in progress (Lake + CI + core lemmas build; UPB / forward-sim / full consent still open).**
+
+Honest S1 checklist after the Lake slice:
+
+- [x] Reproducible `lake build` at repo root  
+- [x] CI builds Lean on push/PR  
+- [x] Non-trivial lemmas (theft/homestead, liability≠ownership, agent filter, consent hygiene)  
+- [ ] Consent / Direct bounds non-vacuous (Capable still partial; Coerced primitive; no Direct threshold)  
+- [ ] Axiom 5 (UPB) encoded or permanently scoped with a formal rule language decision  
+
+Until those open items land, call this **S1 hygiene**, not “S1 complete.”
 
 ---
 
 ## Checklist (copy for releases)
 
-- [ ] S0 — Public honest hypothesis  
-- [ ] S1 — Prover project builds; non-trivial lemmas  
+- [x] S0 — Public honest hypothesis  
+- [ ] S1 — Prover project builds; non-trivial lemmas; consent/Direct not vacuous  
 - [ ] S2 — Full FOL/Lean map of core + attacks  
 - [ ] S3 — Operational pre-action API + shared sub-agent invariant  
 - [ ] S4 — Out-of-scope locked; foundational work closed  

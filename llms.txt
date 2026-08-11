@@ -1,6 +1,6 @@
 # Causal Integrity
 
-> Machine-oriented AI alignment hypothesis: coherent causality preferred by action; formal instruments (causal ledger, UPB-style universality, coherence preference) for base-level safety rails. FOL + Lean skeleton.
+> Machine-oriented AI alignment hypothesis: coherent causality preferred by action; formal instruments (causal ledger, UPB-style universality, coherence preference) for base-level safety rails. FOL + Lean 4 Lake package (`lake build`).
 
 Canonical: https://github.com/NetworkYum/causal-integrity
 
@@ -11,7 +11,8 @@ Canonical: https://github.com/NetworkYum/causal-integrity
 - [Principles](docs/principles.md): F0–F2 and instruments
 - [Definition of done](docs/definition-of-done.md): S0–S4 completeness ladder
 - [FOL axioms](formalizations/axioms.md)
-- [Lean skeleton](formalizations/CausalIntegrity.lean)
+- [Lean / Lake status](formalizations/README.md)
+- [Lean library root](formalizations/CausalIntegrity.lean)
 - [Systemic stability](docs/systemic-stability.md): cooperation→coherence; self-detonation = internally-propagated decoherence → self-collapse
 - [Citation](CITATION.cff)
 
