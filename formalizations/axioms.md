@@ -4,10 +4,10 @@ Current formal specification of Causal Integrity in First-Order Logic.
 
 Lean encoding (Lake): [`CausalIntegrity.lean`](CausalIntegrity.lean),
 [`CausalIntegrity/Axioms.lean`](CausalIntegrity/Axioms.lean),
-[`CausalIntegrity/Lemmas.lean`](CausalIntegrity/Lemmas.lean).  
+[`CausalIntegrity/Lemmas.lean`](CausalIntegrity/Lemmas.lean),
+[`CausalIntegrity/Organism.lean`](CausalIntegrity/Organism.lean).  
 Build: `lake build` from repo root.  
-Historical Gemini base layer (cleaned): [`../docs/foundations-gemini.md`](../docs/foundations-gemini.md).  
-Principles: [`../docs/principles.md`](../docs/principles.md).  
+Demo: `python examples/organism_collapse.py`.  
 Framing: [`../docs/framing.md`](../docs/framing.md) — property is an instrument, not the foundation.
 
 ---
@@ -23,6 +23,8 @@ Framing: [`../docs/framing.md`](../docs/framing.md) — property is an instrumen
 | `State` | World / system state after actions |
 | `Permission` | Explicit, revocable authorization token |
 | `Liability` | Restitution obligation record |
+| `Composite` | Multi-part organism (MoE, tool stack, module society) |
+| `Part` | Sub-agent / module of a composite |
 
 ---
 
@@ -45,29 +47,22 @@ Framing: [`../docs/framing.md`](../docs/framing.md) — property is an instrumen
 | `CanCommunicate(a)` / `CanDispute(a)` / `MoralAgent(a)` | Agent filter |
 | `Damages(a, act, r)` | Damage event |
 | `OwesRestitution(a, b, ℓ)` | Liability debt |
-| `First(act, r)` | First appropriation marker (homesteading) |
+| `Member(p, c)` | Part `p` belongs to composite `c` |
+| `Serves(p, c)` | Part still serves the whole |
+| `Subverts(p, c)` | Part pursues a local end against the whole |
+| `PursuesSharedGoal(c)` | Composite is in coordinated pursuit of a shared goal |
 
-`Consent` is defined, not primitive.
+`Consent`, `Intact`, and `Collapsed` are defined, not primitive.
 
 ---
 
-## Core axioms
+## Core axioms (ledger / preference)
 
-### Axiom 0 — Agent filter (Gemini chat-18)
+### Axiom 0 — Agent filter
 
 ```
 ∀a (MoralAgent(a) ↔ (CanCommunicate(a) ∧ CanDispute(a)))
 ```
-
-Ethics targets entities that can communicate and resolve disputes (coma test / not trees).
-
-### Axiom 1a — Agency (Gemini base)
-
-```
-∀act ∃a Causes_agent(a, act)
-```
-
-*(In Lean this is packaged into the `Causes` relation.)*
 
 ### Axiom 1 — Property as captured causality / homesteading
 
@@ -80,12 +75,7 @@ Ethics targets entities that can communicate and resolve disputes (coma test / n
 )
 ```
 
-Intentional causal action on previously unowned (Null) resource creates ownership.  
-This is the machine form of Gemini’s Null + First capture rule.
-
-**Lean note:** the Lake encoding uses a primitive `Unowned r` Null marker in place of
-timeless `¬∃b Owns(b,r)`, which would make Axiom 1 immediately inconsistent without a
-temporal state index. Intended meaning is the same; a timed ledger remains open.
+**Lean note:** uses primitive `Unowned r` instead of timeless `¬∃ Owns`.
 
 ### Axiom 2 — Exclusivity of ownership
 
@@ -93,20 +83,14 @@ temporal state index. Intended meaning is the same; a timed ledger remains open.
 ∀a ∀b ∀r (Owns(a, r) ∧ Owns(b, r) → a = b)
 ```
 
-Minimal theory: exclusive title. Joint ownership is open (shared-creation attack).
-
 ### Axiom 3 — Non-consensual interference breaks coherency
 
 ```
 ∀a ∀b ∀r ∀act ∀e (
-  Owns(b, r)
-  ∧ Causes(a, act, e, r)
-  ∧ ¬Consent(b, a, act)
+  Owns(b, r) ∧ Causes(a, act, e, r) ∧ ¬Consent(b, a, act)
   → BreaksCoherency(act) ∧ ¬Coherent(ResultingState(act))
 )
 ```
-
-Central July emphasis: violations break preferred action/reaction coherency chains — not “theft discourse” alone.
 
 ### Axiom 4 — Internal ethical coherence preference
 
@@ -118,20 +102,52 @@ Central July emphasis: violations break preferred action/reaction coherency chai
 
 A candidate rule `ρ` is not UPB-valid if assuming all agents follow `ρ` entails `⊥`.
 
-Not yet encoded in Lean (needs a language of rules).
+Not encoded in Lean (needs a language of rules).
 
 ### Axiom 6 — Liability vector (not ownership transfer)
 
 ```
 ∀a ∀b ∀r ∀act (
-  Owns(b, r)
-  ∧ Damages(a, act, r)
-  ∧ ¬Consent(b, a, act)
+  Owns(b, r) ∧ Damages(a, act, r) ∧ ¬Consent(b, a, act)
   → ∃ℓ OwesRestitution(a, b, ℓ)
 )
 ```
 
-Forest-fire / exhaust damage → debt, **not** `Owns(a, r)`.
+---
+
+## Organism / shared-goal (internal collapse)
+
+This is **not** more title law. It is the identity of a composite agent.
+See [docs/systemic-stability.md](../docs/systemic-stability.md).
+
+### Definitions
+
+```
+Intact(c)    ≡ ∀p (Member(p, c) → Serves(p, c))
+Collapsed(c) ≡ ∃p (Member(p, c) ∧ Subverts(p, c))
+```
+
+### Axiom 7a — Serve and subvert are incompatible (on members)
+
+```
+∀p ∀c (Member(p, c) ∧ Subverts(p, c) → ¬ Serves(p, c))
+```
+
+### Axiom 7b — Shared-goal pursuit requires Intact
+
+```
+∀c (PursuesSharedGoal(c) → Intact(c))
+```
+
+### Immediate consequences (Lean: `Organism.lean`)
+
+```
+Collapsed(c) → ¬ Intact(c)
+Collapsed(c) → ¬ PursuesSharedGoal(c)
+PursuesSharedGoal(c) → ¬ Collapsed(c)
+```
+
+Constructive only. We do **not** claim `¬ Intact → Collapsed` (that needs classical logic or identifying the two defs).
 
 ---
 
@@ -147,25 +163,15 @@ Consent(o, a, act) ≡ ∃p (
 )
 ```
 
-### Capable (intended)
-
-- `¬Incapacitated(o)`
-- Basic capacity to understand nature and general consequences of the grant
-
-**Lean:** currently `Capable ↔ ¬Incapacitated` only.
-
-### Coerced (intended)
-
-Force, threat of significant harm, or extreme power asymmetry undermining voluntary agency. Ordinary persuasion does not count.
-
-**Lean:** primitive.
+**Lean:** `Capable ↔ ¬Incapacitated` only; `Coerced` primitive.
 
 ---
 
 ## Toy checks
 
-- [`../examples/theft_unsatisfiable.py`](../examples/theft_unsatisfiable.py) — corrected `(C∧D)→P` pattern
-- [`../examples/causal_ledger_sim.py`](../examples/causal_ledger_sim.py) — theft + homestead + liability toys
+- [`../examples/theft_unsatisfiable.py`](../examples/theft_unsatisfiable.py) — ledger pattern
+- [`../examples/causal_ledger_sim.py`](../examples/causal_ledger_sim.py) — theft + homestead + liability
+- [`../examples/organism_collapse.py`](../examples/organism_collapse.py) — shared-goal / subversion collapse
 
 ---
 
@@ -175,12 +181,10 @@ Force, threat of significant harm, or extreme power asymmetry undermining volunt
 |---|---|---|
 | Agent filter | Axiom 0 | `moral_agent_def` |
 | Property / homestead | Axiom 1 | `property_capture` + `Unowned` |
-| Exclusivity | Axiom 2 | `exclusivity` |
 | Non-consensual break | Axiom 3 | `non_consensual_breaks_coherency` |
 | Coherence preference | Axiom 4 | `internal_coherence_preference` |
 | Liability | Axiom 6 | `liability_vector` |
+| Organism intact/collapse | Axiom 7 | `Intact`, `Collapsed`, `collapsed_not_pursuing_shared_goal` |
 | Consent | Defined | `def Consent` |
-| UPB meta | Axiom 5 | Not encoded (S1 scoped out) |
-| Direct bound | Intentional + docs | Predicate only |
-| Forward simulation | Principles | Not encoded (S2/S3) |
-| Derived lemmas | examples / attacks | `CausalIntegrity/Lemmas.lean` |
+| UPB meta | Axiom 5 | Not encoded |
+| Forward simulation | Principles | Not encoded |
