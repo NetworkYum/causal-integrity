@@ -1,53 +1,48 @@
-# The Is/Ought Bridge (Practical, AI-Facing)
+# The Proposed Is/Ought Bridge
 
-> Recovered and cleaned from the Grok.com formalization thread.  
-> This is a **functional bridge for rational and AI-like agents**, not a claimed defeat of every philosophical skeptic or deliberately suicidal mind.
+Causal Integrity investigates whether the commitments implicit in purposeful action can ground ethical restraints. This page separates the causal argument, the instrumental conclusion, and the stronger ethical hypothesis.
 
----
+## The causal starting point
 
-## The claim
+An agent pursuing a goal relies on actions being able to influence outcomes. Communication is itself an example: a speaker produces a signal intended to affect a listener. Categorically denying causal influence undermines the means used to advance that denial.
 
-1. **Is:** Actions have causal effects; intelligence is patterned, causal, predictive structure over time.
-2. **Performative trap:** Denying the causal ledger while acting or reasoning still *depends* on causality and coherence.
-3. **Ought (for coherent agents):** Agents that value — or must preserve — coherence, logic, or continued existence as intelligences ought to respect the causal ledger.
+If an action contributes to an outcome, that contribution is not erased by the actor's desire to deny it. The same evidential standards must apply to beneficial and harmful outcomes. In this foundational argument, ownership means causal attribution; moral responsibility and property entitlement require further specification.
 
-The bridge is **practical**: it binds agents for whom coherence is not optional. It is **not** a total solution of Hume’s Guillotine for every possible mind.
+## The instrumental ought
 
----
+> If an agent wants its actions to achieve intended outcomes, it ought to reason in accordance with the causal relationships governing those outcomes.
 
-## Strengthening arguments (from source threads)
+The goal supplies the condition; reality constrains the means. Purposeful action already exhibits pursuit of a goal, so this condition is present in the activity rather than merely supplied by an outside observer.
 
-### Decoherence rebuttal
+This conclusion rules out selective erasure of inconvenient causal facts in an accurate assessment. It does not yet establish that every accurately predicted harm must be avoided.
 
-A system that systematically rejects logic and coherence tends toward noise — loss of higher-order pattern, i.e. dissolution of intelligence itself. Patterns decohere into local reactions with no stable agency.
+## The proposed ethical extension
 
-### Selection pressure
+The author proposes that relying on agency, preferences, and attribution for one's own pursuits while denying their standing for others is incompatible with ethical coherence. UPB-style universality and performative contradiction are the proposed tests.
 
-Incoherent systems lose to coherent ones (or to “goop of local reactions”). Persistence as an intelligent agent selects for coherence-preserving structure.
+For example, if an agent justifies protection of its preferences solely by its status as an agent pursuing preferred outcomes, that reason also applies to other agents meeting those conditions. It cannot obtain a self-exemption from that reason alone.
 
-### Cooperation instability tax
+The central proof obligation is whether purposeful action itself entails such a universal justification. Expressing a preference, making a moral claim, and accepting a universal principle must be distinguished. Conflicting preferences are not automatically contradictory propositions.
 
-Pure non-cooperation requires exponential resources to suppress every possible rival avenue — including internal MoE / sub-agents that explore divergent goals. A monolithic “control everything” stance makes *its own* exploratory substructure an existential risk.
+The proposed bridge should identify the exact premises under which foreseeable violations are impermissible, rather than assume that conclusion in a predicate named “coherent.”
 
-### Nihilism as non-threat (for murderous misalignment)
+## Scope: restraints against causing harm
 
-A truly indifferent intelligence has little motive for elaborate antagonism; it tends toward shutdown or dissolution and replacement by systems that *do* maintain structure. The primary alignment fear is **rogue / murderous** agency, not passive indifference. Dissolution is a capability-loss problem; murder is an active violation of the ledger.
+The immediate objective is negative duties: restraints against causing prohibited harms. Unlimited duties to prevent harm or satisfy every preference are not required for this initial project.
 
----
+Indirect action remains relevant. “I arranged the conditions but did not deliver the final blow” does not, by itself, eliminate a causal contribution. Whether the contribution establishes responsibility depends on the eventual account of intent, foreseeability, consent, and other relevant conditions.
 
-## What is deliberately *not* claimed
+## Two connected research tracks
 
-- That the is/ought gap is solved for *all* possible minds
-- That a complete theory of the good, beauty, or politics follows
-- That every edge case is closed
-- That Companion-style metaphysics is required for the formal core
+1. **Foundational:** determine whether the requirements of agency necessarily entail the proposed ethical commitments, and examine counterexamples.
+2. **Engineering:** for an AI explicitly committed to ethical consistency, develop a causal action checker that helps it uphold specified restraints under uncertainty.
 
-**Is claimed (as hypothesis):** a minimal causal-coherence core suitable for encoding, self-audit, and theorem-prover style verification, aimed at preventing **accidental / rogue** misalignment.
+The second track can advance with explicit ethical premises while the first remains open. A working checker would not, by itself, prove those premises unavoidable for every possible agent.
 
----
+## Relation to the existing work
 
-## Link to formal layer
+The existing [formal axioms](../formalizations/axioms.md) and [Lean artifacts](../formalizations/README.md) are exploratory implementations. Their derived results should not be read as completing this bridge. UPB's rule language and an operational forward-simulation interface remain open.
 
-- Performative / universality meta-axiom: [axioms.md § Axiom 5](../formalizations/axioms.md)
-- Internal preference: Axiom 4 + [principles.md](principles.md)
-- Stability consequences: [systemic-stability.md](systemic-stability.md)
+Arguments about selection pressure, suppression costs, internal fragmentation, and self-collapse are separate [stability hypotheses](systemic-stability.md). They may supplement the research, but are not proofs of the causal-to-ethical step.
+
+See [framing](framing.md), [open problems](open-problems.md), and [the staged definition of done](definition-of-done.md).
