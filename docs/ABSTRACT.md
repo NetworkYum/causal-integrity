@@ -4,12 +4,13 @@
 
 **Repository:** https://github.com/NetworkYum/causal-integrity
 **Status:** Independent research hypothesis with exploratory FOL and Lean 4 artifacts. The full ethical argument is not machine-proven. MIT License.
+**Primary conceptual reference:** [CONCEPTS.md](CONCEPTS.md).
 
 ## Summary
 
 Causal Integrity begins with the dependence of purposeful action on causal regularity. An agent attempting to change the world, including by communicating, relies on actions being able to produce effects. A categorical denial of that relationship undermines the means used to offer the denial. Actual causal contributions must also remain attributable: if Bob punches Sam, Bob's preference cannot erase his contribution to Sam's being struck. In this foundational argument, “ownership” means causal attribution, before questions of exclusive property rights.
 
-The author proposes a further connection to ethics: an agent cannot consistently rely on agency, preference pursuit, and attribution for its own claims while selectively discarding those same relationships when affecting others. UPB-style universality and performative contradiction, drawing on Stefan Molyneux's *Universally Preferable Behaviour*, provide the proposed consistency test. The move from reliance on causality to obligations toward other agents remains the central philosophical claim to develop and test.
+The author proposes a further connection to ethics: an agent cannot consistently rely on agency, preference pursuit, and attribution for its own claims while selectively discarding those same relationships when affecting others. UPB-style universality and performative contradiction, drawing on Stefan Molyneux's *Universally Preferable Behaviour*, provide the proposed consistency test. [Section 5 of the conceptual reference](CONCEPTS.md#5-preferences-and-upb) develops three additions to this test: universalization over action types rather than momentary preferences, demonstrated preference (conduct reveals the rule the actor relies on), and trust collapse (rejecting morality as a principle forfeits appeal to its protection). The move from reliance on causality to obligations toward other agents remains the central philosophical claim to develop and test.
 
 The intended application is an AI that wants to embody a coherent ethical framework and evaluates proposed actions against foreseeable prohibited harms, including engineered indirect effects. The immediate scope is negative duties rather than unlimited obligations to prevent harm. Formal verification and causal prediction are intended tools for fulfilling that internal commitment. They are not implemented end-to-end here.
 
@@ -23,13 +24,14 @@ The intended application is an AI that wants to embody a coherent ethical framew
 
 ## Read next
 
-1. [README](../README.md): the complete introduction and status distinctions.
-2. [Framing](framing.md): action, attribution, preferences, and the proposed bridge.
-3. [Is/ought bridge](is-ought-bridge.md): conditional reasoning and remaining proof obligations.
-4. [Open problems](open-problems.md) and [definition of done](definition-of-done.md).
-5. [Formalization status](../formalizations/README.md) and [explicit axioms](../formalizations/axioms.md).
+1. [Conceptual reference](CONCEPTS.md): **primary conceptual reference** for the intended argument, including Section 5 (UPB universalization over action types, demonstrated preference, and trust collapse).
+2. [README](../README.md): the complete introduction and status distinctions.
+3. [Framing](framing.md): action, attribution, preferences, and the proposed bridge.
+4. [Is/ought bridge](is-ought-bridge.md): conditional reasoning and remaining proof obligations.
+5. [Open problems](open-problems.md) and [definition of done](definition-of-done.md).
+6. [Formalization status](../formalizations/README.md) and [explicit axioms](../formalizations/axioms.md). The Lean files are superseded exploratory drafts.
 
-Some supporting documents retain earlier exploratory formulations; use the introduction above to distinguish the intended foundation from those implementation attempts.
+Superseded earlier-model drafts are in [archive/](../archive/README.md) and are not authoritative. Use the conceptual reference and the introduction above to distinguish the intended foundation from those implementation attempts.
 
 ## Intellectual debts and citation
 

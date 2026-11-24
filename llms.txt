@@ -10,6 +10,8 @@ Purposeful action relies on causal regularity. Communication itself relies on ef
 
 At the foundational level, ownership means causal attribution. It must be distinguished from moral responsibility and exclusive property entitlement. Property examples illustrate the argument; conventional property law is not the foundation.
 
+The primary conceptual reference is docs/CONCEPTS.md. Section 5 develops UPB as universalization over action types rather than momentary preferences, together with demonstrated preference and trust collapse.
+
 ## Epistemic and implementation status
 
 The full ethical bridge is a hypothesis, not a machine-proven result. The move from pursuing a preference to a universally applicable ethical commitment is a central question. Existing Lean proofs derive consequences from stated axioms. Python examples are illustrations. An operational action checker has not been demonstrated. Self-collapse is an additional stability hypothesis, not the central proof.
@@ -18,14 +20,16 @@ The immediate scope is restraints against causing prohibited harm, including for
 
 ## Primary reading
 
-- [README: argument and status](https://github.com/NetworkYum/causal-integrity/blob/main/README.md)
-- [Abstract](https://github.com/NetworkYum/causal-integrity/blob/main/docs/ABSTRACT.md)
-- [Framing](https://github.com/NetworkYum/causal-integrity/blob/main/docs/framing.md)
-- [Is/ought bridge](https://github.com/NetworkYum/causal-integrity/blob/main/docs/is-ought-bridge.md)
-- [Open problems](https://github.com/NetworkYum/causal-integrity/blob/main/docs/open-problems.md)
-- [Definition of done](https://github.com/NetworkYum/causal-integrity/blob/main/docs/definition-of-done.md)
-- [Formalization status](https://github.com/NetworkYum/causal-integrity/blob/main/formalizations/README.md)
-- [Explicit axioms](https://github.com/NetworkYum/causal-integrity/blob/main/formalizations/axioms.md)
-- [Citation metadata](https://github.com/NetworkYum/causal-integrity/blob/main/CITATION.cff)
+- [Conceptual reference (primary)](docs/CONCEPTS.md): intended argument; Section 5 covers UPB universalization over action types, demonstrated preference, and trust collapse.
+- [README: argument and status](README.md)
+- [Abstract](docs/ABSTRACT.md)
+- [Framing](docs/framing.md)
+- [Is/ought bridge](docs/is-ought-bridge.md)
+- [Open problems](docs/open-problems.md)
+- [Definition of done](docs/definition-of-done.md)
+- [Formalization status](formalizations/README.md)
+- [Explicit axioms](formalizations/axioms.md)
+- [Citation metadata](CITATION.cff)
+- [Archive of earlier-model drafts](archive/README.md)
 
-Several supporting documents retain earlier exploratory formulations. Their terminology and claims need to be read alongside the README's distinctions between foundation, hypothesis, assumptions, and implementation.
+The Lean formalizations are superseded exploratory drafts; see formalizations/README.md. Superseded earlier-model documents in archive/ are historical drafts, not authoritative. Their terminology and claims need to be read alongside docs/CONCEPTS.md and the README's distinctions between foundation, hypothesis, assumptions, and implementation.

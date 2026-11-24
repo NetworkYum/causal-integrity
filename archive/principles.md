@@ -1,6 +1,6 @@
 # Core Principles
 
-**Read [framing.md](framing.md) first** if summaries have drifted into “this is a property theory.”
+**Read [framing.md](../docs/framing.md) first** if summaries have drifted into “this is a property theory.”
 
 Machine encodings: [`formalizations/`](../formalizations/).
 
@@ -59,7 +59,7 @@ Intentional action on unowned resources creates a captured causal link (ledger o
 
 ### I2–I4 — Supporting machinery
 
-Universality (UPB), who counts as an agent, and liability-vs-ownership (forest fire) keep the instrument honest under attack. See [attack-vectors.md](attack-vectors.md).
+Universality (UPB), who counts as an agent, and liability-vs-ownership (forest fire) keep the instrument honest under attack. See [attack-vectors.md](../docs/attack-vectors.md).
 
 ---
 
@@ -80,9 +80,9 @@ Theft and shovels are **demos**. The product is **coherence preference under cau
 
 ## Related docs
 
-- [framing.md](framing.md) — foundation vs instrument  
-- [is-ought-bridge.md](is-ought-bridge.md)  
-- [systemic-stability.md](systemic-stability.md)  
+- [framing.md](../docs/framing.md) — foundation vs instrument  
+- [is-ought-bridge.md](../docs/is-ought-bridge.md)  
+- [systemic-stability.md](../docs/systemic-stability.md)  
 - [foundations-gemini.md](foundations-gemini.md) — history of the property *instrument*  
 - [FOL axioms](../formalizations/axioms.md)  
-- [open-problems.md](open-problems.md)  
+- [open-problems.md](../docs/open-problems.md)  

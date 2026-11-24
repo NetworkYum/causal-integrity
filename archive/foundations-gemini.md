@@ -1,6 +1,6 @@
 # Foundations from the Gemini Formalization Arc (March 2026)
 
-> **Framing note:** This file records how **property-as-captured-causality** was first written in FOL. In the overall project, that construction is a **proof instrument**, not the deepest foundation. The foundation is that **coherent causality is preferred by action** (dissolve the chains → goop). See [framing.md](framing.md).
+> **Framing note:** This file records how **property-as-captured-causality** was first written in FOL. In the overall project, that construction is a **proof instrument**, not the deepest foundation. The foundation is that **coherent causality is preferred by action** (dissolve the chains → goop). See [framing.md](../docs/framing.md).
 
 This document reconstructs the **base axioms** developed in the Google Gemini conversation (chats 13–18, 2026-03-06 export). Cleaned of MathJax garble; faithful to the intended logic.
 
@@ -49,7 +49,7 @@ An agent has a causal property link to a resource iff they caused a **direct** a
     Causes(a, act) ∧ Affects(act, r) ∧ Direct(act)
 ```
 
-`Direct(act)` bounds teleological contribution vs incidental exhaust (see [attack-vectors.md](attack-vectors.md)).
+`Direct(act)` bounds teleological contribution vs incidental exhaust (see [attack-vectors.md](../docs/attack-vectors.md)).
 
 **Why define this at all?** So a prover can detect when an action **uses** causality while **denying** coherent attachment of effects to agents — the worked case for “coherence preferred by action.”
 
@@ -101,7 +101,7 @@ Honest note: thinner denials need the later coherency/consent layer (Axiom 3-sty
 | Liability vector | Axiom 6 |
 | Agent filter | Axiom 0 |
 | UPB universality | Axiom 5 (meta) |
-| Coherence preference (July) | Axiom 4 + [framing.md](framing.md) (**foundation**) |
+| Coherence preference (July) | Axiom 4 + [framing.md](../docs/framing.md) (**foundation**) |
 
 ---
 
@@ -112,4 +112,4 @@ Honest note: thinner denials need the later coherency/consent layer (Axiom 3-sty
 3. DAG / ledger language for provers.  
 4. Agent filter (communicate / dispute).
 
-What it **under-labeled** (fixed in [framing.md](framing.md)): property was always in service of **coherency of action**, not the final subject matter of the ethics.
+What it **under-labeled** (fixed in [framing.md](../docs/framing.md)): property was always in service of **coherency of action**, not the final subject matter of the ethics.

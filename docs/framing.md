@@ -54,10 +54,10 @@ This is an engineering objective, not a deployed system or an established guaran
 
 ## Where the earlier work fits
 
-- [Principles](principles.md): earlier architecture and vocabulary, to be developed against this foundation.
+- [Principles](../archive/principles.md): earlier architecture and vocabulary, to be developed against this foundation.
 - [Formalizations](../formalizations/README.md): exploratory axioms and lemmas; inspect the assumptions before interpreting results.
 - [Systemic stability](systemic-stability.md): additional shared-goal and collapse hypotheses, separate from the core attribution argument.
-- [Historical foundations](foundations-gemini.md) and [earlier public statement](v2-public-statement.md): earlier formulations.
+- [Historical foundations](../archive/foundations-gemini.md) and [earlier public statement](../archive/v2-public-statement.md): earlier formulations.
 - [Open problems](open-problems.md): further research and implementation tasks.
 
 The author's phrase “You do not fall into the sky” captures the intended anchor: descriptions and justifications answer to reality. The work ahead is to make the ethical consequences of that anchor equally explicit.
