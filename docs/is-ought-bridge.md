@@ -41,7 +41,7 @@ The second track can advance with explicit ethical premises while the first rema
 
 ## Relation to the existing work
 
-The existing [formal axioms](../formalizations/axioms.md) and [Lean artifacts](../formalizations/README.md) are exploratory implementations. Their derived results should not be read as completing this bridge. UPB's rule language and an operational forward-simulation interface remain open.
+The superseded [v1 axioms](../archive/formalizations-v1/axioms.md) are an exploratory sketch. The current [Lean 4 v2 model](../formalizations/README.md) proves consequences of its modeling premises, including an executable `allow | reject | escalate` gate. Those results should not be read as completing this bridge. Real-world causal discovery and deployment remain open.
 
 Arguments about selection pressure, suppression costs, internal fragmentation, and self-collapse are separate [stability hypotheses](systemic-stability.md). They may supplement the research, but are not proofs of the causal-to-ethical step.
 

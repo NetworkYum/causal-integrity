@@ -10,7 +10,7 @@ No extra dependencies. Run from the repo root:
     python examples/organism_collapse.py
 
 This is a demo of the *same* claim as
-formalizations/CausalIntegrity/Organism.lean — not a full simulator.
+archive/formalizations-v1/CausalIntegrity/Organism.lean — not a full simulator.
 """
 
 from __future__ import annotations

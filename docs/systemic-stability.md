@@ -4,7 +4,7 @@
 
 | Artifact | Role |
 |----------|------|
-| [`formalizations/CausalIntegrity/Organism.lean`](../formalizations/CausalIntegrity/Organism.lean) | `Intact` / `Collapsed` / `PursuesSharedGoal`; lemmas `collapsed_not_intact`, `collapsed_not_pursuing_shared_goal` |
+| [`archive/formalizations-v1/CausalIntegrity/Organism.lean`](../archive/formalizations-v1/CausalIntegrity/Organism.lean) | `Intact` / `Collapsed` / `PursuesSharedGoal`; lemmas `collapsed_not_intact`, `collapsed_not_pursuing_shared_goal` |
 | [`examples/organism_collapse.py`](../examples/organism_collapse.py) | Runnable minimal organism (scheduled mutiny + rising local temptation) |
 
 ---

@@ -17,12 +17,16 @@ abstract: >-
   relationships when its actions affect others. The primary conceptual reference
   (docs/CONCEPTS.md) develops Universally Preferable Behaviour (UPB) as
   universalization over action types rather than momentary preferences, together
-  with demonstrated preference and trust collapse (Section 5). Self-collapse via
+  with demonstrated preference and trust collapse (Section 5). formalizations/
+  holds the constructive Lean 4 v2 model CausalIntegrityV2 (zero custom axioms,
+  zero sorry): stateful non-exclusive attribution, consent/caretaker/competition
+  boundaries, bijective renaming invariance, UPB action-type checks, an
+  executable allow | reject | escalate gate, and 15 concrete scenarios. Those
+  results are machine-proven consequences of modeling premises. The full
+  philosophical bridge and real-world deployment remain open. Self-collapse via
   internal decoherence is an additional stability hypothesis, not the foundation.
-  Specified in First-Order Logic with a Lean 4 Lake package (exploratory axioms
-  and derived lemmas; `lake build`). Status: public research hypothesis with S1
-  hygiene; the full ethical argument is not machine-proven (see docs/CONCEPTS.md
-  and docs/definition-of-done.md).
+  Status: public research hypothesis (see docs/CONCEPTS.md and
+  docs/definition-of-done.md).
 keywords:
   - AI alignment
   - machine ethics

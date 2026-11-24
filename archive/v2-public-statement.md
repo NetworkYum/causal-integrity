@@ -61,8 +61,8 @@ The framework is designed to be expressed in **First-Order Logic** and checked b
 
 See:
 
-- [`formalizations/axioms.md`](../formalizations/axioms.md)
-- [`formalizations/CausalIntegrity.lean`](../formalizations/CausalIntegrity.lean)
+- [`archive/formalizations-v1/axioms.md`](formalizations-v1/axioms.md)
+- [`archive/formalizations-v1/CausalIntegrity.lean`](formalizations-v1/CausalIntegrity.lean)
 - [`examples/theft_unsatisfiable.py`](../examples/theft_unsatisfiable.py) (toy satisfiability check)
 
 ---

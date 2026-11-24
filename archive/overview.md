@@ -50,7 +50,7 @@ See [principles.md](principles.md) for the full priority stack. Short form:
 | [systemic-stability.md](../docs/systemic-stability.md) | Cooperation / nihilism |
 | [open-problems.md](../docs/open-problems.md) | Roadmap |
 | [provenance.md](provenance.md) | Conversation sources (Grok.com cannot ship files — exports only) |
-| [../formalizations/](../formalizations/) | FOL + Lean |
+| [formalizations-v1/](formalizations-v1/) | Superseded v1 FOL + Lean sketch |
 | [../examples/](../examples/) | SymPy toys |
 
 ## Current status
