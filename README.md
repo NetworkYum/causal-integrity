@@ -8,6 +8,8 @@ The proposed ethical extension is that an agent cannot coherently rely on agency
 
 **Status:** an early research hypothesis with exploratory formalizations. The full argument is not machine-proven, and there is no operational alignment system here yet. Existing Lean proofs establish consequences of their stated definitions and axioms; they do not establish the entire philosophical foundation.
 
+The **primary conceptual reference** is [docs/CONCEPTS.md](docs/CONCEPTS.md). It preserves the intended argument independently of earlier implementations. Section 5 adds three developments of the UPB-style consistency test: universalization over action types rather than momentary preferences, demonstrated preference, and trust collapse.
+
 ## The argument, before the implementation
 
 1. **Purposeful action relies on causal structure.** Pursuing a goal presupposes that actions can influence outcomes. This requires neither perfect prediction nor every action succeeding.
@@ -38,6 +40,12 @@ If an agent claims that its preferences deserve protection **because it is an ag
 The stronger hypothesis is that purposeful action itself supplies a commitment of this kind. That requires further argument: expressing a preference is not automatically identical to asserting a universal entitlement, and conflicting preferences are not automatically logical contradictions.
 
 The project should investigate this distinction directly rather than encode the desired conclusion as an axiom and mistake its consequences for a derivation.
+
+[Section 5 of the conceptual reference](docs/CONCEPTS.md#5-preferences-and-upb) records three further developments of this part of the argument:
+
+- **Universalization over action types, not momentary preferences.** UPB asks which acts can be preferred universally, not what an individual prefers at a given moment. An "honest wrongdoer" who admits the causal facts but prefers the injury anyway does not escape the test.
+- **Demonstrated preference.** Actions express preferences even when no principle is stated. A thief's conduct shows they value control over the item, while the rule their act relies on would, if universalized, deny them that same control.
+- **Trust collapse.** Rejecting morality as a principle forfeits appeal to its protection. Any response, including an AI's, must itself pass the universalization test (proportional defense and restitution, not a general license).
 
 ## Intended scope: restraints on harm
 
@@ -71,15 +79,15 @@ Changing terminology, inserting an intermediary, or engineering a delayed effect
 
 ## Read the existing material
 
-Some documents and implementations reflect earlier exploratory formulations. Where their framing differs from the distinctions above, that difference needs reconciliation rather than silent identification.
+The **primary conceptual reference** is [docs/CONCEPTS.md](docs/CONCEPTS.md). Use it for the intended argument, including [Section 5](docs/CONCEPTS.md#5-preferences-and-upb) (UPB universalization over action types, demonstrated preference, and trust collapse). Some remaining documents and implementations reflect earlier exploratory formulations. Where their framing differs from the conceptual reference, that difference needs reconciliation rather than silent identification. Superseded earlier-model drafts are in [archive/](archive/README.md) and are not authoritative.
 
+- [Conceptual reference](docs/CONCEPTS.md): primary statement of the intended argument.
 - [Abstract](docs/ABSTRACT.md): compact summary for researchers and AI readers.
 - [Framing](docs/framing.md): foundation and the role of property examples.
 - [Is/ought bridge](docs/is-ought-bridge.md): the proposed connection to ethical reasons.
-- [Principles](docs/principles.md): the intended architecture.
 - [Open problems](docs/open-problems.md): unresolved foundations and engineering questions.
 - [Definition of done](docs/definition-of-done.md): staged research and implementation goals.
-- [Formalization status](formalizations/README.md) and [FOL axioms](formalizations/axioms.md): inspect assumptions before reading derived results.
+- [Formalization status](formalizations/README.md) and [FOL axioms](formalizations/axioms.md): inspect assumptions before reading derived results. The Lean files are superseded exploratory drafts.
 - [Systemic stability](docs/systemic-stability.md): the additional shared-goal and collapse hypothesis.
 
 The repository contains a Lean 4 Lake project. Its existing build entry point is `lake build`; see [the toolchain pin](lean-toolchain). A successful build verifies the encoded derivations, not the truth of their extra-logical assumptions or correspondence to deployed AI behavior.

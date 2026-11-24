@@ -1,5 +1,7 @@
 # Formalizations
 
+> **Status:** The Lean files in this directory are **superseded exploratory drafts**. They are not the conceptual authority for Causal Integrity and do not establish the philosophical argument. The primary conceptual reference is [`docs/CONCEPTS.md`](../docs/CONCEPTS.md). The Lake package and CI remain in place so `lake build` and GitHub Actions stay green.
+
 Machine-oriented specification of Causal Integrity.
 
 | File | Role |

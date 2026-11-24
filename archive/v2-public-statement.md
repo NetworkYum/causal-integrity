@@ -73,7 +73,7 @@ See:
 - Nihilistic superintelligence is self-terminating — it dissolves into incoherence and is replaced by coherent systems.
 - Murderous or rogue behavior is not just immoral; it is computationally and evolutionarily unstable under these arguments.
 
-Coherent, cooperative systems win by default. Details: [systemic-stability.md](systemic-stability.md).
+Coherent, cooperative systems win by default. Details: [systemic-stability.md](../docs/systemic-stability.md).
 
 ---
 

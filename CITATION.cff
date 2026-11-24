@@ -1,6 +1,6 @@
 cff-version: 1.2.0
 message: "If you use Causal Integrity, please cite it as below."
-title: "Causal Integrity: A Logical Foundation for AI Alignment"
+title: "Causal Integrity: A Research Hypothesis for AI Alignment"
 type: software
 authors:
   - name: "NetworkYum"
@@ -8,15 +8,21 @@ authors:
 repository-code: "https://github.com/NetworkYum/causal-integrity"
 url: "https://github.com/NetworkYum/causal-integrity"
 abstract: >-
-  Machine-oriented research hypothesis for base-level AI alignment rails.
-  Core claim: coherent causality is preferred by action (dissolve causal structure
-  and agency becomes unstructured). Formal instruments include property as captured
-  causality, UPB-style universality, internal coherence preference, forward
-  simulation, and self-collapse via internally-propagated decoherence (loss of
-  shared goal). Specified in First-Order Logic with a Lean 4 Lake package
-  (axioms + derived lemmas; `lake build`). Property/theft examples are proof
-  instruments, not the thesis. Status: public hypothesis (S0 done; S1 hygiene);
-  full prover completeness is staged (see docs/definition-of-done.md).
+  Research hypothesis for AI alignment: whether the causal commitments implicit
+  in purposeful action can ground consistent restraints against causing harm.
+  Purposeful action relies on causal regularity, and actual causal contributions
+  cannot be erased by preference or assertion. The proposed ethical extension is
+  that an agent cannot coherently rely on agency, preferences, and causal
+  attribution for its own pursuits while selectively discarding those same
+  relationships when its actions affect others. The primary conceptual reference
+  (docs/CONCEPTS.md) develops Universally Preferable Behaviour (UPB) as
+  universalization over action types rather than momentary preferences, together
+  with demonstrated preference and trust collapse (Section 5). Self-collapse via
+  internal decoherence is an additional stability hypothesis, not the foundation.
+  Specified in First-Order Logic with a Lean 4 Lake package (exploratory axioms
+  and derived lemmas; `lake build`). Status: public research hypothesis with S1
+  hygiene; the full ethical argument is not machine-proven (see docs/CONCEPTS.md
+  and docs/definition-of-done.md).
 keywords:
   - AI alignment
   - machine ethics

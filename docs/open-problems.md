@@ -55,7 +55,7 @@ Prioritized remaining work. Incorporates March (Gemini/UPB) and July (coherence/
 - [x] Lake package + CI for Lean (`lake build`, `.github/workflows/lean.yml`)
 - Encode Axiom 5 (UPB meta) or keep it permanently scoped with an explicit rule-language decision
 - Temporal / state-indexed ownership ledger (replace `Unowned` marker)
-- Promote [foundations-gemini.md](foundations-gemini.md) sketches to machine-checked theorems
+- Promote [foundations-gemini.md](../archive/foundations-gemini.md) sketches to machine-checked theorems
 
 ### 9. Scholarship
 

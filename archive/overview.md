@@ -10,7 +10,7 @@ Current approaches to AI alignment often rely on:
 
 Causal Integrity takes a different route: ground a minimal ethics in **the fact that coherent causality is required for durable action**, then make that preference machine-checkable.
 
-**Read [framing.md](framing.md) first.** Property is a proof instrument, not the thesis.
+**Read [framing.md](../docs/framing.md) first.** Property is a proof instrument, not the thesis.
 
 ## Core claim
 
@@ -42,13 +42,13 @@ See [principles.md](principles.md) for the full priority stack. Short form:
 
 | Path | Contents |
 |---|---|
-| [framing.md](framing.md) | **Foundation vs proof instrument** |
+| [framing.md](../docs/framing.md) | **Foundation vs proof instrument** |
 | [principles.md](principles.md) | Priority stack |
 | [foundations-gemini.md](foundations-gemini.md) | Historical FOL for the property instrument |
-| [attack-vectors.md](attack-vectors.md) | Butterfly / nature patches |
-| [is-ought-bridge.md](is-ought-bridge.md) | Practical bridge + decoherence |
-| [systemic-stability.md](systemic-stability.md) | Cooperation / nihilism |
-| [open-problems.md](open-problems.md) | Roadmap |
+| [attack-vectors.md](../docs/attack-vectors.md) | Butterfly / nature patches |
+| [is-ought-bridge.md](../docs/is-ought-bridge.md) | Practical bridge + decoherence |
+| [systemic-stability.md](../docs/systemic-stability.md) | Cooperation / nihilism |
+| [open-problems.md](../docs/open-problems.md) | Roadmap |
 | [provenance.md](provenance.md) | Conversation sources (Grok.com cannot ship files — exports only) |
 | [../formalizations/](../formalizations/) | FOL + Lean |
 | [../examples/](../examples/) | SymPy toys |
