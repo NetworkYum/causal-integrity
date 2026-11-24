@@ -6,7 +6,7 @@ Causal Integrity starts with a simple observation: to pursue an outcome, an agen
 
 The proposed ethical extension is that an agent cannot coherently rely on agency, preferences, and causal attribution for its own pursuits while selectively discarding those same relationships when its actions affect others. This project investigates whether that argument can ground basic ethical restraints, and how an AI committed to those restraints could check its proposed actions against their foreseeable consequences.
 
-**Status:** an early research hypothesis with exploratory formalizations. The full argument is not machine-proven, and there is no operational alignment system here yet. Existing Lean proofs establish consequences of their stated definitions and axioms; they do not establish the entire philosophical foundation.
+**Status:** an early research hypothesis. The full philosophical bridge is not machine-proven, and real-world deployment remains open. [`formalizations/`](formalizations/README.md) holds a constructive Lean 4 v2 model, `CausalIntegrityV2`: zero custom axioms, zero `sorry`, stateful non-exclusive attribution, consent/caretaker/competition boundaries, bijective renaming invariance, UPB action-type checks, an executable `allow | reject | escalate` gate, and 15 concrete scenarios. Those proofs are machine-checked consequences of the model's definitions and stated premises. They do not establish the entire philosophical foundation or a deployed alignment system.
 
 The **primary conceptual reference** is [docs/CONCEPTS.md](docs/CONCEPTS.md). It preserves the intended argument independently of earlier implementations. Section 5 adds three developments of the UPB-style consistency test: universalization over action types rather than momentary preferences, demonstrated preference, and trust collapse.
 
@@ -62,7 +62,7 @@ propose action
   → allow | reject | escalate
 ```
 
-Changing terminology, inserting an intermediary, or engineering a delayed effect must not automatically erase causal responsibility. Determining actual contributions, uncertainty, consent, and the boundaries of prohibited harm remains substantive work.
+The constructive model implements that gate over a discrete world state (`checkAction`, `runProposals`). Changing terminology, inserting an intermediary, or engineering a delayed effect must not automatically erase causal responsibility. Determining actual contributions and uncertainty in continuous environments, and deploying the gate, remains open.
 
 ## What is established, proposed, and implemented?
 
@@ -73,7 +73,7 @@ Changing terminology, inserting an intermediary, or engineering a delayed effect
 | Consistent justification cannot make unsupported exceptions for oneself | Conditional consistency principle |
 | Agency necessarily entails ethical restraints respecting other agents | Central hypothesis; not yet established |
 | An AI can embody and reliably enforce the resulting framework | Engineering objective; not demonstrated |
-| Existing Lean core | Exploratory axioms and derived lemmas; not a proof of the whole hypothesis |
+| Constructive Lean 4 v2 model (`CausalIntegrityV2`) | Machine-proven consequences of explicit modeling premises: stateful non-exclusive attribution, consent/caretaker/competition boundaries, bijective renaming invariance, UPB action-type checks, an executable allow / reject / escalate gate, and 15 scenarios. Not a proof of the whole hypothesis or a real-world deployment |
 | Python examples | Illustrations; not empirical validation of alignment |
 | Misalignment leads to internal fragmentation or self-collapse | Additional stability hypothesis; not required to understand the central argument |
 
@@ -87,10 +87,10 @@ The **primary conceptual reference** is [docs/CONCEPTS.md](docs/CONCEPTS.md). Us
 - [Is/ought bridge](docs/is-ought-bridge.md): the proposed connection to ethical reasons.
 - [Open problems](docs/open-problems.md): unresolved foundations and engineering questions.
 - [Definition of done](docs/definition-of-done.md): staged research and implementation goals.
-- [Formalization status](formalizations/README.md) and [FOL axioms](formalizations/axioms.md): inspect assumptions before reading derived results. The Lean files are superseded exploratory drafts.
+- [Formalization status](formalizations/README.md): constructive Lean 4 v2 model (`CausalIntegrityV2`). Machine-proven consequences are distinct from modeling premises; the full philosophical bridge and real-world deployment remain open. The superseded v1 axiomatic sketch is in [archive/formalizations-v1/](archive/formalizations-v1/).
 - [Systemic stability](docs/systemic-stability.md): the additional shared-goal and collapse hypothesis.
 
-The repository contains a Lean 4 Lake project. Its existing build entry point is `lake build`; see [the toolchain pin](lean-toolchain). A successful build verifies the encoded derivations, not the truth of their extra-logical assumptions or correspondence to deployed AI behavior.
+The repository contains a Lean 4 Lake project that builds `CausalIntegrityV2` (`lake build`; toolchain pin [`lean-toolchain`](lean-toolchain), `leanprover/lean4:v4.33.0`). A successful build verifies the encoded derivations. It does not establish the truth of the model's extra-logical premises, the full philosophical bridge, or correspondence to deployed AI behavior.
 
 ## Research questions and contributions
 

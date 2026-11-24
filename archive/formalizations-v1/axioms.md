@@ -1,14 +1,15 @@
 # Core First-Order Logic Axioms
 
-Current formal specification of Causal Integrity in First-Order Logic.
+> **Archived.** Superseded v1 axiomatic sketch. `lake build` checks [`CausalIntegrityV2`](../../formalizations/README.md), not this document.
 
-Lean encoding (Lake): [`CausalIntegrity.lean`](CausalIntegrity.lean),
+Exploratory First-Order Logic specification from the v1 sketch.
+
+Lean encoding (v1 library, archived here): [`CausalIntegrity.lean`](CausalIntegrity.lean),
 [`CausalIntegrity/Axioms.lean`](CausalIntegrity/Axioms.lean),
 [`CausalIntegrity/Lemmas.lean`](CausalIntegrity/Lemmas.lean),
 [`CausalIntegrity/Organism.lean`](CausalIntegrity/Organism.lean).  
-Build: `lake build` from repo root.  
-Demo: `python examples/organism_collapse.py`.  
-Framing: [`../docs/framing.md`](../docs/framing.md) — property is an instrument, not the foundation.
+Demo: `python examples/organism_collapse.py` from the repository root.  
+Framing: [`../../docs/framing.md`](../../docs/framing.md) — property is an instrument, not the foundation.
 
 ---
 
@@ -118,7 +119,7 @@ Not encoded in Lean (needs a language of rules).
 ## Organism / shared-goal (internal collapse)
 
 This is **not** more title law. It is the identity of a composite agent.
-See [docs/systemic-stability.md](../docs/systemic-stability.md).
+See [docs/systemic-stability.md](../../docs/systemic-stability.md).
 
 ### Definitions
 
@@ -169,9 +170,9 @@ Consent(o, a, act) ≡ ∃p (
 
 ## Toy checks
 
-- [`../examples/theft_unsatisfiable.py`](../examples/theft_unsatisfiable.py) — ledger pattern
-- [`../examples/causal_ledger_sim.py`](../examples/causal_ledger_sim.py) — theft + homestead + liability
-- [`../examples/organism_collapse.py`](../examples/organism_collapse.py) — shared-goal / subversion collapse
+- [`../../examples/theft_unsatisfiable.py`](../../examples/theft_unsatisfiable.py) — ledger pattern
+- [`../../examples/causal_ledger_sim.py`](../../examples/causal_ledger_sim.py) — theft + homestead + liability
+- [`../../examples/organism_collapse.py`](../../examples/organism_collapse.py) — shared-goal / subversion collapse
 
 ---
 

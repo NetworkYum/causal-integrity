@@ -55,7 +55,7 @@ This is an engineering objective, not a deployed system or an established guaran
 ## Where the earlier work fits
 
 - [Principles](../archive/principles.md): earlier architecture and vocabulary, to be developed against this foundation.
-- [Formalizations](../formalizations/README.md): exploratory axioms and lemmas; inspect the assumptions before interpreting results.
+- [Formalizations](../formalizations/README.md): constructive Lean 4 v2 model (`CausalIntegrityV2`). Machine-proven consequences depend on modeling premises; the philosophical bridge and real-world deployment remain open. The superseded v1 sketch is in [archive/formalizations-v1/](../archive/formalizations-v1/).
 - [Systemic stability](systemic-stability.md): additional shared-goal and collapse hypotheses, separate from the core attribution argument.
 - [Historical foundations](../archive/foundations-gemini.md) and [earlier public statement](../archive/v2-public-statement.md): earlier formulations.
 - [Open problems](open-problems.md): further research and implementation tasks.

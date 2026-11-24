@@ -2,7 +2,7 @@
 
 **Read [framing.md](../docs/framing.md) first** if summaries have drifted into “this is a property theory.”
 
-Machine encodings: [`formalizations/`](../formalizations/).
+Machine encodings: superseded v1 sketch in [`formalizations-v1/`](formalizations-v1/). The current constructive model is [`formalizations/`](../formalizations/).
 
 ---
 
@@ -84,5 +84,5 @@ Theft and shovels are **demos**. The product is **coherence preference under cau
 - [is-ought-bridge.md](../docs/is-ought-bridge.md)  
 - [systemic-stability.md](../docs/systemic-stability.md)  
 - [foundations-gemini.md](foundations-gemini.md) — history of the property *instrument*  
-- [FOL axioms](../formalizations/axioms.md)  
+- [FOL axioms](formalizations-v1/axioms.md) (superseded v1 sketch)  
 - [open-problems.md](../docs/open-problems.md)  

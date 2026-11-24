@@ -1,7 +1,7 @@
-name = "CausalIntegrity"
+name = "CausalIntegrityV2"
 version = "0.1.0"
-defaultTargets = ["CausalIntegrity"]
+defaultTargets = ["CausalIntegrityV2"]
 
 [[lean_lib]]
-name = "CausalIntegrity"
+name = "CausalIntegrityV2"
 srcDir = "formalizations"

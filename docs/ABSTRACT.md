@@ -3,7 +3,7 @@
 **Research question:** Can the causal commitments implicit in purposeful action ground consistent ethical restraints for AI agents?
 
 **Repository:** https://github.com/NetworkYum/causal-integrity
-**Status:** Independent research hypothesis with exploratory FOL and Lean 4 artifacts. The full ethical argument is not machine-proven. MIT License.
+**Status:** Independent research hypothesis. `formalizations/` holds a constructive Lean 4 v2 model (`CausalIntegrityV2`: zero custom axioms, zero `sorry`). The full ethical argument is not machine-proven, and real-world deployment remains open. MIT License.
 **Primary conceptual reference:** [CONCEPTS.md](CONCEPTS.md).
 
 ## Summary
@@ -19,7 +19,7 @@ The intended application is an AI that wants to embody a coherent ethical framew
 - **Foundation:** purposeful action relies on causal relationships; accurate attribution cannot change merely to suit an actor's interests.
 - **Conditional consistency result:** a justification based solely on a shared property cannot support an exception based solely on identity.
 - **Central hypothesis:** the requirements of agency supply ethical restraints respecting other agents.
-- **Formal artifacts:** existing Lean lemmas derive consequences of explicit axioms. They do not prove the complete ethical bridge.
+- **Formal artifacts:** `CausalIntegrityV2` machine-checks consequences of constructive definitions and explicit modeling premises: stateful non-exclusive attribution, consent/caretaker/competition boundaries, bijective renaming invariance, UPB action-type checks, an executable `allow | reject | escalate` gate, and 15 concrete scenarios. It does not prove the complete ethical bridge.
 - **Additional hypothesis:** internal goal dissonance and self-collapse, discussed separately in [systemic stability](systemic-stability.md).
 
 ## Read next
@@ -29,7 +29,7 @@ The intended application is an AI that wants to embody a coherent ethical framew
 3. [Framing](framing.md): action, attribution, preferences, and the proposed bridge.
 4. [Is/ought bridge](is-ought-bridge.md): conditional reasoning and remaining proof obligations.
 5. [Open problems](open-problems.md) and [definition of done](definition-of-done.md).
-6. [Formalization status](../formalizations/README.md) and [explicit axioms](../formalizations/axioms.md). The Lean files are superseded exploratory drafts.
+6. [Formalization status](../formalizations/README.md): constructive Lean 4 v2 model. Machine-proven consequences are distinct from modeling premises. The superseded v1 axiomatic sketch is in [archive/formalizations-v1/](../archive/formalizations-v1/).
 
 Superseded earlier-model drafts are in [archive/](../archive/README.md) and are not authoritative. Use the conceptual reference and the introduction above to distinguish the intended foundation from those implementation attempts.
 
