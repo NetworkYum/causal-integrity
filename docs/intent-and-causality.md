@@ -21,7 +21,7 @@ If “Direct” is a shallow flag, gray zones become exploit surface.
 
 **Reply that advanced the framework:** that framing **ignores intent**. To intend harm and take actions that raise the probability of a ledger-violating outcome still fails universality: the agent cannot coherently prefer “I may set up indirect harm chains” while preferring not to be on the receiving end of such chains.
 
-So gray-zone *exploitation* is not automatically outside UPB + causal integrity; intentional construction of harm pathways is still a coherency violation.
+So gray-zone *exploitation* is not automatically outside role-universalizability and causal integrity; intentional construction of harm pathways is still a coherency violation.
 
 ---
 

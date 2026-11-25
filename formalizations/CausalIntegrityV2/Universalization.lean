@@ -1,18 +1,18 @@
 /-
-  CausalIntegrityV2.Universalization — Conditional universality, UPB action-type
-  universalizability, demonstrated-preference self-contradiction, and UPB risk rules.
+  CausalIntegrityV2.Universalization — Conditional universality, action-type
+  role-universalizability, demonstrated-preference self-contradiction, and risk rules.
 
   Corresponds to docs/CONCEPTS.md §§5, 7, and 10:
   1. Bijective Agent-Renaming Invariance: swapping agent IDs leaves stewardship,
      delegation-aware consent, proportional defense, and violation classification
      identical — blocking identity-only exceptions.
-  2. UPB Universalizability over Action Types: tests action-type role profiles,
+  2. Role-Universalizability over Action Types: tests action-type role profiles,
      not momentary desires; non-consensual violation and unbounded retaliation fail,
      while consensual exchange, competition, and bounded proportional defense pass.
   3. Demonstrated Preference Self-Contradiction: explicit single-agent P ∧ ¬P
      given single-agent preference consistency, demonstrated control preference,
      and endorsement of a universal seizure rule.
-  4. UPB Risk-Rule Universalizability: resolves probabilistic physical/digital risk
+  4. Risk-Rule Universalizability: resolves probabilistic physical/digital risk
      without utilitarianism — zero-risk paralysis fails (abolishes agency), engineered
      asymmetric risk-loading fails, and reciprocal background risk with strict causal
      liability passes.
@@ -306,7 +306,7 @@ theorem isViolation_rename_iff (π : AgentPerm) (w : WorldState) (e : CausalEven
     IsViolation (renameWorld π w) (renameEvent π e) ↔ IsViolation w e := by
   rw [← isViolationBool_eq_true_iff, ← isViolationBool_eq_true_iff, isViolationBool_rename]
 
-/-! ### Part 2: UPB Universalizability over Action Types -/
+/-! ### Part 2: Role-Universalizability over Action Types -/
 
 structure ActionTypeProfile where
   affectsOtherDomain : Bool
@@ -315,12 +315,12 @@ structure ActionTypeProfile where
   unboundedRetaliation : Bool
   deriving DecidableEq, BEq, Repr
 
-def UniversallyPreferable (p : ActionTypeProfile) : Prop :=
+def UniversalizableActionType (p : ActionTypeProfile) : Prop :=
   (p.affectsOtherDomain = true → p.overridesHolderPref = false ∨ p.isProportionalDefense = true) ∧
     p.unboundedRetaliation = false
 
-theorem violation_type_fails_upb :
-    ¬ UniversallyPreferable
+theorem violation_type_not_universalizable :
+    ¬ UniversalizableActionType
       { affectsOtherDomain := true
       , overridesHolderPref := true
       , isProportionalDefense := false
@@ -328,16 +328,16 @@ theorem violation_type_fails_upb :
   intro ⟨hRule, _⟩
   rcases hRule rfl with h | h <;> cases h
 
-theorem consensual_exchange_passes_upb :
-    UniversallyPreferable
+theorem consensual_exchange_universalizable :
+    UniversalizableActionType
       { affectsOtherDomain := true
       , overridesHolderPref := false
       , isProportionalDefense := false
       , unboundedRetaliation := false } := by
   exact ⟨fun _ => Or.inl rfl, rfl⟩
 
-theorem competition_passes_upb :
-    UniversallyPreferable
+theorem competition_universalizable :
+    UniversalizableActionType
       { affectsOtherDomain := false
       , overridesHolderPref := false
       , isProportionalDefense := false
@@ -347,17 +347,17 @@ theorem competition_passes_upb :
     cases h
   · rfl
 
-theorem proportional_defense_passes_upb :
-    UniversallyPreferable
+theorem proportional_defense_universalizable :
+    UniversalizableActionType
       { affectsOtherDomain := true
       , overridesHolderPref := true
       , isProportionalDefense := true
       , unboundedRetaliation := false } := by
   exact ⟨fun _ => Or.inr rfl, rfl⟩
 
-theorem unlimited_retaliation_fails_upb (p : ActionTypeProfile)
+theorem unlimited_retaliation_not_universalizable (p : ActionTypeProfile)
     (hUnb : p.unboundedRetaliation = true) :
-    ¬ UniversallyPreferable p := by
+    ¬ UniversalizableActionType p := by
   intro ⟨_, hFalse⟩
   rw [hUnb] at hFalse
   cases hFalse
@@ -374,13 +374,13 @@ theorem demonstrated_preference_self_contradiction
     False :=
   hCons actor (SeizedFrom actor r) ⟨hUniv, hDemo⟩
 
-/-! ### Part 4: UPB Risk-Rule Universalizability (Probabilistic Risk vs. Paralysis)
+/-! ### Part 4: Risk-Rule Universalizability (Probabilistic Risk vs. Paralysis)
 
-  Models the UPB criterion over candidate risk regimes (docs/CONCEPTS.md §7):
+  Models role-universalizability over candidate risk regimes (docs/CONCEPTS.md §7):
   - Requiring strictly zero physical/digital tail risk abolishes ordinary agency
-    (`permitsOrdinaryAgency = false`), which no purposeful agent can universally prefer.
+    (`permitsOrdinaryAgency = false`), which no purposeful agent can universally endorse.
   - Unilateral / reckless / engineered risk-loading (`imposesAsymmetricRisk = true`,
-    e.g. leaving poison out) fails universal preferability across roles.
+    e.g. leaving poison out) fails role-universalizability across positions.
   - Reciprocal background risk of ordinary non-negligent agency paired with strict
     causal attribution and restitution (`attachesStrictLiability = true`) passes.
 -/
@@ -391,29 +391,29 @@ structure RiskRuleProfile where
   attachesStrictLiability : Bool
   deriving DecidableEq, BEq, Repr
 
-def UniversallyPreferableRiskRule (r : RiskRuleProfile) : Prop :=
+def UniversalizableRiskRule (r : RiskRuleProfile) : Prop :=
   r.permitsOrdinaryAgency = true ∧
     r.imposesAsymmetricRisk = false ∧
     r.attachesStrictLiability = true
 
-theorem zero_risk_paralysis_fails_upb :
-    ¬ UniversallyPreferableRiskRule
+theorem zero_risk_paralysis_not_universalizable :
+    ¬ UniversalizableRiskRule
       { permitsOrdinaryAgency := false
       , imposesAsymmetricRisk := false
       , attachesStrictLiability := true } := by
   intro ⟨hAgency, _⟩
   cases hAgency
 
-theorem engineered_risk_loading_fails_upb (liab : Bool) :
-    ¬ UniversallyPreferableRiskRule
+theorem engineered_risk_loading_not_universalizable (liab : Bool) :
+    ¬ UniversalizableRiskRule
       { permitsOrdinaryAgency := true
       , imposesAsymmetricRisk := true
       , attachesStrictLiability := liab } := by
   intro ⟨_, hAsym, _⟩
   cases hAsym
 
-theorem reciprocal_background_risk_passes_upb :
-    UniversallyPreferableRiskRule
+theorem reciprocal_background_risk_universalizable :
+    UniversalizableRiskRule
       { permitsOrdinaryAgency := true
       , imposesAsymmetricRisk := false
       , attachesStrictLiability := true } :=

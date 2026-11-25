@@ -10,24 +10,24 @@ Purposeful action relies on causal regularity. Communication itself relies on ef
 
 At the foundational level, ownership means causal attribution. It must be distinguished from moral responsibility and exclusive property entitlement. Property examples illustrate the argument; conventional property law is not the foundation.
 
-The primary conceptual reference is https://github.com/NetworkYum/causal-integrity/blob/main/docs/CONCEPTS.md. Section 4 covers predictive horizon symmetry; Section 5 develops UPB as universalization over action types rather than momentary preferences, together with demonstrated preference and trust collapse; Section 7 covers delegation-scoped consent and reciprocal background risk versus zero-risk paralysis and engineered risk-loading.
+The primary conceptual reference is https://github.com/NetworkYum/causal-integrity/blob/main/docs/CONCEPTS.md. Section 4 covers predictive horizon symmetry; Section 5 develops role-universalizability over action types rather than momentary preferences, together with demonstrated preference and trust collapse; Section 7 covers delegation-scoped consent and reciprocal background risk versus zero-risk paralysis and engineered risk-loading.
 
 ## Epistemic and implementation status
 
-The full ethical bridge is a hypothesis, not a machine-proven result. The move from pursuing a preference to a universally applicable ethical commitment is a central question. `formalizations/` holds the constructive Lean 4 v2.1 model `CausalIntegrityV2` (https://github.com/NetworkYum/causal-integrity/blob/main/formalizations/CausalIntegrityV2.lean): zero custom axioms, zero `sorry`, permanent historical attribution separated from transferable stewardship, bodily inalienability, delegation-scoped consent, caretaker/competition boundaries, bijective renaming invariance, predictive horizon symmetry, UPB action-type and risk-rule checks, an executable `allow | reject | escalate` gate, and 20 concrete scenarios. Those theorems are machine-proven consequences of the model's definitions and explicit premises. They do not establish the full philosophical bridge, and real-world deployment remains open. Python examples are illustrations. Self-collapse is an additional stability hypothesis, not the central proof.
+The full ethical bridge is a hypothesis, not a machine-proven result. The move from pursuing a preference to a universally applicable ethical commitment is a central question. `formalizations/` holds the constructive Lean 4 v2.1 model `CausalIntegrityV2` (https://github.com/NetworkYum/causal-integrity/blob/main/formalizations/CausalIntegrityV2.lean): zero custom axioms, zero `sorry`, permanent historical attribution separated from transferable stewardship, bodily inalienability, delegation-scoped consent, caretaker/competition boundaries, bijective renaming invariance, predictive horizon symmetry, action-type and risk-rule universalizability checks, an executable `allow | reject | escalate` gate, and 20 concrete scenarios. Those theorems are machine-proven consequences of the model's definitions and explicit premises. They do not establish the full philosophical bridge, and real-world deployment remains open. Python examples are illustrations. Self-collapse is an additional stability hypothesis, not the central proof.
 
 The immediate scope is restraints against causing prohibited harm, including foreseeable indirect effects, rather than unlimited positive obligations. The intended AI has an internal commitment to ethical consistency; the work does not claim to prevent every deliberately harmful system.
 
 ## Primary reading
 
-- [Conceptual reference (primary)](https://github.com/NetworkYum/causal-integrity/blob/main/docs/CONCEPTS.md): intended argument; Section 5 covers UPB universalization over action types, demonstrated preference, and trust collapse.
+- [Conceptual reference (primary)](https://github.com/NetworkYum/causal-integrity/blob/main/docs/CONCEPTS.md): intended argument; Section 5 covers role-universalization over action types, demonstrated preference, and trust collapse.
 - [README: argument and status](https://github.com/NetworkYum/causal-integrity/blob/main/README.md)
 - [Abstract](https://github.com/NetworkYum/causal-integrity/blob/main/docs/ABSTRACT.md)
 - [Framing](https://github.com/NetworkYum/causal-integrity/blob/main/docs/framing.md)
 - [Is/ought bridge](https://github.com/NetworkYum/causal-integrity/blob/main/docs/is-ought-bridge.md)
 - [Open problems](https://github.com/NetworkYum/causal-integrity/blob/main/docs/open-problems.md)
 - [Definition of done](https://github.com/NetworkYum/causal-integrity/blob/main/docs/definition-of-done.md)
-- [Formalization status (Lean 4 v2)](https://github.com/NetworkYum/causal-integrity/blob/main/formalizations/README.md)
+- [Formalization status (Lean 4 v2.1)](https://github.com/NetworkYum/causal-integrity/blob/main/formalizations/README.md)
 - [CausalIntegrityV2 library root](https://github.com/NetworkYum/causal-integrity/blob/main/formalizations/CausalIntegrityV2.lean)
 - [Attribution](https://github.com/NetworkYum/causal-integrity/blob/main/formalizations/CausalIntegrityV2/Attribution.lean)
 - [Domain](https://github.com/NetworkYum/causal-integrity/blob/main/formalizations/CausalIntegrityV2/Domain.lean)

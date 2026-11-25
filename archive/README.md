@@ -9,9 +9,10 @@ The primary conceptual reference is [`docs/CONCEPTS.md`](../docs/CONCEPTS.md). U
 | [principles.md](principles.md) | Architecture and priority stack |
 | [overview.md](overview.md) | Earlier navigation / distillation |
 | [foundations-gemini.md](foundations-gemini.md) | Historical FOL for the property instrument |
+| [upb-core-proofs.md](upb-core-proofs.md) | Historical study-material critique map of universalization proof styles |
 | [v2-public-statement.md](v2-public-statement.md) | Earlier public statement |
 | [provenance.md](provenance.md) | Conversation-source notes |
 | [companion-bridge.md](companion-bridge.md) | Earlier bridge note pointing at systemic stability |
 | [formalizations-v1/](formalizations-v1/) | Superseded v1 axiomatic sketch (FOL `axioms.md` and Lean library `CausalIntegrity`) |
 
-The constructive Lean 4 v2 model lives under [`formalizations/`](../formalizations/) (`CausalIntegrityV2`). See [formalizations/README.md](../formalizations/README.md). The directory [formalizations-v1/](formalizations-v1/) is the superseded v1 axiomatic sketch and is not authoritative.
+The constructive Lean 4 v2.1 model lives under [`formalizations/`](../formalizations/) (`CausalIntegrityV2`). See [formalizations/README.md](../formalizations/README.md). The directory [formalizations-v1/](formalizations-v1/) is the superseded v1 axiomatic sketch and is not authoritative.

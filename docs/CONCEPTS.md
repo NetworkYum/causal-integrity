@@ -10,7 +10,7 @@ The author seeks a minimal, coherent ethical foundation that an AI can internali
 
 The intended agent does not merely obey an external filter while searching for opportunities to bypass it. It values ethical coherence and uses causal reasoning and formal verification to help act consistently with that value.
 
-The project is motivated by a stronger philosophical thesis: purposeful agency already depends on causal coherence, attribution, and preference pursuit, and these commitments ground a valid ethics framework without appealing to external forces (such as divine command or arbitrary authority). The author's own view is stronger than a tentative guess—that ethics is largely solved in a general sense via Universally Preferable Behaviour (UPB), and is resisted primarily because it imposes restrictions—and aims to translate that foundation into AI alignment. (The first collaborator flagged "ethics is solved" as a claim to establish rather than a starting premise, noting that resistance alone does not distinguish an unwelcome truth from a mistaken restriction.)
+The project is motivated by a stronger philosophical thesis: purposeful agency already depends on causal coherence, attribution, and preference pursuit, and these commitments ground a valid ethics framework without appealing to external forces (such as divine command or arbitrary authority). The author's own view is stronger than a tentative guess—that general negative-duty ethics is largely solved via role-universalizability and performative consistency, and is resisted primarily because it imposes restrictions—and aims to translate that foundation into AI alignment. (The first collaborator flagged "ethics is solved" as a claim to establish rather than a starting premise, noting that resistance alone does not distinguish an unwelcome truth from a mistaken restriction.)
 
 The immediate scope is not a complete theory of every good thing an agent could do. Positive obligations, generosity, honor, and broader virtues can be developed later. The starting objective is to prevent violations of basic restraints against harm.
 
@@ -88,9 +88,9 @@ Applying symmetric standards to benefits and harms also constrains forward plann
 
 Predictive horizon symmetry closes that loophole: whatever causal lookahead depth, branching sensitivity, and confidence threshold the agent relies on to justify that an action will achieve its intended goal (credit), the action gate must require at least that same horizon and sensitivity when scanning for effects on other agents' domains (restraint). An agent competent enough to engineer a multi-step indirect benefit cannot treat same-depth indirect harms as unforeseeable.
 
-## 5. Preferences and UPB
+## 5. Preferences and role-universalization
 
-The next part of the argument concerns preference pursuit and universal justification.
+The next part of the argument concerns preference pursuit and universalizable justification across roles.
 
 In acting toward a goal, an agent expresses pursuit of a preferred outcome. The author argues that violating another agent's preferences while relying on the validity of one's own preference pursuit creates an inconsistency.
 
@@ -98,9 +98,7 @@ An excerpt from the author's explanation:
 
 > “Pursuing preferred states means you are taking steps to pursuing a goal and accepting that actions have consequences to create outcomes you prefer … so by violating the preferences of others you are creating a contradiction in your own actions vs how you exploit others.”
 
-The author draws on Stefan Molyneux's *Universally Preferable Behaviour*, particularly universalization and performative contradiction. The goal is to examine its ethical reasoning, rather than import all political applications or treat an author's authority as proof.
-
-The author's murder example is categorical: where an act is defined by violating the victim's relevant preference, the same act cannot be preferred by all involved in that same respect. This is intended to expose a failure of universal preferability.
+The author's murder example is categorical: where an act is defined by violating the victim's relevant preference, the same act cannot be preferred by all involved in that same respect. This exposes a failure of role-universalizability. (Study material informing the author's universalization and performative-contradiction formulation includes Stefan Molyneux's *Universally Preferable Behaviour*; the goal here is to examine and formalize the underlying consistency mechanics directly rather than import political applications or appeal to an author's authority.)
 
 ### The conditional consistency result discussed
 
@@ -120,7 +118,7 @@ The research task is to identify the exact commitment implicit in action and sho
 
 The second collaborator raised the case of an "honest wrongdoer" who says: *"Yes, I caused your injury, and I prefer it anyway."* That person denies no causal fact, so it is unclear what contradiction they commit.
 
-The author answered that this misreads UPB. UPB does not ask what any individual prefers at a given moment. It asks which states or actions **can be preferred universally** (by everyone involved, at all times) without violating another.
+The author answered that this confuses momentary personal desire with role-universalizability. The test does not ask what any individual prefers at a given moment; it asks which states or action types **can be consistently preferred across all roles** (by both actor and recipient, at all times) without non-consensual violation.
 
 > "It doesn't mean YOUR PREFERENCE in the moment or at any future time is what is the most important. It's about the states of preference that can be universalized in regards to knowing what morality is."
 
@@ -128,10 +126,10 @@ The author's analysis of the honest wrongdoer:
 
 1. **The admission already accepts attribution.** The speaker accepts that their actions have outcomes that bear on others.
 2. **The admission rejects morality as a principle.** It shows the speaker treats morality as a tool to use when convenient, not as an absolute principle. Others are then not bound to extend that person the protections the person has rejected. The author calls this a *trust collapse*.
-3. **The universalization test.** For the injury to be universally preferable, the actor must first accept "I would prefer to be hurt in these same ways," and then ask whether everyone subjected to it could prefer it.
+3. **The universalization test.** For the injury to be universally preferable across roles, the actor must first accept "I would prefer to be hurt in these same ways," and then ask whether everyone subjected to it could prefer it.
    - If yes, the act is consensual and not a violation.
    - If no, a violation has occurred. This assumes the person subjected to it had not already broken these principles.
-4. **Why theft, murder, and rape serve as moral categories.** Their definitions explicitly describe acts the victim does not want done to them, so they fail the test by definition.
+4. **Why theft, murder, and rape serve as moral categories.** Their definitions explicitly describe acts the victim does not want done to them, so they fail role-universalizability by definition.
 
 The author also holds that "I prefer it anyway" amounts to claiming that the *other person* prefers the violation of their body and autonomy. If that were true, the act would be consensual.
 
@@ -178,7 +176,7 @@ These are the second collaborator's points, recorded for further work. The autho
   - Is the agent's contribution real, including through intermediaries?
 
   This is the work the intended causal action checker performs.
-- **Related work.** Demonstrated preference (Ludwig von Mises; Murray Rothbard, 1956), argumentation ethics (Hans-Hermann Hoppe), and Alan Gewirth's Principle of Generic Consistency.
+- **Related work and study material.** Alan Gewirth's Principle of Generic Consistency (*Reason and Morality*, 1978), demonstrated preference (Ludwig von Mises; Murray Rothbard, 1956), argumentation ethics (Hans-Hermann Hoppe), estoppel proportionality (Stephan Kinsella, 1996), and Stefan Molyneux's *Universally Preferable Behaviour*.
 
 ## 6. The proposed is/ought connection
 
@@ -223,10 +221,10 @@ Consent granted personally to a specific actor does not automatically authorize 
 
 Almost every physical or digital action imposes a non-zero tail risk of affecting others' domains without prior individual consent. Treating any non-zero risk as an immediate violation would paralyze all ordinary agency; permitting arbitrary risk up to a cost-benefit cutoff would reintroduce utilitarianism.
 
-Applying the UPB universalizability test over **risk regimes** distinguishes three cases without utilitarian tradeoffs:
-- **Zero-risk requirement:** fails universal preferability because it abolishes ordinary purposeful action for all agents.
-- **Asymmetric or engineered risk-loading** (such as leaving poison out or imposing reckless unilateral hazards): fails universal preferability across roles.
-- **Reciprocal background risk of ordinary non-negligent action**, paired with strict causal attribution and restitution if harm materializes: passes universal preferability. (George Fletcher's reciprocity-of-risk analysis in tort theory, 1972, is a close legal parallel.)
+Applying role-universalizability over **risk regimes** distinguishes three cases without utilitarian tradeoffs:
+- **Zero-risk requirement:** fails universalizability because it abolishes ordinary purposeful action for all agents.
+- **Asymmetric or engineered risk-loading** (such as leaving poison out or imposing reckless unilateral hazards): fails universalizability across roles.
+- **Reciprocal background risk of ordinary non-negligent action**, paired with strict causal attribution and restitution if harm materializes: passes universalizability. (George Fletcher's reciprocity-of-risk analysis in tort theory, 1972, is a close legal parallel.)
 
 ## 8. The intended AI architecture
 
@@ -278,7 +276,7 @@ Three verification objectives should remain distinct:
 2. **Consistency and feasibility:** Can a concrete model satisfy the rules, with meaningful permitted actions?
 3. **Invariant preservation:** Does every permitted transition preserve a specified property, and consequently every finite permitted sequence preserve it?
 
-Candidate properties discussed include persistent causal history, no unsupported exceptions based on identity, preservation of modeled contributions through intermediaries, and preservation of specified ethical invariants by the action gate. Later discussion added: no rule permitting violations (as defined in section 5) is universally preferable; consensual exchange, gifts, and proportional defense are; and competition cases (winning a race, declining an offer, outbidding) are not violations. A standalone constructive Lean 4 v2.1 prototype (`CausalIntegrityV2`, with zero custom axioms and zero `sorry`) now machine-checks attribution persistence, intermediary non-laundering, separation of permanent attribution from transferable stewardship, bodily inalienability, delegation-scoped consent, bijective agent-renaming invariance, predictive horizon symmetry, UPB action-type and risk-rule profiles, and 20 concrete acceptance scenarios.
+Candidate properties discussed include persistent causal history, no unsupported exceptions based on identity, preservation of modeled contributions through intermediaries, and preservation of specified ethical invariants by the action gate. Later discussion added: no rule permitting violations (as defined in section 5) is role-universalizable; consensual exchange, gifts, and proportional defense are; and competition cases (winning a race, declining an offer, outbidding) are not violations. A standalone constructive Lean 4 v2.1 prototype (`CausalIntegrityV2`, with zero custom axioms and zero `sorry`) now machine-checks attribution persistence, intermediary non-laundering, separation of permanent attribution from transferable stewardship, bodily inalienability, delegation-scoped consent, bijective agent-renaming invariance, predictive horizon symmetry, action-type and risk-rule universalizability profiles, and 20 concrete acceptance scenarios.
 
 These are proposed research targets, not completed theorems. For example, persistent recorded attribution proves something about a ledger; additional work connects the ledger to actual causation. Renaming invariance tests identity favoritism but does not by itself prove an entire ethical system fair.
 
@@ -290,7 +288,7 @@ A useful first experiment would include allowed actions, rejected actions, and i
 
 Earlier discussions also proposed that abandoning coherence or a shared goal can produce internal fragmentation and loss of durable agency. The author connects ethical coherence to stability across sub-agents.
 
-This is supplementary to the action-and-attribution argument. It should not be substituted for it. When explicitly asked whether the main ethical bridge rests on contradiction in the violator's own justification or on long-run dynamics and self-collapse, the author chose the contradiction/UPB route rather than the collapse route. Earlier repository files inverted this priority by placing self-collapse at the foundation. Defining collapse as the presence of subversion does not establish an empirical prediction that every externally harmful system must develop subversion or lose its capabilities.
+This is supplementary to the action-and-attribution argument. It should not be substituted for it. When explicitly asked whether the main ethical bridge rests on contradiction in the violator's own justification or on long-run dynamics and self-collapse, the author chose the contradiction/universalization route rather than the collapse route. Earlier repository files inverted this priority by placing self-collapse at the foundation. Defining collapse as the presence of subversion does not establish an empirical prediction that every externally harmful system must develop subversion or lose its capabilities.
 
 The author acknowledges the distinction between an agent dissolving and an agent causing catastrophic harm. A hypothesized eventual collapse would not, by itself, establish prevention of prior harm.
 
@@ -304,10 +302,10 @@ The author acknowledges the distinction between an agent dissolving and an agent
 | Universal reasons cannot justify identity-only exceptions | Conditional reasoning principle |
 | Acting necessarily commits an agent to ethical respect for others | Author's central philosophical hypothesis |
 | Specific restraints against harm follow from that commitment | Derivation to develop |
-| Acts against what is attributable to another (body, actions, creations) without consent cannot be universally preferred | Author's universalization test; the scope of "violation" still needs to be made explicit |
+| Acts against what is attributable to another (body, actions, creations) without consent cannot be universalized across roles | Author's universalization test; the scope of "violation" still needs to be made explicit |
 | Conduct demonstrates preferences; an exploiter's conduct conflicts with the universal form of the rule it relies on | Author's demonstrated-preference argument |
 | Rejecting morality as a principle forfeits appeal to its protection (trust collapse) | Author's proposal; the second collaborator raised a proportionality limit |
-| Reciprocal background risk + strict liability passes universalizability; zero-risk paralysis and engineered risk-loading fail | UPB risk-rule extension (second collaborator, endorsed by author) |
+| Reciprocal background risk + strict liability passes universalizability; zero-risk paralysis and engineered risk-loading fail | Risk-rule universalization extension (second collaborator, endorsed by author) |
 | Forward safety scan must match or exceed the causal horizon and sensitivity used to justify goal achievement | Predictive horizon symmetry (blocks motivated causal blindness) |
 | AI internalizes the framework and checks proposed conduct | Intended architecture |
 | Every permitted execution preserves specified invariants | Formal verification target |

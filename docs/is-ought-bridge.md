@@ -18,7 +18,7 @@ This conclusion rules out selective erasure of inconvenient causal facts in an a
 
 ## The proposed ethical extension
 
-The author proposes that relying on agency, preferences, and attribution for one's own pursuits while denying their standing for others is incompatible with ethical coherence. UPB-style universality and performative contradiction are the proposed tests.
+The author proposes that relying on agency, preferences, and attribution for one's own pursuits while denying their standing for others is incompatible with ethical coherence. Role-universalizability and performative contradiction are the proposed tests.
 
 For example, if an agent justifies protection of its preferences solely by its status as an agent pursuing preferred outcomes, that reason also applies to other agents meeting those conditions. It cannot obtain a self-exemption from that reason alone.
 

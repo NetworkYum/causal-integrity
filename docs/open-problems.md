@@ -1,6 +1,6 @@
 # Open Problems & Roadmap
 
-Prioritized remaining work. Incorporates March (Gemini/UPB) and July (coherence/forward-sim) arcs.
+Prioritized remaining work. Incorporates earlier formalization and coherence/forward-simulation arcs.
 
 ---
 
@@ -53,11 +53,11 @@ Prioritized remaining work. Incorporates March (Gemini/UPB) and July (coherence/
 ### 8. Verification depth
 
 - [x] Lake package + CI for Lean (`lake build`, `.github/workflows/lean.yml`)
-- Encode Axiom 5 (UPB meta) or keep it permanently scoped with an explicit rule-language decision
+- Encode full meta-level role-universalizability over rich rule languages (beyond the discrete profiles in `CausalIntegrityV2`)
 - Temporal / state-indexed ownership ledger (replace `Unowned` marker)
 - Promote [foundations-gemini.md](../archive/foundations-gemini.md) sketches to machine-checked theorems
 
 ### 9. Scholarship
 
-- Related work: Locke, UPB/Molyneux critiques, Kantian AI, formal deontology
-- Note Woodford-style critiques and how the AI-scoped version answers them ([upb-core-proofs.md](upb-core-proofs.md))
+- Related work: Kantian universalization, Gewirth/Beyleveld, Locke, Kinsella (estoppel), Halpern-Pearl actual causality, formal deontology, and historical universalization critiques
+- Note Woodford-style critiques of hypothetical vs. categorical universality and how the AI-scoped version answers them ([../archive/upb-core-proofs.md](../archive/upb-core-proofs.md))

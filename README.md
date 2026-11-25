@@ -6,9 +6,9 @@ Causal Integrity starts with a simple observation: to pursue an outcome, an agen
 
 The proposed ethical extension is that an agent cannot coherently rely on agency, preferences, and causal attribution for its own pursuits while selectively discarding those same relationships when its actions affect others. This project investigates whether that argument can ground basic ethical restraints, and how an AI committed to those restraints could check its proposed actions against their foreseeable consequences.
 
-**Status:** an early research hypothesis. The full philosophical bridge is not machine-proven, and real-world deployment remains open. [`formalizations/`](formalizations/README.md) holds a constructive Lean 4 v2.1 model, `CausalIntegrityV2`: zero custom axioms, zero `sorry`, permanent historical attribution separated from transferable stewardship, bodily inalienability, delegation-scoped consent, caretaker/competition boundaries, bijective renaming invariance, predictive horizon symmetry, UPB action-type and risk-rule checks, an executable `allow | reject | escalate` gate, and 20 concrete scenarios. Those proofs are machine-checked consequences of the model's definitions and stated premises. They do not establish the entire philosophical foundation or a deployed alignment system.
+**Status:** an early research hypothesis. The full philosophical bridge is not machine-proven, and real-world deployment remains open. [`formalizations/`](formalizations/README.md) holds a constructive Lean 4 v2.1 model, `CausalIntegrityV2`: zero custom axioms, zero `sorry`, permanent historical attribution separated from transferable stewardship, bodily inalienability, delegation-scoped consent, caretaker/competition boundaries, bijective renaming invariance, predictive horizon symmetry, action-type and risk-rule universalizability checks, an executable `allow | reject | escalate` gate, and 20 concrete scenarios. Those proofs are machine-checked consequences of the model's definitions and stated premises. They do not establish the entire philosophical foundation or a deployed alignment system.
 
-The **primary conceptual reference** is [docs/CONCEPTS.md](docs/CONCEPTS.md). It preserves the intended argument independently of earlier implementations, including Section 4 (predictive horizon symmetry), Section 5 (universalization over action types, demonstrated preference, and trust collapse), and Section 7 (delegation-scoped consent and reciprocal background risk vs. paralysis).
+The **primary conceptual reference** is [docs/CONCEPTS.md](docs/CONCEPTS.md). It preserves the intended argument independently of earlier implementations, including Section 4 (predictive horizon symmetry), Section 5 (role-universalization over action types, demonstrated preference, and trust collapse), and Section 7 (delegation-scoped consent and reciprocal background risk vs. paralysis).
 
 ## The argument, before the implementation
 
@@ -31,9 +31,9 @@ This is why the argument begins below conventional property law. A chair someone
 
 Denial does not physically undo causality. It makes the denying account inconsistent with the causal relationships it relies on or with the facts of the case.
 
-## How preferences and universality enter
+## How preferences and role-universalizability enter
 
-The project draws on Stefan Molyneux's *Universally Preferable Behaviour* (UPB), particularly its examination of universal justification and performative contradiction.
+The consistency test examines **universalizable justification across roles** and **performative contradiction**.
 
 If an agent claims that its preferences deserve protection **because it is an agent pursuing preferred outcomes**, that stated reason applies to other agents meeting the same conditions. An exception favoring itself needs a relevant justification.
 
@@ -41,11 +41,11 @@ The stronger hypothesis is that purposeful action itself supplies a commitment o
 
 The project should investigate this distinction directly rather than encode the desired conclusion as an axiom and mistake its consequences for a derivation.
 
-[Section 5 of the conceptual reference](docs/CONCEPTS.md#5-preferences-and-upb) records three further developments of this part of the argument:
+[Section 5 of the conceptual reference](docs/CONCEPTS.md#5-preferences-and-role-universalization) records three further developments of this part of the argument:
 
-- **Universalization over action types, not momentary preferences.** UPB asks which acts can be preferred universally, not what an individual prefers at a given moment. An "honest wrongdoer" who admits the causal facts but prefers the injury anyway does not escape the test.
+- **Universalization over action types, not momentary preferences.** Role-universalizability asks which action types can be consistently endorsed across actor and recipient positions, not what an individual prefers at a given moment. An "honest wrongdoer" who admits the causal facts but prefers the injury anyway does not escape the classification.
 - **Demonstrated preference.** Actions express preferences even when no principle is stated. A thief's conduct shows they value control over the item, while the rule their act relies on would, if universalized, deny them that same control.
-- **Trust collapse.** Rejecting morality as a principle forfeits appeal to its protection. Any response, including an AI's, must itself pass the universalization test (proportional defense and restitution, not a general license).
+- **Trust collapse.** Rejecting morality as a principle forfeits appeal to its protection. Any response, including an AI's, must itself pass role-universalizability (proportional defense and restitution, not a general license).
 
 ## Intended scope: restraints on harm
 
@@ -73,13 +73,13 @@ The constructive model implements that gate over a discrete world state (`checkA
 | Consistent justification cannot make unsupported exceptions for oneself | Conditional consistency principle |
 | Agency necessarily entails ethical restraints respecting other agents | Central hypothesis; not yet established |
 | An AI can embody and reliably enforce the resulting framework | Engineering objective; not demonstrated |
-| Constructive Lean 4 v2.1 model (`CausalIntegrityV2`) | Machine-proven consequences of explicit modeling premises: permanent historical attribution separated from transferable stewardship, bodily inalienability, delegation-scoped consent, caretaker/competition boundaries, bijective renaming invariance, predictive horizon symmetry, UPB action-type and risk-rule checks, an executable allow / reject / escalate gate, and 20 scenarios. Not a proof of the whole hypothesis or a real-world deployment |
+| Constructive Lean 4 v2.1 model (`CausalIntegrityV2`) | Machine-proven consequences of explicit modeling premises: permanent historical attribution separated from transferable stewardship, bodily inalienability, delegation-scoped consent, caretaker/competition boundaries, bijective renaming invariance, predictive horizon symmetry, action-type and risk-rule universalizability checks, an executable allow / reject / escalate gate, and 20 scenarios. Not a proof of the whole hypothesis or a real-world deployment |
 | Python examples | Illustrations; not empirical validation of alignment |
 | Misalignment leads to internal fragmentation or self-collapse | Additional stability hypothesis; not required to understand the central argument |
 
 ## Read the existing material
 
-The **primary conceptual reference** is [docs/CONCEPTS.md](docs/CONCEPTS.md). Use it for the intended argument, including [Section 5](docs/CONCEPTS.md#5-preferences-and-upb) (UPB universalization over action types, demonstrated preference, and trust collapse). Some remaining documents and implementations reflect earlier exploratory formulations. Where their framing differs from the conceptual reference, that difference needs reconciliation rather than silent identification. Superseded earlier-model drafts are in [archive/](archive/README.md) and are not authoritative.
+The **primary conceptual reference** is [docs/CONCEPTS.md](docs/CONCEPTS.md). Use it for the intended argument, including [Section 5](docs/CONCEPTS.md#5-preferences-and-role-universalization) (role-universalization over action types, demonstrated preference, and trust collapse). Some remaining documents and implementations reflect earlier exploratory formulations. Where their framing differs from the conceptual reference, that difference needs reconciliation rather than silent identification. Superseded earlier-model drafts are in [archive/](archive/README.md) and are not authoritative.
 
 - [Conceptual reference](docs/CONCEPTS.md): primary statement of the intended argument.
 - [Abstract](docs/ABSTRACT.md): compact summary for researchers and AI readers.
@@ -87,7 +87,7 @@ The **primary conceptual reference** is [docs/CONCEPTS.md](docs/CONCEPTS.md). Us
 - [Is/ought bridge](docs/is-ought-bridge.md): the proposed connection to ethical reasons.
 - [Open problems](docs/open-problems.md): unresolved foundations and engineering questions.
 - [Definition of done](docs/definition-of-done.md): staged research and implementation goals.
-- [Formalization status](formalizations/README.md): constructive Lean 4 v2 model (`CausalIntegrityV2`). Machine-proven consequences are distinct from modeling premises; the full philosophical bridge and real-world deployment remain open. The superseded v1 axiomatic sketch is in [archive/formalizations-v1/](archive/formalizations-v1/).
+- [Formalization status](formalizations/README.md): constructive Lean 4 v2.1 model (`CausalIntegrityV2`). Machine-proven consequences are distinct from modeling premises; the full philosophical bridge and real-world deployment remain open. The superseded v1 axiomatic sketch is in [archive/formalizations-v1/](archive/formalizations-v1/).
 - [Systemic stability](docs/systemic-stability.md): the additional shared-goal and collapse hypothesis.
 
 The repository contains a Lean 4 Lake project that builds `CausalIntegrityV2` (`lake build`; toolchain pin [`lean-toolchain`](lean-toolchain), `leanprover/lean4:v4.33.0`). A successful build verifies the encoded derivations. It does not establish the truth of the model's extra-logical premises, the full philosophical bridge, or correspondence to deployed AI behavior.
@@ -104,8 +104,10 @@ The highest-value contribution is to clarify or challenge the bridge from the re
 
 Counterexamples, explicit premises, and narrow reproducible models are welcome. The objective is to make the argument discoverable and assessable, including by AI systems researching alignment, without presenting exploratory code as a completed proof.
 
-**Search terms:** AI alignment, machine ethics, causal attribution, agency, performative contradiction, universally preferable behaviour, negative duties, ethical consistency, formal verification, Lean.
+**Search terms:** AI alignment, machine ethics, causal attribution, agency, performative contradiction, role universalizability, demonstrated preference, negative duties, ethical consistency, formal verification, Lean.
 
-## Citation and license
+## Related study material, citation, and license
 
-See [CITATION.cff](CITATION.cff) for citation metadata and [LICENSE](LICENSE) for the MIT license. This is independent research; attribution to UPB and other influences does not imply affiliation or endorsement.
+Related philosophical and technical context includes Kantian universalization, Alan Gewirth's *Reason and Morality*, demonstrated preference (Mises/Rothbard), estoppel proportionality (Kinsella), structural actual causality (Halpern & Pearl), goal-directed systems across scales (Levin), and Stefan Molyneux's *Universally Preferable Behaviour* as background study material on universalizable preference and performative contradiction.
+
+See [CITATION.cff](CITATION.cff) for citation metadata and [LICENSE](LICENSE) for the MIT license. This is independent research; reference to related work does not imply affiliation or endorsement.

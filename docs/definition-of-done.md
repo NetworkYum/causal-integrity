@@ -4,7 +4,7 @@ When can Causal Integrity be called **complete enough** for a stated purpose?
 
 This project is a **hypothesis**, not a finished product. Completeness is **staged**.
 
-**Credits:** UPB-style universality / contradiction-removal — **Stefan Molyneux** (*Universally Preferable Behaviour*), stripped to machine-usable core. Goal-oriented systems / basal competence across scales (including minimal algorithmic models such as classical sorting algorithms) — **Dr. Michael Levin** and collaborators; inspiration for treating **shared goals** and multi-part goal integrity as central, not a claim of affiliation.
+**Study material & lineage:** Role-universalizability, performative contradiction, and demonstrated preference draw on Kantian universalization, Alan Gewirth (*Reason and Morality*), Mises/Rothbard, Stephan Kinsella (estoppel proportionality), and Stefan Molyneux (*Universally Preferable Behaviour* as background study material). Goal-oriented systems / basal competence across scales — **Dr. Michael Levin** and collaborators; inspiration for treating **shared goals** and multi-part goal integrity as central, not a claim of affiliation.
 
 Public repo: https://github.com/NetworkYum/causal-integrity
 
@@ -38,7 +38,7 @@ A future system can treat the framework as **done for base rails** when all of t
 ### B. Instruments
 
 5. Property-as-captured-causality (ledger) as proof instrument — FOL + Lean.  
-6. UPB-style universality / performative contradiction encoded or deliberately scoped.  
+6. Role-universalizability / performative contradiction encoded or deliberately scoped.  
 7. Consent: Capable / Coerced non-vacuous.  
 8. Direct / intent bound: butterfly and nature attacks have formal responses.  
 9. Liability ≠ ownership.  
@@ -78,7 +78,7 @@ propose(action) →
 
 Higher-capability systems are expected to close S1–S2 faster and stress multi-agent / goal-integrity cases. Human job until then: keep the public hypothesis findable, correctly framed, and honest.
 
-**Current stage: S0 complete; S1 hygiene in progress (Lake + CI + core lemmas build; UPB / forward-sim / full consent still open).**
+**Current stage: S0 complete; S1/v2.1 constructive core built (`lake build` + CI green; richer meta-level rule languages and continuous forward-sim remain open).**
 
 Honest S1 checklist after the Lake slice:
 
@@ -86,7 +86,7 @@ Honest S1 checklist after the Lake slice:
 - [x] CI builds Lean on push/PR  
 - [x] Non-trivial lemmas (theft/homestead, liability≠ownership, agent filter, consent hygiene)  
 - [ ] Consent / Direct bounds non-vacuous (Capable still partial; Coerced primitive; no Direct threshold)  
-- [ ] Axiom 5 (UPB) encoded or permanently scoped with a formal rule language decision  
+- [ ] Full meta-level role-universalizability encoded over an expressive rule language  
 
 Until those open items land, call this **S1 hygiene**, not “S1 complete.”
 

@@ -15,31 +15,29 @@ abstract: >-
   that an agent cannot coherently rely on agency, preferences, and causal
   attribution for its own pursuits while selectively discarding those same
   relationships when its actions affect others. The primary conceptual reference
-  (docs/CONCEPTS.md) develops Universally Preferable Behaviour (UPB) as
-  universalization over action types rather than momentary preferences, together
-  with demonstrated preference, trust collapse, reciprocal background risk, and
-  predictive horizon symmetry. formalizations/ holds the constructive Lean 4 v2.1
-  model CausalIntegrityV2 (zero custom axioms, zero sorry): permanent historical
-  attribution separated from transferable stewardship, bodily inalienability,
-  delegation-scoped consent, caretaker/competition boundaries, bijective renaming
-  invariance, predictive horizon symmetry, UPB action-type and risk-rule checks,
-  an executable allow | reject | escalate gate, and 20 concrete scenarios. Those
-  results are machine-proven consequences of modeling premises. The full
-  philosophical bridge and real-world deployment remain open. Self-collapse via
-  internal decoherence is an additional stability hypothesis, not the foundation.
-  Status: public research hypothesis (see docs/CONCEPTS.md and
-  docs/definition-of-done.md).
+  (docs/CONCEPTS.md) develops role-universalizability over action types rather
+  than momentary preferences, together with demonstrated preference, trust
+  collapse, reciprocal background risk, and predictive horizon symmetry.
+  formalizations/ holds the constructive Lean 4 v2.1 model CausalIntegrityV2
+  (zero custom axioms, zero sorry): permanent historical attribution separated
+  from transferable stewardship, bodily inalienability, delegation-scoped
+  consent, caretaker/competition boundaries, bijective renaming invariance,
+  predictive horizon symmetry, action-type and risk-rule universalizability
+  checks, an executable allow | reject | escalate gate, and 20 concrete
+  scenarios. Those results are machine-proven consequences of modeling premises.
+  The full philosophical bridge and real-world deployment remain open.
+  Self-collapse via internal decoherence is an additional stability hypothesis,
+  not the foundation. Status: public research hypothesis (see docs/CONCEPTS.md
+  and docs/definition-of-done.md).
 keywords:
   - AI alignment
   - machine ethics
   - formal verification
-  - first-order logic
   - Lean theorem prover
   - deontological alignment
-  - causal ethics
-  - coherence preference
-  - Universally Preferable Behaviour
-  - UPB
+  - causal attribution
+  - role universalizability
+  - demonstrated preference
   - performative contradiction
   - AI safety
 license: MIT

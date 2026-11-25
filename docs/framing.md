@@ -38,7 +38,7 @@ Selective denial can enable exploitation. Inconsistency alone does not establish
 
 Purposeful action expresses pursuit of a preferred state. Other agents also pursue states, act, and contribute to outcomes.
 
-The author's hypothesis is that relying on those relationships for one's own pursuits while violating their standing for others creates a deeper ethical inconsistency. UPB-style universal justification is the proposed means of exposing it.
+The author's hypothesis is that relying on those relationships for one's own pursuits while violating their standing for others creates a deeper ethical inconsistency. Role-universalizable justification is the proposed means of exposing it.
 
 A precise conditional result is available: if a claim is justified solely by a property shared by multiple agents, the same justification applies to those agents. An exception based solely on who is making the claim is not supplied by that reason.
 
