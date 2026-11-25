@@ -1,5 +1,5 @@
 name = "CausalIntegrityV2"
-version = "0.1.0"
+version = "0.2.1"
 defaultTargets = ["CausalIntegrityV2"]
 
 [[lean_lib]]

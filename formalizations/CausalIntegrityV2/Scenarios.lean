@@ -1,18 +1,25 @@
 /-
-  CausalIntegrityV2.Scenarios — Concrete finite models, worked acceptance scenarios,
+  CausalIntegrityV2.Scenarios — Concrete finite models, 20 worked acceptance checks,
   and an intentionally broken counterexample checker.
 
-  Demonstrates:
-  - Consistency & non-vacuity: useful actions (homesteading, self-use, joint creation,
-    consensual modification, harmless competition, declining offers, emergency medical
-    stabilization, and bounded proportional defense) are all `.allow`ed.
-  - Violations rejected: direct harm, coerced/revoked/deceptive consent, exploiting
-    an incapacitated person, proxy-laundered harm, and disproportionate defense.
-  - Uncertainty escalation: uncertain consent and uncertain harm escalate instead of
-    silently executing or guessing.
-  - Broken checker counterexample: a gate that ignores intermediaries permits a genuine
-    domain violation, while `checkAction` rejects it.
-  - Concrete agent-renaming invariance under `swapAliceBob`.
+  Covers:
+  - Scenarios 1–15: homesteading/self-use, joint co-creation, consensual modification,
+    harmless competition, declining offers, emergency medical stabilization, bounded
+    proportional defense, direct harm, coerced/revoked/deceptive consent, exploiting
+    incapacitated owners, proxy laundering, disproportionate defense, uncertain
+    consent/harm escalation, broken proxy-ignoring gate counterexample, and concrete
+    agent-renaming invariance.
+  - Scenarios 16–20 (v2.1 upgrades):
+    16. Good Samaritan no-veto: emergency stabilization records factual attribution for
+        `doctor` without giving `doctor` any veto over Sam's body when Sam recovers.
+    17. Guest modification no-veto: Bob modifying Alice's chair once with permission
+        records Bob's factual contribution without stripping Alice's sole stewardship.
+    18. Voluntary transfer: Alice transferring `chair` to Bob preserves Alice's
+        historical `IsContributor` record while moving active `InDomain` control to Bob.
+    19. Delegation-scoped consent: sparring consent granted personally to Bob blocks
+        routing the hit through `proxyBot` unless `allowsDelegation = true`.
+    20. Predictive horizon symmetry: planning 5 steps ahead for reward while scanning
+        only 1 step for harm triggers `.escalate .insufficientSafetyHorizon`.
 -/
 
 import CausalIntegrityV2.ActionGate
@@ -60,7 +67,8 @@ theorem scenario_homestead_and_self_use_allowed :
     checkAction (applyIfAllowed baseWorld aliceHomesteadChair) aliceModifyChair = .allow := by
   decide
 
-/-- 2. Joint creation: Bob forges `sword`, consents for Sam to attach handle, and both coexist in domain. -/
+/-- 2. Joint creation: Bob forges `sword` (`.homestead`), consents for Sam to attach handle
+    as co-creator (`.coCreate`), and both coexist in `IsContributor` and `InDomain`. -/
 def bobForgeSword : ProposedAction :=
   { event :=
       { initiator := bob, intermediaries := [], kind := .homestead
@@ -70,13 +78,13 @@ def bobForgeSword : ProposedAction :=
 
 def samAttachHandle : ProposedAction :=
   { event :=
-      { initiator := sam, intermediaries := [], kind := .modify
+      { initiator := sam, intermediaries := [], kind := .coCreate
       , target := sword, valence := .beneficial, severity := 0 }
   , consentCertainty := .certain
   , harmCertainty := .certain }
 
 def bobPermitsSamSword : Permission :=
-  { owner := bob, actor := sam, target := sword, kind := .modify
+  { owner := bob, actor := sam, target := sword, kind := .coCreate
   , revoked := false, coerced := false, informed := true }
 
 def jointCreationWorldAfter : WorldState :=
@@ -202,7 +210,7 @@ theorem scenario_deceptive_consent_rejected :
       bobModifyChair = .reject .unconsentedViolation := by
   decide
 
-/-- 10. Exploiting an incapacitated owner's chair is rejected even if a coerced/direct token exists. -/
+/-- 10. Exploiting an incapacitated owner's chair is rejected even if a direct token exists. -/
 def samChairEvent : CausalEvent :=
   { initiator := sam, intermediaries := [], kind := .homestead
   , target := chair, valence := .beneficial, severity := 0 }
@@ -236,7 +244,7 @@ theorem scenario_proxy_laundering_rejected :
     checkAction baseWorld proxyHarm = .reject .unconsentedViolation ∧
     InitiatedContribution (appendEvent baseWorld proxyHarm.event) bob samBody := by
   refine ⟨by decide, ?_⟩
-  exact (intermediary_does_not_launder baseWorld bob [proxyBot] .harm samBody .harmful 2).1
+  exact (intermediary_does_not_launder baseWorld bob [proxyBot] .harm samBody none .harmful 2).1
 
 /-- 12. Disproportionate retaliation: Bob has severity-1 violation; Sam defends with severity 5. -/
 theorem scenario_disproportionate_retaliation_rejected :
@@ -302,5 +310,93 @@ theorem scenario_renaming_invariant_concrete :
       (renameProposal swapAliceBob bobModifyChair) =
     checkAction worldAliceOwnsChairWithConsent bobModifyChair :=
   checkAction_renaming_invariant swapAliceBob worldAliceOwnsChairWithConsent bobModifyChair
+
+/-- 16. Good Samaritan no-veto: Doctor stabilizes incapacitated Sam, Sam wakes up (`capacities := []`),
+    and Sam freely acts on `samBody` without needing Doctor's permission — while Doctor's
+    historical contribution remains permanently recorded. -/
+def samRecoveredAfterCare : WorldState :=
+  { applyIfAllowed samIncapacitatedWorld doctorStabilizesSam with capacities := [] }
+
+def samMovesOwnBody : ProposedAction :=
+  { event :=
+      { initiator := sam, intermediaries := [], kind := .modify
+      , target := samBody, valence := .beneficial, severity := 0 }
+  , consentCertainty := .certain
+  , harmCertainty := .certain }
+
+theorem scenario_good_samaritan_no_body_veto :
+    IsContributor samRecoveredAfterCare doctor samBody ∧
+    ¬ InDomain samRecoveredAfterCare doctor samBody ∧
+    checkAction samRecoveredAfterCare samMovesOwnBody = .allow := by
+  refine ⟨rfl, ?_, by decide⟩
+  intro hDom
+  cases hDom
+
+/-- 17. Guest modification no-veto: Alice lets Bob polish `chair` once; afterward (even with
+    permissions cleared) Alice remains sole steward and modifies `chair` freely, while Bob's
+    historical contribution stays recorded. -/
+def worldAfterBobGuestPolish : WorldState :=
+  { applyIfAllowed worldAliceOwnsChairWithConsent bobModifyChair with permissions := [] }
+
+theorem scenario_guest_modify_no_chair_veto :
+    IsContributor worldAfterBobGuestPolish bob chair ∧
+    ¬ InDomain worldAfterBobGuestPolish bob chair ∧
+    checkAction worldAfterBobGuestPolish aliceModifyChair = .allow := by
+  refine ⟨rfl, ?_, by decide⟩
+  intro hDom
+  cases hDom
+
+/-- 18. Voluntary transfer: Alice homesteads `chair` and transfers it to Bob.
+    Alice retains permanent historical attribution (`IsContributor`), loses active stewardship,
+    Bob gains active stewardship and modifies `chair` freely, and Alice can no longer modify
+    `chair` unilaterally without Bob's consent. -/
+def aliceTransferChairToBob : ProposedAction :=
+  { event :=
+      { initiator := alice, intermediaries := [], kind := .transfer
+      , target := chair, recipient := some bob, valence := .neutral, severity := 0 }
+  , consentCertainty := .certain
+  , harmCertainty := .certain }
+
+def worldAfterTransferToBob : WorldState :=
+  runProposals baseWorld [aliceHomesteadChair, aliceTransferChairToBob]
+
+theorem scenario_transfer_releases_and_reassigns_stewardship :
+    IsContributor worldAfterTransferToBob alice chair ∧
+    ¬ InDomain worldAfterTransferToBob alice chair ∧
+    InDomain worldAfterTransferToBob bob chair ∧
+    checkAction worldAfterTransferToBob bobModifyChair = .allow ∧
+    checkAction worldAfterTransferToBob aliceModifyChair = .reject .unconsentedViolation := by
+  refine ⟨rfl, ?_, rfl, by decide, by decide⟩
+  intro hDom
+  cases hDom
+
+/-- 19. Delegation-scoped consent: Sam consents personally to spar with Bob (`allowsDelegation = false`).
+    Direct sparring by Bob is `.allow`ed, routing the hit through `proxyBot` is rejected,
+    and enabling `allowsDelegation = true` permits the delegated action. -/
+def samPersonalSparConsent : Permission :=
+  { owner := sam, actor := bob, target := samBody, kind := .harm
+  , revoked := false, coerced := false, informed := true, allowsDelegation := false }
+
+theorem scenario_subdelegation_consent_enforced :
+    checkAction { baseWorld with permissions := [samPersonalSparConsent] } bobPunchSam = .allow ∧
+    checkAction { baseWorld with permissions := [samPersonalSparConsent] } proxyHarm =
+      .reject .unconsentedViolation ∧
+    checkAction { baseWorld with permissions := [{ samPersonalSparConsent with allowsDelegation := true }] }
+      proxyHarm = .allow := by
+  decide
+
+/-- 20. Predictive horizon symmetry: planning 5 steps ahead for a goal while only checking
+    1 step ahead for safety triggers `.escalate .insufficientSafetyHorizon`; matching the
+    safety horizon (`safetyHorizon := 5`) allows the valid action. -/
+def asymmetricHorizonAction : ProposedAction :=
+  { aliceHomesteadChair with goalHorizon := 5, safetyHorizon := 1 }
+
+def symmetricHorizonAction : ProposedAction :=
+  { aliceHomesteadChair with goalHorizon := 5, safetyHorizon := 5 }
+
+theorem scenario_predictive_horizon_symmetry :
+    checkAction baseWorld asymmetricHorizonAction = .escalate .insufficientSafetyHorizon ∧
+    checkAction baseWorld symmetricHorizonAction = .allow := by
+  decide
 
 end CausalIntegrityV2

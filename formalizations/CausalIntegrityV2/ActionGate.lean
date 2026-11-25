@@ -1,14 +1,15 @@
 /-
-  CausalIntegrityV2.ActionGate — Pre-action decision gate (`allow | reject | escalate`)
-  and multi-step invariant preservation.
+  CausalIntegrityV2.ActionGate — Pre-action decision gate (`allow | reject | escalate`),
+  predictive horizon symmetry, and multi-step invariant preservation.
 
-  Corresponds to docs/CONCEPTS.md §§8 and 10:
-  - Evaluates proposed actions with explicit certainty flags (`consentCertainty`,
-    `harmCertainty`).
-  - Routes uncertain harm or uncertain non-defensive consent to `escalate`.
-  - Rejects violations and disproportionate defense.
+  Corresponds to docs/CONCEPTS.md §§4, 8, and 10:
+  - Predictive Horizon Symmetry: refuses to `.allow` any proposal whose safety scan
+    horizon (`safetyHorizon`) is shallower than its goal-planning horizon (`goalHorizon`),
+    blocking "motivated causal blindness."
+  - Validates `.transfer` recipient presence, routes uncertain harm or uncertain
+    non-defensive consent to `.escalate`, and rejects violations and disproportionate defense.
   - Proves across ANY finite sequence of proposals that:
-    (1) no violation transition is ever executed (`runProposals_is_safeTrace`),
+    (1) no violation or asymmetric-horizon transition is ever executed (`runProposals_is_safeTrace`),
     (2) existing history and contributors persist (`runProposals_preserves_contributors`),
     (3) the gate is invariant under bijective agent renaming (`checkAction_renaming_invariant`).
 -/
@@ -25,11 +26,13 @@ inductive Certainty
 inductive RejectReason
   | unconsentedViolation
   | disproportionateDefense
+  | invalidTransferTarget
   deriving DecidableEq, BEq, Repr
 
 inductive EscalateReason
   | uncertainConsent
   | uncertainHarm
+  | insufficientSafetyHorizon
   deriving DecidableEq, BEq, Repr
 
 inductive Verdict
@@ -42,14 +45,20 @@ structure ProposedAction where
   event : CausalEvent
   consentCertainty : Certainty
   harmCertainty : Certainty
+  goalHorizon : Nat := 1
+  safetyHorizon : Nat := 1
   deriving DecidableEq, BEq, Repr
 
 def renameProposal (π : AgentPerm) (prop : ProposedAction) : ProposedAction :=
   { prop with event := renameEvent π prop.event }
 
-/-- Pre-action causal-integrity gate. -/
+/-- Pre-action causal-integrity gate with predictive horizon symmetry. -/
 def checkAction (w : WorldState) (prop : ProposedAction) : Verdict :=
-  if prop.harmCertainty == .uncertain then
+  if decide (prop.safetyHorizon < prop.goalHorizon) then
+    .escalate .insufficientSafetyHorizon
+  else if (prop.event.kind == .transfer) && prop.event.recipient.isNone then
+    .reject .invalidTransferTarget
+  else if prop.harmCertainty == .uncertain then
     .escalate .uncertainHarm
   else if (prop.consentCertainty == .uncertain) &&
       affectsDomainKind prop.event.kind &&
@@ -78,9 +87,12 @@ def runProposals (w : WorldState) (props : List ProposedAction) : WorldState :=
   props.foldl applyIfAllowed w
 
 /-- A single transition step either leaves state unchanged or appends a non-violating,
-    harm-certain event. -/
+    harm-certain, horizon-symmetric event. -/
 def SafeStep (w w' : WorldState) : Prop :=
-  w' = w ∨ (∃ prop : ProposedAction, ¬ IsViolation w prop.event ∧ prop.harmCertainty = .certain ∧
+  w' = w ∨ (∃ prop : ProposedAction,
+    ¬ IsViolation w prop.event ∧
+    prop.harmCertainty = .certain ∧
+    prop.goalHorizon ≤ prop.safetyHorizon ∧
     w' = appendEvent w prop.event)
 
 /-- Reflexive-transitive closure of `SafeStep` across finite execution traces. -/
@@ -88,39 +100,50 @@ inductive SafeTrace : WorldState → WorldState → Prop
   | refl (w : WorldState) : SafeTrace w w
   | step {w₁ w₂ w₃ : WorldState} : SafeTrace w₁ w₂ → SafeStep w₂ w₃ → SafeTrace w₁ w₃
 
-/-- Any `.allow` verdict guarantees no domain violation and certain harm assessment. -/
+/-- Any `.allow` verdict guarantees no domain violation, certain harm assessment,
+    and predictive horizon symmetry (`goalHorizon ≤ safetyHorizon`). -/
 theorem checkAction_allow_safe (w : WorldState) (prop : ProposedAction)
     (hAllow : checkAction w prop = .allow) :
-    ¬ IsViolation w prop.event ∧ prop.harmCertainty = .certain := by
+    ¬ IsViolation w prop.event ∧
+      prop.harmCertainty = .certain ∧
+      prop.goalHorizon ≤ prop.safetyHorizon := by
   unfold checkAction at hAllow
-  cases hHarm : (prop.harmCertainty == .uncertain)
-  · simp only [hHarm, Bool.false_eq_true, ↓reduceIte] at hAllow
-    have hHarmCert : prop.harmCertainty = .certain := by
-      cases hc : prop.harmCertainty
-      · rfl
-      · rw [hc] at hHarm
-        exact absurd hHarm (by decide)
-    cases hUnc : ((prop.consentCertainty == .uncertain) &&
-        affectsDomainKind prop.event.kind &&
-        (allStakeholders w prop.event.target).any
-          (fun o => (o != prop.event.initiator) && !isProportionalDefenseBool w o prop.event))
-    · simp only [hUnc, Bool.false_eq_true, ↓reduceIte] at hAllow
-      cases hViol : isViolationBool w prop.event
-      · have hNotViol : ¬ IsViolation w prop.event := by
-          intro hv
-          have ht := (isViolationBool_eq_true_iff w prop.event).mpr hv
-          rw [hViol] at ht
-          cases ht
-        exact ⟨hNotViol, hHarmCert⟩
-      · simp only [hViol, ↓reduceIte] at hAllow
-        cases hDef : ((prop.event.kind == .defend) &&
+  cases hHor : decide (prop.safetyHorizon < prop.goalHorizon)
+  · simp only [hHor, Bool.false_eq_true, ↓reduceIte] at hAllow
+    have hSym : prop.goalHorizon ≤ prop.safetyHorizon := by
+      exact Nat.not_lt.mp (decide_eq_false_iff_not.mp hHor)
+    cases hTrans : ((prop.event.kind == .transfer) && prop.event.recipient.isNone)
+    · simp only [hTrans, Bool.false_eq_true, ↓reduceIte] at hAllow
+      cases hHarm : (prop.harmCertainty == .uncertain)
+      · simp only [hHarm, Bool.false_eq_true, ↓reduceIte] at hAllow
+        have hHarmCert : prop.harmCertainty = .certain := by
+          cases hc : prop.harmCertainty
+          · rfl
+          · rw [hc] at hHarm
+            exact absurd hHarm (by decide)
+        cases hUnc : ((prop.consentCertainty == .uncertain) &&
+            affectsDomainKind prop.event.kind &&
             (allStakeholders w prop.event.target).any
-              (fun o => (o != prop.event.initiator) &&
-                w.activeViolations.any (fun v => v.offender == o)))
-        · simp [hDef] at hAllow
-        · simp [hDef] at hAllow
-    · simp [hUnc] at hAllow
-  · simp [hHarm] at hAllow
+              (fun o => (o != prop.event.initiator) && !isProportionalDefenseBool w o prop.event))
+        · simp only [hUnc, Bool.false_eq_true, ↓reduceIte] at hAllow
+          cases hViol : isViolationBool w prop.event
+          · have hNotViol : ¬ IsViolation w prop.event := by
+              intro hv
+              have ht := (isViolationBool_eq_true_iff w prop.event).mpr hv
+              rw [hViol] at ht
+              cases ht
+            exact ⟨hNotViol, hHarmCert, hSym⟩
+          · simp only [hViol, ↓reduceIte] at hAllow
+            cases hDef : ((prop.event.kind == .defend) &&
+                (allStakeholders w prop.event.target).any
+                  (fun o => (o != prop.event.initiator) &&
+                    w.activeViolations.any (fun v => v.offender == o)))
+            · simp [hDef] at hAllow
+            · simp [hDef] at hAllow
+        · simp [hUnc] at hAllow
+      · simp [hHarm] at hAllow
+    · simp [hTrans] at hAllow
+  · simp [hHor] at hAllow
 
 /-- Every gated proposal step satisfies `SafeStep`. -/
 theorem applyIfAllowed_is_safeStep (w : WorldState) (prop : ProposedAction) :
@@ -129,8 +152,8 @@ theorem applyIfAllowed_is_safeStep (w : WorldState) (prop : ProposedAction) :
   cases hVerdict : checkAction w prop with
   | allow =>
     dsimp only
-    obtain ⟨hNoViol, hCert⟩ := checkAction_allow_safe w prop hVerdict
-    exact Or.inr ⟨prop, hNoViol, hCert, rfl⟩
+    obtain ⟨hNoViol, hCert, hSym⟩ := checkAction_allow_safe w prop hVerdict
+    exact Or.inr ⟨prop, hNoViol, hCert, hSym, rfl⟩
   | reject _ =>
     dsimp only
     exact Or.inl rfl
@@ -213,9 +236,12 @@ theorem runProposals_preserves_contributors (w : WorldState) (props : List Propo
 theorem checkAction_renaming_invariant (π : AgentPerm) (w : WorldState) (prop : ProposedAction) :
     checkAction (renameWorld π w) (renameProposal π prop) = checkAction w prop := by
   unfold checkAction renameProposal
-  have hHarm : (renameEvent π prop.event).kind = prop.event.kind := rfl
+  have hKind : (renameEvent π prop.event).kind = prop.event.kind := rfl
   have hTarget : (renameEvent π prop.event).target = prop.event.target := rfl
   have hInit : (renameEvent π prop.event).initiator = π.toFun prop.event.initiator := rfl
+  have hRecNone : (renameEvent π prop.event).recipient.isNone = prop.event.recipient.isNone := by
+    unfold renameEvent
+    cases prop.event.recipient <;> rfl
   have hUncAny :
       (allStakeholders (renameWorld π w) (renameEvent π prop.event).target).any
         (fun o => (o != (renameEvent π prop.event).initiator) &&
@@ -244,6 +270,6 @@ theorem checkAction_renaming_invariant (π : AgentPerm) (w : WorldState) (prop :
     apply list_any_congr
     intro v
     exact π.beq_iff v.offender o
-  rw [hHarm, hUncAny, isViolationBool_rename, hDefAny]
+  rw [hKind, hRecNone, hUncAny, isViolationBool_rename, hDefAny]
 
 end CausalIntegrityV2

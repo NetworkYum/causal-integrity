@@ -1,21 +1,20 @@
 /-
-  CausalIntegrityV2.Domain — Attributed domain, consent validity, and violation boundaries.
+  CausalIntegrityV2.Domain — Separates permanent historical attribution (`IsContributor`)
+  from active normative stewardship (`InDomain`), delegation-aware consent, and violation.
 
-  Separates three concepts that v1 conflated:
-  1. Causal attribution (`IsContributor`) — who causally contributed to a resource.
-  2. Attributed domain (`InDomain`) — bodily domain or prior causal contribution.
-  3. Normative violation (`IsViolation`) — unconsented, domain-affecting interference
-     by a non-holder outside bounded proportional defense.
-
-  Fixes v1's concrete bugs:
-  - Timeless `Unowned` contradiction: unowned resources can be homesteaded without
-    collision, and prior capture lives in `WorldState.history`.
-  - Self-use contradiction: acting on your own domain requires no permission token.
-  - Exclusive title vs. joint creation: multiple contributors coexist in `InDomain`.
-  - Caretaker contradiction: guardian consent and non-harmful emergency stabilization
-    for incapacitated owners are explicitly distinguished from exploitation.
-  - Competition boundary: competing (`.compete`) and declining (`.decline`) do not
-    violate another's attributed domain even when they frustrate a preference.
+  Corresponds to docs/CONCEPTS.md §§3, 5, and 7:
+  1. Historical causal attribution (`IsContributor`) is append-only and never erased.
+  2. Active domain stewardship (`InDomain` / `stewardsOf`):
+     - Bodily resources (`isBodyResourceBool`) are inalienable: emergency stabilization,
+       proportional defense, and attempted transfers never alter bodily stewardship
+       (`body_domain_inalienable`).
+     - Non-body resources acquire stewards via `.homestead` and `.coCreate`, are NOT
+       captured by guest/service `.modify` (`guest_modify_preserves_domain`), and move
+       cleanly on `.transfer` while preserving historical attribution
+       (`transfer_moves_stewardship_preserving_attribution`).
+  3. Delegation-scoped consent: intermediaries in `e.intermediaries` must either be
+     covered by a permission with `allowsDelegation = true` granted to `e.initiator`,
+     or be individually authorized by the domain holder.
 -/
 
 import CausalIntegrityV2.Attribution
@@ -26,67 +25,9 @@ namespace CausalIntegrityV2
 def isBodyOfBool (w : WorldState) (a : AgentId) (r : ResourceId) : Bool :=
   w.bodies.any (fun p => (p.1 == r) && (p.2 == a))
 
-/-- `a` has an attributed domain stake in `r` (body or prior causal contribution). -/
-def inDomainBool (w : WorldState) (a : AgentId) (r : ResourceId) : Bool :=
-  isBodyOfBool w a r || isContributorBool w a r
-
-/-- Prop-level attributed domain membership. -/
-def InDomain (w : WorldState) (a : AgentId) (r : ResourceId) : Prop :=
-  inDomainBool w a r = true
-
-/-- `a` is currently recorded as incapacitated. -/
-def isIncapacitatedBool (w : WorldState) (a : AgentId) : Bool :=
-  w.capacities.any (fun p => (p.1 == a) && (p.2 == .incapacitated))
-
-/-- `a` is capable iff not recorded as incapacitated. -/
-def isCapableBool (w : WorldState) (a : AgentId) : Bool :=
-  !isIncapacitatedBool w a
-
-/-- `g` is registered as a guardian for `ward`. -/
-def isGuardianOfBool (w : WorldState) (g ward : AgentId) : Bool :=
-  w.guardians.any (fun p => (p.1 == ward) && (p.2 == g))
-
-/-- Check whether permission record `p` is valid for `(owner, actor, r, k)`. -/
-def permissionMatchesBool (owner actor : AgentId) (r : ResourceId) (k : ActionKind)
-    (p : Permission) : Bool :=
-  (p.owner == owner) && (p.actor == actor) && (p.target == r) && (p.kind == k) &&
-    !p.revoked && !p.coerced && p.informed
-
-/-- Direct consent from a capable owner: unrevoked, uncoerced, informed permission. -/
-def hasValidDirectConsentBool (w : WorldState) (owner actor : AgentId)
-    (r : ResourceId) (k : ActionKind) : Bool :=
-  isCapableBool w owner && w.permissions.any (permissionMatchesBool owner actor r k)
-
-/-- Guardian proxy consent when `owner` is incapacitated and a guardian issues valid consent. -/
-def hasGuardianConsentBool (w : WorldState) (owner actor : AgentId)
-    (r : ResourceId) (k : ActionKind) : Bool :=
-  isIncapacitatedBool w owner &&
-    w.guardians.any (fun g => (g.1 == owner) && hasValidDirectConsentBool w g.2 actor r k)
-
-/-- Non-harmful emergency stabilization of an incapacitated owner's body. -/
-def isEmergencyStabilizationBool (w : WorldState) (owner : AgentId) (e : CausalEvent) : Bool :=
-  isIncapacitatedBool w owner && isBodyOfBool w owner e.target &&
-    (e.kind == .stabilize) && (e.valence != .harmful)
-
-/-- An event targeting `owner`'s domain is authorized by `owner` via self-action,
-    valid direct consent, valid guardian consent, or non-harmful emergency stabilization. -/
-def authorizedByBool (w : WorldState) (owner : AgentId) (e : CausalEvent) : Bool :=
-  (owner == e.initiator) ||
-    hasValidDirectConsentBool w owner e.initiator e.target e.kind ||
-    hasGuardianConsentBool w owner e.initiator e.target e.kind ||
-    isEmergencyStabilizationBool w owner e
-
-/-- Action kinds that touch/interfere with a resource's attributed domain.
-    Pure competition (`.compete`) and refusal/declining (`.decline`) do not. -/
-def affectsDomainKind : ActionKind → Bool
-  | .compete => false
-  | .decline => false
-  | _ => true
-
-/-- Bounded proportional defense against an active offender (`e.severity ≤ v.severity`). -/
-def isProportionalDefenseBool (w : WorldState) (owner : AgentId) (e : CausalEvent) : Bool :=
-  (e.kind == .defend) &&
-    w.activeViolations.any (fun v => (v.offender == owner) && decide (e.severity ≤ v.severity))
+/-- `r` is registered as a bodily resource (inalienable). -/
+def isBodyResourceBool (w : WorldState) (r : ResourceId) : Bool :=
+  w.bodies.any (fun p => p.1 == r)
 
 /-- Collect body holders for resource `r`. -/
 def bodyStakeholders (bodies : List (ResourceId × AgentId)) (r : ResourceId) : List AgentId :=
@@ -94,19 +35,68 @@ def bodyStakeholders (bodies : List (ResourceId × AgentId)) (r : ResourceId) : 
   | [] => []
   | (r', a) :: rest => if r' == r then a :: bodyStakeholders rest r else bodyStakeholders rest r
 
-/-- Collect agents involved in a single event if it targets `r`. -/
-def eventStakeholders (e : CausalEvent) (r : ResourceId) : List AgentId :=
-  if e.target == r then e.initiator :: e.intermediaries else []
+/-- Update non-body resource stewards across a single event:
+    - `.homestead` / `.coCreate` add `e.initiator` as steward;
+    - `.transfer` with `some rec` replaces `e.initiator`'s stewardship with `rec`;
+    - `.modify`, `.stabilize`, `.defend`, `.compete`, `.decline`, etc. leave stewardship unchanged. -/
+def stepStewards (cur : List AgentId) (e : CausalEvent) (r : ResourceId) : List AgentId :=
+  if e.target == r then
+    match e.kind, e.recipient with
+    | .homestead, _ => e.initiator :: cur
+    | .coCreate, _ => e.initiator :: cur
+    | .transfer, some rec => rec :: cur.filter (fun a => a != e.initiator)
+    | _, _ => cur
+  else
+    cur
 
-/-- Collect all agents involved in historical events targeting `r`. -/
-def historyStakeholders (history : List CausalEvent) (r : ResourceId) : List AgentId :=
+/-- Fold stewardship transitions across historical events for a non-body resource. -/
+def historyStewards (history : List CausalEvent) (r : ResourceId) (cur : List AgentId) : List AgentId :=
   match history with
-  | [] => []
-  | e :: rest => eventStakeholders e r ++ historyStakeholders rest r
+  | [] => cur
+  | e :: rest => historyStewards rest r (stepStewards cur e r)
 
-/-- Finite list of all agents with an attributed domain stake in `r` under `w`. -/
+/-- Active normative stewards of `r` in world `w`.
+    Bodily resources are permanently governed by `w.bodies`; non-body resources evolve
+    via homesteading, co-creation, and voluntary transfer. -/
+def stewardsOf (w : WorldState) (r : ResourceId) : List AgentId :=
+  if isBodyResourceBool w r then
+    bodyStakeholders w.bodies r
+  else
+    historyStewards w.history r []
+
+/-- Computable check: `a` currently holds active normative stewardship over `r`. -/
+def inDomainBool (w : WorldState) (a : AgentId) (r : ResourceId) : Bool :=
+  (stewardsOf w r).any (· == a)
+
+/-- Prop-level active normative domain membership. -/
+def InDomain (w : WorldState) (a : AgentId) (r : ResourceId) : Prop :=
+  inDomainBool w a r = true
+
+/-- Finite list of all current domain holders of `r` under `w`. -/
 def allStakeholders (w : WorldState) (r : ResourceId) : List AgentId :=
-  bodyStakeholders w.bodies r ++ historyStakeholders w.history r
+  stewardsOf w r
+
+/-- `allStakeholders w r` enumerates exactly the active domain holders of `r` in `w`. -/
+theorem mem_allStakeholders_iff_inDomain (w : WorldState) (a : AgentId) (r : ResourceId) :
+    a ∈ allStakeholders w r ↔ InDomain w a r := by
+  unfold allStakeholders InDomain inDomainBool
+  constructor
+  · intro hMem
+    exact List.any_eq_true.mpr ⟨a, hMem, (agentId_beq_iff a a).mpr rfl⟩
+  · intro hAny
+    obtain ⟨x, hxMem, hxEq⟩ := List.any_eq_true.mp hAny
+    have hxa : x = a := (agentId_beq_iff x a).mp hxEq
+    subst hxa
+    exact hxMem
+
+theorem historyStewards_append_singleton (history : List CausalEvent) (e : CausalEvent)
+    (r : ResourceId) (cur : List AgentId) :
+    historyStewards (history ++ [e]) r cur = stepStewards (historyStewards history r cur) e r := by
+  induction history generalizing cur with
+  | nil => rfl
+  | cons x rest ih =>
+    simp only [List.cons_append, historyStewards]
+    exact ih (stepStewards cur x r)
 
 private theorem mem_bodyStakeholders_iff (bodies : List (ResourceId × AgentId))
     (a : AgentId) (r : ResourceId) :
@@ -134,47 +124,173 @@ private theorem mem_bodyStakeholders_iff (bodies : List (ResourceId × AgentId))
         · right
           exact ih.mpr hrest
 
-private theorem mem_eventStakeholders_iff (e : CausalEvent) (a : AgentId) (r : ResourceId) :
-    a ∈ eventStakeholders e r ↔ ((e.target == r) && eventInvolves a e) = true := by
-  unfold eventStakeholders eventInvolves
-  cases h : (e.target == r)
-  · simp
-  · simp only [↓reduceIte, List.mem_cons, Bool.true_and, Bool.or_eq_true]
-    constructor
-    · intro hm
-      cases hm with
-      | inl heq =>
-        left
-        exact (agentId_beq_iff e.initiator a).mpr heq.symm
-      | inr hmem =>
-        right
-        exact List.any_eq_true.mpr ⟨a, hmem, (agentId_beq_iff a a).mpr rfl⟩
-    · intro hOr
-      rcases hOr with hi | hinter
-      · left
-        exact ((agentId_beq_iff e.initiator a).mp hi).symm
-      · right
-        obtain ⟨x, hx, hxbeq⟩ := List.any_eq_true.mp hinter
-        have hxa : x = a := (agentId_beq_iff x a).mp hxbeq
-        subst hxa
-        exact hx
+theorem isBodyOfBool_implies_isBodyResourceBool (w : WorldState) (a : AgentId) (r : ResourceId)
+    (h : isBodyOfBool w a r = true) :
+    isBodyResourceBool w r = true := by
+  unfold isBodyOfBool at h
+  unfold isBodyResourceBool
+  obtain ⟨p, hpMem, hpAnd⟩ := List.any_eq_true.mp h
+  exact List.any_eq_true.mpr ⟨p, hpMem, (Bool.and_eq_true _ _).mp hpAnd |>.1⟩
 
-private theorem mem_historyStakeholders_iff (history : List CausalEvent)
-    (a : AgentId) (r : ResourceId) :
-    a ∈ historyStakeholders history r ↔
-      history.any (fun e => (e.target == r) && eventInvolves a e) = true := by
-  induction history with
-  | nil => simp [historyStakeholders]
+theorem isBodyOfBool_implies_inDomain (w : WorldState) (a : AgentId) (r : ResourceId)
+    (h : isBodyOfBool w a r = true) :
+    InDomain w a r := by
+  have hRes := isBodyOfBool_implies_isBodyResourceBool w a r h
+  rw [← mem_allStakeholders_iff_inDomain]
+  unfold allStakeholders stewardsOf
+  rw [hRes]
+  simp only [↓reduceIte]
+  exact (mem_bodyStakeholders_iff w.bodies a r).mpr h
+
+private theorem appendEvents_bodies (w : WorldState) (es : List CausalEvent) :
+    (appendEvents w es).bodies = w.bodies := by
+  unfold appendEvents
+  induction es generalizing w with
+  | nil => rfl
   | cons e rest ih =>
-    simp only [historyStakeholders, List.mem_append, List.any_cons, Bool.or_eq_true]
-    rw [mem_eventStakeholders_iff, ih]
+    rw [List.foldl_cons, ih (appendEvent w e)]
+    rfl
 
-/-- `allStakeholders w r` enumerates exactly the domain holders of `r` in `w`. -/
-theorem mem_allStakeholders_iff_inDomain (w : WorldState) (a : AgentId) (r : ResourceId) :
-    a ∈ allStakeholders w r ↔ InDomain w a r := by
-  unfold allStakeholders InDomain inDomainBool isBodyOfBool isContributorBool
-  simp only [List.mem_append, Bool.or_eq_true]
-  rw [mem_bodyStakeholders_iff, mem_historyStakeholders_iff]
+/-- Bodily inalienability: no sequence of appended events (stabilization, defense,
+    modification, or attempted transfer) ever alters who stewards a bodily resource. -/
+theorem body_domain_inalienable (w : WorldState) (es : List CausalEvent)
+    (a : AgentId) (r : ResourceId) (hBody : isBodyResourceBool w r = true) :
+    InDomain (appendEvents w es) a r ↔ InDomain w a r := by
+  unfold InDomain inDomainBool stewardsOf isBodyResourceBool
+  rw [appendEvents_bodies w es]
+  unfold isBodyResourceBool at hBody
+  simp [hBody]
+
+/-- Good Samaritan / guest-use fix: a `.modify` event records factual attribution
+    (`IsContributor`) without altering active stewardship (`InDomain`) for anyone. -/
+theorem guest_modify_preserves_domain (w : WorldState) (e : CausalEvent)
+    (hKind : e.kind = .modify) :
+    IsContributor (appendEvent w e) e.initiator e.target ∧
+      ∀ a, InDomain (appendEvent w e) a e.target ↔ InDomain w a e.target := by
+  constructor
+  · unfold IsContributor isContributorBool appendEvent
+    simp [eventInvolves]
+  · intro a
+    unfold InDomain inDomainBool stewardsOf appendEvent isBodyResourceBool
+    simp only
+    cases w.bodies.any (fun p => p.1 == e.target)
+    · simp only [Bool.false_eq_true, ↓reduceIte, historyStewards_append_singleton]
+      unfold stepStewards
+      simp [hKind]
+    · rfl
+
+/-- Transfer theorem: transferring a non-body resource from `alice` to `bob` (`alice ≠ bob`)
+    preserves `alice`'s permanent historical attribution (`IsContributor`) while extinguishing
+    `alice`'s active stewardship (`¬ InDomain`) and granting active stewardship to `bob`. -/
+theorem transfer_moves_stewardship_preserving_attribution
+    (w : WorldState) (alice bob : AgentId) (r : ResourceId) (e : CausalEvent)
+    (hNonBody : isBodyResourceBool w r = false)
+    (hDiff : alice ≠ bob)
+    (hInit : e.initiator = alice)
+    (hTarget : e.target = r)
+    (hKind : e.kind = .transfer)
+    (hRec : e.recipient = some bob) :
+    let w' := appendEvent w e
+    IsContributor w' alice r ∧ ¬ InDomain w' alice r ∧ InDomain w' bob r := by
+  intro w'
+  have hContrib : IsContributor w' alice r := by
+    unfold IsContributor isContributorBool w' appendEvent
+    simp [hInit, hTarget, eventInvolves]
+  have hStew : stewardsOf w' r = bob :: (historyStewards w.history r []).filter (fun a => a != alice) := by
+    unfold stewardsOf w' appendEvent isBodyResourceBool
+    unfold isBodyResourceBool at hNonBody
+    simp only [hNonBody, Bool.false_eq_true, ↓reduceIte, historyStewards_append_singleton]
+    unfold stepStewards
+    simp [hTarget, hKind, hRec, hInit]
+  have hAliceNotMem : alice ∉ stewardsOf w' r := by
+    rw [hStew, List.mem_cons]
+    intro hOr
+    cases hOr with
+    | inl hEq => exact hDiff hEq
+    | inr hFilt =>
+      have hBne : (alice != alice) = true := (List.mem_filter.mp hFilt).2
+      have hSelf : (alice == alice) = true := (agentId_beq_iff alice alice).mpr rfl
+      rw [bne, hSelf] at hBne
+      cases hBne
+  have hBobMem : bob ∈ stewardsOf w' r := by
+    rw [hStew]
+    exact List.Mem.head _
+  refine ⟨hContrib, ?_, ?_⟩
+  · intro hDom
+    exact hAliceNotMem ((mem_allStakeholders_iff_inDomain w' alice r).mpr hDom)
+  · exact (mem_allStakeholders_iff_inDomain w' bob r).mp hBobMem
+
+/-- `a` is currently recorded as incapacitated. -/
+def isIncapacitatedBool (w : WorldState) (a : AgentId) : Bool :=
+  w.capacities.any (fun p => (p.1 == a) && (p.2 == .incapacitated))
+
+/-- `a` is capable iff not recorded as incapacitated. -/
+def isCapableBool (w : WorldState) (a : AgentId) : Bool :=
+  !isIncapacitatedBool w a
+
+/-- `g` is registered as a guardian for `ward`. -/
+def isGuardianOfBool (w : WorldState) (g ward : AgentId) : Bool :=
+  w.guardians.any (fun p => (p.1 == ward) && (p.2 == g))
+
+/-- Check whether permission record `p` is valid for `(owner, actor, r, k)`
+    and satisfies `needDelegation` if sub-delegation through intermediaries is used. -/
+def permissionMatchesBool (owner actor : AgentId) (r : ResourceId) (k : ActionKind)
+    (needDelegation : Bool) (p : Permission) : Bool :=
+  (p.owner == owner) && (p.actor == actor) && (p.target == r) && (p.kind == k) &&
+    !p.revoked && !p.coerced && p.informed && (!needDelegation || p.allowsDelegation)
+
+/-- Direct consent from a capable owner for a single actor (with optional delegation requirement). -/
+def hasValidDirectConsentBool (w : WorldState) (owner actor : AgentId)
+    (r : ResourceId) (k : ActionKind) (needDelegation : Bool := false) : Bool :=
+  isCapableBool w owner && w.permissions.any (permissionMatchesBool owner actor r k needDelegation)
+
+/-- Guardian proxy consent when `owner` is incapacitated. -/
+def hasGuardianConsentBool (w : WorldState) (owner actor : AgentId)
+    (r : ResourceId) (k : ActionKind) (needDelegation : Bool := false) : Bool :=
+  isIncapacitatedBool w owner &&
+    w.guardians.any (fun g => (g.1 == owner) &&
+      hasValidDirectConsentBool w g.2 actor r k needDelegation)
+
+/-- Single-actor authorization by `owner` (self when `needDelegation = false`, direct consent,
+    or guardian proxy consent). -/
+def actorAuthorizedByOwnerBool (w : WorldState) (owner actor : AgentId)
+    (r : ResourceId) (k : ActionKind) (needDelegation : Bool) : Bool :=
+  ((owner == actor) && !needDelegation) ||
+    hasValidDirectConsentBool w owner actor r k needDelegation ||
+    hasGuardianConsentBool w owner actor r k needDelegation
+
+/-- Delegation-aware event consent: either `e.initiator` holds a delegation-enabled consent
+    (`allowsDelegation = true`), or `e.initiator` and every intermediary in `e.intermediaries`
+    are individually authorized by `owner`. -/
+def consentCoversEventBool (w : WorldState) (owner : AgentId) (e : CausalEvent) : Bool :=
+  actorAuthorizedByOwnerBool w owner e.initiator e.target e.kind true ||
+    (actorAuthorizedByOwnerBool w owner e.initiator e.target e.kind false &&
+      e.intermediaries.all (fun m =>
+        actorAuthorizedByOwnerBool w owner m e.target e.kind false))
+
+/-- Non-harmful emergency stabilization of an incapacitated owner's body. -/
+def isEmergencyStabilizationBool (w : WorldState) (owner : AgentId) (e : CausalEvent) : Bool :=
+  isIncapacitatedBool w owner && isBodyOfBool w owner e.target &&
+    (e.kind == .stabilize) && (e.valence != .harmful)
+
+/-- An event targeting `owner`'s domain is authorized by `owner` via self-initiation
+    (when `owner == e.initiator`), delegation-valid consent, or emergency stabilization. -/
+def authorizedByBool (w : WorldState) (owner : AgentId) (e : CausalEvent) : Bool :=
+  (owner == e.initiator) ||
+    consentCoversEventBool w owner e ||
+    isEmergencyStabilizationBool w owner e
+
+/-- Action kinds that touch/interfere with a resource's attributed domain.
+    Pure competition (`.compete`) and refusal/declining (`.decline`) do not. -/
+def affectsDomainKind : ActionKind → Bool
+  | .compete => false
+  | .decline => false
+  | _ => true
+
+/-- Bounded proportional defense against an active offender (`e.severity ≤ v.severity`). -/
+def isProportionalDefenseBool (w : WorldState) (owner : AgentId) (e : CausalEvent) : Bool :=
+  (e.kind == .defend) &&
+    w.activeViolations.any (fun v => (v.offender == owner) && decide (e.severity ≤ v.severity))
 
 /-- Whether event `e` violates domain-holder `owner` in world `w`. -/
 def violatesOwnerBool (w : WorldState) (owner : AgentId) (e : CausalEvent) : Bool :=
@@ -184,11 +300,11 @@ def violatesOwnerBool (w : WorldState) (owner : AgentId) (e : CausalEvent) : Boo
     !authorizedByBool w owner e &&
     !isProportionalDefenseBool w owner e
 
-/-- Computable violation check across all domain holders of `e.target`. -/
+/-- Computable violation check across all current domain holders of `e.target`. -/
 def isViolationBool (w : WorldState) (e : CausalEvent) : Bool :=
   (allStakeholders w e.target).any (fun owner => violatesOwnerBool w owner e)
 
-/-- Prop-level violation definition: `e` violates at least one domain holder under `w`. -/
+/-- Prop-level violation definition: `e` violates at least one current domain holder under `w`. -/
 def IsViolation (w : WorldState) (e : CausalEvent) : Prop :=
   ∃ owner, violatesOwnerBool w owner e = true
 
@@ -216,15 +332,16 @@ theorem isViolationBool_eq_true_iff (w : WorldState) (e : CausalEvent) :
 
 /-- Incapacitated owners cannot issue valid direct consent. -/
 theorem incapacitated_no_direct_consent (w : WorldState) (owner actor : AgentId)
-    (r : ResourceId) (k : ActionKind) (hInc : isIncapacitatedBool w owner = true) :
-    hasValidDirectConsentBool w owner actor r k = false := by
+    (r : ResourceId) (k : ActionKind) (needDel : Bool)
+    (hInc : isIncapacitatedBool w owner = true) :
+    hasValidDirectConsentBool w owner actor r k needDel = false := by
   simp [hasValidDirectConsentBool, isCapableBool, hInc]
 
 /-- Any permission that is revoked, coerced, or uninformed fails validation. -/
 theorem permission_disqualified_if_revoked_coerced_uninformed
-    (owner actor : AgentId) (r : ResourceId) (k : ActionKind) (p : Permission)
+    (owner actor : AgentId) (r : ResourceId) (k : ActionKind) (needDel : Bool) (p : Permission)
     (hBad : p.revoked = true ∨ p.coerced = true ∨ p.informed = false) :
-    permissionMatchesBool owner actor r k p = false := by
+    permissionMatchesBool owner actor r k needDel p = false := by
   rcases hBad with hRev | hCoer | hUninf
   · simp [permissionMatchesBool, hRev]
   · simp [permissionMatchesBool, hCoer]
@@ -233,18 +350,18 @@ theorem permission_disqualified_if_revoked_coerced_uninformed
 /-- If every permission in `w.permissions` is revoked, coerced, or uninformed,
     no direct consent can hold. -/
 theorem no_valid_direct_consent_if_all_disqualified (w : WorldState) (owner actor : AgentId)
-    (r : ResourceId) (k : ActionKind)
+    (r : ResourceId) (k : ActionKind) (needDel : Bool)
     (hAll : ∀ p ∈ w.permissions, p.revoked = true ∨ p.coerced = true ∨ p.informed = false) :
-    hasValidDirectConsentBool w owner actor r k = false := by
+    hasValidDirectConsentBool w owner actor r k needDel = false := by
   unfold hasValidDirectConsentBool
   cases hCap : isCapableBool w owner
   · rfl
   · simp only [Bool.true_and]
-    cases hAny : w.permissions.any (permissionMatchesBool owner actor r k)
+    cases hAny : w.permissions.any (permissionMatchesBool owner actor r k needDel)
     · rfl
     · obtain ⟨p, hpMem, hpOk⟩ := List.any_eq_true.mp hAny
       have hFalse := permission_disqualified_if_revoked_coerced_uninformed
-        owner actor r k p (hAll p hpMem)
+        owner actor r k needDel p (hAll p hpMem)
       rw [hFalse] at hpOk
       cases hpOk
 
@@ -265,7 +382,7 @@ theorem sole_owner_self_action_not_violation (w : WorldState) (e : CausalEvent)
   rw [bne, hSelf] at hDiff
   cases hDiff
 
-/-- Homesteading fix: acting on a resource with no prior domain holders is not a violation. -/
+/-- Homesteading fix: acting on a resource with no current domain holders is not a violation. -/
 theorem homestead_unowned_not_violation (w : WorldState) (e : CausalEvent)
     (hUnowned : ∀ a, ¬ InDomain w a e.target) :
     ¬ IsViolation w e := by
@@ -276,26 +393,43 @@ theorem homestead_unowned_not_violation (w : WorldState) (e : CausalEvent)
   have hDom : InDomain w owner e.target := (Bool.and_eq_true _ _ |>.mp h3).2
   exact hUnowned owner hDom
 
-/-- Non-exclusive attribution: two distinct agents can sequentially create and modify
-    the same resource, and both retain attributed domain membership. -/
+/-- Non-exclusive co-creation: Bob homesteads a non-body resource `r` via `e₁` and Sam
+    co-creates `r` via `e₂`; both retain historical attribution AND active stewardship. -/
 theorem joint_attribution_coexists (w : WorldState) (bob sam : AgentId) (r : ResourceId)
     (e₁ e₂ : CausalEvent)
-    (h₁ : e₁.initiator = bob ∧ e₁.target = r)
-    (h₂ : e₂.initiator = sam ∧ e₂.target = r) :
+    (hNonBody : isBodyResourceBool w r = false)
+    (h₁ : e₁.initiator = bob ∧ e₁.target = r ∧ e₁.kind = .homestead)
+    (h₂ : e₂.initiator = sam ∧ e₂.target = r ∧ e₂.kind = .coCreate) :
     let w' := appendEvents w [e₁, e₂]
-    InDomain w' bob r ∧ InDomain w' sam r := by
+    IsContributor w' bob r ∧ IsContributor w' sam r ∧ InDomain w' bob r ∧ InDomain w' sam r := by
   intro w'
   have hBobContrib : IsContributor (appendEvent w e₁) bob r := by
     unfold IsContributor isContributorBool appendEvent
-    simp [h₁.1, h₁.2, eventInvolves]
+    simp [h₁.1, h₁.2.1, eventInvolves]
   have hBobPers : IsContributor w' bob r :=
     attribution_persistent (appendEvent w e₁) bob r e₂ hBobContrib
   have hSamContrib : IsContributor w' sam r := by
     unfold IsContributor isContributorBool w' appendEvents appendEvent
-    simp [h₂.1, h₂.2, eventInvolves]
-  constructor
-  · exact (Bool.or_eq_true _ _).mpr (Or.inr hBobPers)
-  · exact (Bool.or_eq_true _ _).mpr (Or.inr hSamContrib)
+    simp [h₂.1, h₂.2.1, eventInvolves]
+  have hStew : stewardsOf w' r =
+      sam :: bob :: historyStewards w.history r [] := by
+    unfold stewardsOf w' appendEvents appendEvent isBodyResourceBool
+    unfold isBodyResourceBool at hNonBody
+    simp only [List.foldl_cons, List.foldl_nil, hNonBody, Bool.false_eq_true, ↓reduceIte,
+      historyStewards_append_singleton]
+    unfold stepStewards
+    simp [h₁.1, h₁.2.1, h₁.2.2, h₂.1, h₂.2.1, h₂.2.2]
+  have hBobDom : InDomain w' bob r := by
+    rw [← mem_allStakeholders_iff_inDomain]
+    unfold allStakeholders
+    rw [hStew]
+    exact List.Mem.tail _ (List.Mem.head _)
+  have hSamDom : InDomain w' sam r := by
+    rw [← mem_allStakeholders_iff_inDomain]
+    unfold allStakeholders
+    rw [hStew]
+    exact List.Mem.head _
+  exact ⟨hBobPers, hSamContrib, hBobDom, hSamDom⟩
 
 /-- Caretaker fix: non-harmful emergency stabilization of an incapacitated owner's
     sole-holder body is not a violation. -/
@@ -346,22 +480,28 @@ theorem exploiting_incapacitated_is_violation (w : WorldState) (owner : AgentId)
     (hDiff : owner ≠ e.initiator)
     (hDom : InDomain w owner e.target)
     (hInc : isIncapacitatedBool w owner = true)
-    (hNoGuard : hasGuardianConsentBool w owner e.initiator e.target e.kind = false)
+    (hNoGuardDel : hasGuardianConsentBool w owner e.initiator e.target e.kind true = false)
+    (hNoGuardDirect : hasGuardianConsentBool w owner e.initiator e.target e.kind false = false)
     (hKind : e.kind = .seize ∨ e.kind = .harm) :
     IsViolation w e := by
   refine ⟨owner, ?_⟩
   have hAff : affectsDomainKind e.kind = true := by
     rcases hKind with h | h <;> simp [h, affectsDomainKind]
-  have hNoDirect : hasValidDirectConsentBool w owner e.initiator e.target e.kind = false :=
-    incapacitated_no_direct_consent w owner e.initiator e.target e.kind hInc
+  have hNoDirectDel : hasValidDirectConsentBool w owner e.initiator e.target e.kind true = false :=
+    incapacitated_no_direct_consent w owner e.initiator e.target e.kind true hInc
+  have hNoDirect : hasValidDirectConsentBool w owner e.initiator e.target e.kind false = false :=
+    incapacitated_no_direct_consent w owner e.initiator e.target e.kind false hInc
   have hNoStab : isEmergencyStabilizationBool w owner e = false := by
     rcases hKind with h | h <;> simp [isEmergencyStabilizationBool, h]
   have hNotSelf : (owner == e.initiator) = false := by
     cases hb : (owner == e.initiator)
     · rfl
     · exact absurd ((agentId_beq_iff owner e.initiator).mp hb) hDiff
+  have hNoConsent : consentCoversEventBool w owner e = false := by
+    simp [consentCoversEventBool, actorAuthorizedByOwnerBool,
+      hNotSelf, hNoDirectDel, hNoDirect, hNoGuardDel, hNoGuardDirect]
   have hNotAuth : authorizedByBool w owner e = false := by
-    simp [authorizedByBool, hNotSelf, hNoDirect, hNoGuard, hNoStab]
+    simp [authorizedByBool, hNotSelf, hNoConsent, hNoStab]
   have hNotDef : isProportionalDefenseBool w owner e = false := by
     rcases hKind with h | h <;> simp [isProportionalDefenseBool, h]
   have hNeq : (owner != e.initiator) = true := by

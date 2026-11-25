@@ -3,11 +3,13 @@
 
   Corresponds to docs/CONCEPTS.md §§2–4:
   - Actions generate causal events with an initiator, zero or more intermediaries,
-    a target resource, an action kind, an effect valence, and a severity.
-  - History is append-only: later actions never erase prior attribution.
+    a target resource, an action kind, an optional transfer recipient, an effect
+    valence, and a severity.
+  - History is strictly append-only: later actions (including transfers, emergency
+    care, or guest modifications) never erase prior factual attribution.
   - Intermediaries / proxies do not launder the initiator's causal contribution.
   - Credit/blame symmetry: changing effect valence (beneficial vs. harmful) does
-    not alter whether an agent contributed.
+    not alter whether an agent causally contributed.
 -/
 
 namespace CausalIntegrityV2
@@ -28,6 +30,7 @@ inductive EffectValence
 
 inductive ActionKind
   | homestead
+  | coCreate
   | modify
   | transfer
   | compete
@@ -51,6 +54,7 @@ structure Permission where
   revoked : Bool
   coerced : Bool
   informed : Bool
+  allowsDelegation : Bool := false
   deriving DecidableEq, BEq, Repr
 
 structure ActiveViolation where
@@ -64,6 +68,7 @@ structure CausalEvent where
   intermediaries : List AgentId
   kind : ActionKind
   target : ResourceId
+  recipient : Option AgentId := none
   valence : EffectValence
   severity : Nat
   deriving DecidableEq, BEq, Repr
@@ -112,15 +117,22 @@ structure WorldState where
   | cons x xs ih =>
     simp only [List.map_cons, List.any_cons, ih]
 
+@[simp] theorem list_all_map {α β : Type} (l : List α) (f : α → β) (p : β → Bool) :
+    (l.map f).all p = l.all (fun x => p (f x)) := by
+  induction l with
+  | nil => rfl
+  | cons x xs ih =>
+    simp only [List.map_cons, List.all_cons, ih]
+
 /-- An event causally involves `a` if `a` is either the initiator or an intermediary. -/
 def eventInvolves (a : AgentId) (e : CausalEvent) : Bool :=
   (e.initiator == a) || e.intermediaries.any (· == a)
 
-/-- Computable check: `a` contributed to `r` in `w`'s causal history. -/
+/-- Computable check: `a` causally contributed to `r` in `w`'s historical ledger. -/
 def isContributorBool (w : WorldState) (a : AgentId) (r : ResourceId) : Bool :=
   w.history.any (fun e => (e.target == r) && eventInvolves a e)
 
-/-- Non-exclusive causal attribution: `a` contributed to `r` in `w`. -/
+/-- Non-exclusive historical causal attribution: `a` contributed to `r` in `w`. -/
 def IsContributor (w : WorldState) (a : AgentId) (r : ResourceId) : Prop :=
   isContributorBool w a r = true
 
@@ -163,12 +175,14 @@ theorem attribution_persistent_multi (w : WorldState) (a : AgentId) (r : Resourc
     direct-initiation record and their causal attribution on the target resource. -/
 theorem intermediary_does_not_launder
     (w : WorldState) (a : AgentId) (chain : List AgentId)
-    (kind : ActionKind) (r : ResourceId) (val : EffectValence) (sev : Nat) :
+    (kind : ActionKind) (r : ResourceId) (rec : Option AgentId)
+    (val : EffectValence) (sev : Nat) :
     let e : CausalEvent :=
       { initiator := a
       , intermediaries := chain
       , kind := kind
       , target := r
+      , recipient := rec
       , valence := val
       , severity := sev }
     let w' := appendEvent w e

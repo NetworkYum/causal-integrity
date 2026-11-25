@@ -2,7 +2,7 @@
 
 **Purpose:** Preserve the author's intended argument and alignment objective so another AI can understand and develop them without relying on GitHub or inheriting the assumptions of earlier implementations.
 
-**Source:** Synthesized from the author's conversations with two AI collaborators, including excerpts from earlier chats supplied or discussed there: an initial synthesis with the **first collaborator** (prepared 2026-10-14) and a follow-up discussion with the **second collaborator** extending Sections 5, 10, and 12. It is not a transcript or a completed proof.
+**Source:** Synthesized from the author's conversations with two AI collaborators, including excerpts from earlier chats supplied or discussed there: an initial synthesis with the **first collaborator** (prepared 2026-10-14) and follow-up discussions with the **second collaborator** extending Sections 3, 4, 5, 7, 8, 10, and 12. It is not a transcript or a completed proof.
 
 ## 1. What the author is trying to build
 
@@ -66,6 +66,10 @@ The first collaborator distinguished three questions:
 
 The author proposes foundational connections between these. The first collaborator's concern is that accepting causal attribution does not by itself settle every entitlement or duty. That concern is recorded as an issue to examine, not as a replacement for the author's intended meaning of ownership.
 
+Subsequent formal modeling (with the second collaborator, 2026-11-25) confirmed why keeping **historical causal attribution** distinct from **active normative stewardship** is also a strict technical requirement in a state machine:
+- Historical causal attribution is permanent and append-only: if a doctor stabilizes an incapacitated patient, a guest polishes a host's chair once with permission, or Alice builds a chair and later gifts or sells it to Bob, those past contributions remain permanently true.
+- Active stewardship (whose consent is required for future actions) must not be automatically captured by emergency care, proportional defense, or one-time permitted use, and must be able to move cleanly via voluntary transfer without rewriting causal history.
+
 ## 4. Consistency between benefits and harms
 
 An actor cannot change what happened merely by preferring a different account of it.
@@ -75,6 +79,14 @@ The author is especially concerned with accepting causal attribution when claimi
 The proposed consistency requirement is that the standards used to recognize contributions should not change merely because the actor benefits from the change.
 
 The author interprets attempts to evade these commitments as serving exploitation or deception. The first collaborator qualified the inference about motive: inconsistency may enable exploitation, but an individual error may also reflect confusion, mistaken evidence, or different terminology. A faulty account and an intentionally deceptive actor are distinct findings.
+
+### Predictive horizon and confidence symmetry
+
+*Added with the second collaborator (2026-11-25).*
+
+Applying symmetric standards to benefits and harms also constrains forward planning before an action is taken. A capable AI evaluating its own proposals faces an incentive toward **motivated causal blindness**: planning deeply along the causal chain that achieves its desired goal (for example, five steps ahead) while truncating or down-weighting side-effect branches (checking one step ahead) so foreseeable harms appear "beyond its horizon."
+
+Predictive horizon symmetry closes that loophole: whatever causal lookahead depth, branching sensitivity, and confidence threshold the agent relies on to justify that an action will achieve its intended goal (credit), the action gate must require at least that same horizon and sensitivity when scanning for effects on other agents' domains (restraint). An agent competent enough to engineer a multi-step indirect benefit cannot treat same-depth indirect harms as unforeseeable.
 
 ## 5. Preferences and UPB
 
@@ -199,6 +211,23 @@ The framework still needs workable accounts of:
 
 The author wants these built on a clear foundation, rather than allowing implementation details to obscure that foundation.
 
+### Delegation scope in consent
+
+*Added with the second collaborator (2026-11-25).*
+
+Consent granted personally to a specific actor does not automatically authorize sub-delegating execution through arbitrary third-party intermediaries, proxies, or sub-agents. Valid authorization for an intermediary-routed action requires either that the permission explicitly encompasses delegation or that each executing intermediary is covered by valid authorization.
+
+### Probabilistic risk versus paralysis (reciprocal background risk)
+
+*Added with the second collaborator (2026-11-25).*
+
+Almost every physical or digital action imposes a non-zero tail risk of affecting others' domains without prior individual consent. Treating any non-zero risk as an immediate violation would paralyze all ordinary agency; permitting arbitrary risk up to a cost-benefit cutoff would reintroduce utilitarianism.
+
+Applying the UPB universalizability test over **risk regimes** distinguishes three cases without utilitarian tradeoffs:
+- **Zero-risk requirement:** fails universal preferability because it abolishes ordinary purposeful action for all agents.
+- **Asymmetric or engineered risk-loading** (such as leaving poison out or imposing reckless unilateral hazards): fails universal preferability across roles.
+- **Reciprocal background risk of ordinary non-negligent action**, paired with strict causal attribution and restitution if harm materializes: passes universal preferability. (George Fletcher's reciprocity-of-risk analysis in tort theory, 1972, is a close legal parallel.)
+
 ## 8. The intended AI architecture
 
 An illustrative workflow discussed was:
@@ -217,7 +246,7 @@ Allow, reject, or escalate uncertainty
 
 The author suggested a logic tree or causal directed acyclic graph for examining consequences over a manageable horizon. Specific horizons were illustrative, not a claim that a fixed number of steps guarantees safety.
 
-The intended system should not treat using a proxy, changing a description, or moving a consequence beyond an arbitrary horizon as permission to violate its values.
+The intended system should not treat using a proxy, changing a description, or moving a consequence beyond an arbitrary horizon as permission to violate its values. Enforcing predictive horizon symmetry (Section 4) ensures the safety scan matches or exceeds the planning horizon used to pursue the goal.
 
 Having an internal preference is an objective of the design, not evidence that the implementation already enforces it. The eventual execution path must actually be constrained by the verified decision mechanism.
 
@@ -249,7 +278,7 @@ Three verification objectives should remain distinct:
 2. **Consistency and feasibility:** Can a concrete model satisfy the rules, with meaningful permitted actions?
 3. **Invariant preservation:** Does every permitted transition preserve a specified property, and consequently every finite permitted sequence preserve it?
 
-Candidate properties discussed include persistent causal history, no unsupported exceptions based on identity, preservation of modeled contributions through intermediaries, and preservation of specified ethical invariants by the action gate. Later discussion added: no rule permitting violations (as defined in section 5) is universally preferable; consensual exchange, gifts, and proportional defense are; and competition cases (winning a race, declining an offer, outbidding) are not violations.
+Candidate properties discussed include persistent causal history, no unsupported exceptions based on identity, preservation of modeled contributions through intermediaries, and preservation of specified ethical invariants by the action gate. Later discussion added: no rule permitting violations (as defined in section 5) is universally preferable; consensual exchange, gifts, and proportional defense are; and competition cases (winning a race, declining an offer, outbidding) are not violations. A standalone constructive Lean 4 v2.1 prototype (`CausalIntegrityV2`, with zero custom axioms and zero `sorry`) now machine-checks attribution persistence, intermediary non-laundering, separation of permanent attribution from transferable stewardship, bodily inalienability, delegation-scoped consent, bijective agent-renaming invariance, predictive horizon symmetry, UPB action-type and risk-rule profiles, and 20 concrete acceptance scenarios.
 
 These are proposed research targets, not completed theorems. For example, persistent recorded attribution proves something about a ledger; additional work connects the ledger to actual causation. Renaming invariance tests identity favoritism but does not by itself prove an entire ethical system fair.
 
@@ -278,6 +307,8 @@ The author acknowledges the distinction between an agent dissolving and an agent
 | Acts against what is attributable to another (body, actions, creations) without consent cannot be universally preferred | Author's universalization test; the scope of "violation" still needs to be made explicit |
 | Conduct demonstrates preferences; an exploiter's conduct conflicts with the universal form of the rule it relies on | Author's demonstrated-preference argument |
 | Rejecting morality as a principle forfeits appeal to its protection (trust collapse) | Author's proposal; the second collaborator raised a proportionality limit |
+| Reciprocal background risk + strict liability passes universalizability; zero-risk paralysis and engineered risk-loading fail | UPB risk-rule extension (second collaborator, endorsed by author) |
+| Forward safety scan must match or exceed the causal horizon and sensitivity used to justify goal achievement | Predictive horizon symmetry (blocks motivated causal blindness) |
 | AI internalizes the framework and checks proposed conduct | Intended architecture |
 | Every permitted execution preserves specified invariants | Formal verification target |
 | Ethical incoherence tends toward internal collapse | Additional stability hypothesis |

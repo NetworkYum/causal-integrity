@@ -3,7 +3,7 @@
 **Research question:** Can the causal commitments implicit in purposeful action ground consistent ethical restraints for AI agents?
 
 **Repository:** https://github.com/NetworkYum/causal-integrity
-**Status:** Independent research hypothesis. `formalizations/` holds a constructive Lean 4 v2 model (`CausalIntegrityV2`: zero custom axioms, zero `sorry`). The full ethical argument is not machine-proven, and real-world deployment remains open. MIT License.
+**Status:** Independent research hypothesis. `formalizations/` holds a constructive Lean 4 v2.1 model (`CausalIntegrityV2`: zero custom axioms, zero `sorry`). The full ethical argument is not machine-proven, and real-world deployment remains open. MIT License.
 **Primary conceptual reference:** [CONCEPTS.md](CONCEPTS.md).
 
 ## Summary
@@ -19,7 +19,7 @@ The intended application is an AI that wants to embody a coherent ethical framew
 - **Foundation:** purposeful action relies on causal relationships; accurate attribution cannot change merely to suit an actor's interests.
 - **Conditional consistency result:** a justification based solely on a shared property cannot support an exception based solely on identity.
 - **Central hypothesis:** the requirements of agency supply ethical restraints respecting other agents.
-- **Formal artifacts:** `CausalIntegrityV2` machine-checks consequences of constructive definitions and explicit modeling premises: stateful non-exclusive attribution, consent/caretaker/competition boundaries, bijective renaming invariance, UPB action-type checks, an executable `allow | reject | escalate` gate, and 15 concrete scenarios. It does not prove the complete ethical bridge.
+- **Formal artifacts:** `CausalIntegrityV2` (v2.1) machine-checks consequences of constructive definitions and explicit modeling premises: permanent historical attribution separated from transferable stewardship, bodily inalienability, delegation-scoped consent, caretaker/competition boundaries, bijective renaming invariance, predictive horizon symmetry, UPB action-type and risk-rule checks, an executable `allow | reject | escalate` gate, and 20 concrete scenarios. It does not prove the complete ethical bridge.
 - **Additional hypothesis:** internal goal dissonance and self-collapse, discussed separately in [systemic stability](systemic-stability.md).
 
 ## Read next

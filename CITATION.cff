@@ -17,11 +17,13 @@ abstract: >-
   relationships when its actions affect others. The primary conceptual reference
   (docs/CONCEPTS.md) develops Universally Preferable Behaviour (UPB) as
   universalization over action types rather than momentary preferences, together
-  with demonstrated preference and trust collapse (Section 5). formalizations/
-  holds the constructive Lean 4 v2 model CausalIntegrityV2 (zero custom axioms,
-  zero sorry): stateful non-exclusive attribution, consent/caretaker/competition
-  boundaries, bijective renaming invariance, UPB action-type checks, an
-  executable allow | reject | escalate gate, and 15 concrete scenarios. Those
+  with demonstrated preference, trust collapse, reciprocal background risk, and
+  predictive horizon symmetry. formalizations/ holds the constructive Lean 4 v2.1
+  model CausalIntegrityV2 (zero custom axioms, zero sorry): permanent historical
+  attribution separated from transferable stewardship, bodily inalienability,
+  delegation-scoped consent, caretaker/competition boundaries, bijective renaming
+  invariance, predictive horizon symmetry, UPB action-type and risk-rule checks,
+  an executable allow | reject | escalate gate, and 20 concrete scenarios. Those
   results are machine-proven consequences of modeling premises. The full
   philosophical bridge and real-world deployment remain open. Self-collapse via
   internal decoherence is an additional stability hypothesis, not the foundation.
@@ -41,5 +43,5 @@ keywords:
   - performative contradiction
   - AI safety
 license: MIT
-version: "0.1.0"
+version: "0.2.1"
 date-released: "2026-07-26"
